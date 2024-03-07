@@ -1,4 +1,4 @@
-package jpabook.jpashop;
+package taba.tabaServer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
