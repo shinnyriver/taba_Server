@@ -181,3 +181,6 @@ gradle-app.setting
 *.hprof
 
 # End of https://www.toptal.com/developers/gitignore/api/java,intellij,gradle,kotlin
+
+### QueryDSL관련 파일 ###
+/src/main/generated/
