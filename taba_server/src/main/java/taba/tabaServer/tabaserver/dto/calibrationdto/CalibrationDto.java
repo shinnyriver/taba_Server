@@ -14,21 +14,21 @@ public record CalibrationDto(
         @JsonProperty("pressureMax") double pressureMax,
         @JsonProperty("pressureMin") double pressureMin,
         @JsonProperty("createdAt")LocalDateTime calibrationTime,
-        @JsonProperty("car")Car car
+        @JsonProperty("carId")Long carId
 
         ) implements Serializable {
             public static CalibrationDto of(
                     final SensorType sensorType,
                     final double pressureMax,
                     final double pressureMin,
-                    final Car car
+                    final Long carId
             ) {
                 return CalibrationDto.builder()
                         .sensorType(sensorType)
                         .pressureMax(pressureMax)
                         .pressureMin(pressureMin)
                         .calibrationTime(LocalDateTime.now())
-                        .car(car)
+                        .carId(carId)
                         .build();
             }
 

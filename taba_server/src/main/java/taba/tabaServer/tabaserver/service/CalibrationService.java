@@ -4,9 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import taba.tabaServer.tabaserver.domain.Calibration;
+import taba.tabaServer.tabaserver.domain.Car;
 import taba.tabaServer.tabaserver.dto.calibrationdto.CalibrationDto;
 import taba.tabaServer.tabaserver.dto.calibrationdto.CalibrationResponseDto;
+import taba.tabaServer.tabaserver.exception.CommonException;
+import taba.tabaServer.tabaserver.exception.ErrorCode;
 import taba.tabaServer.tabaserver.repository.CalibrationRepository;
+import taba.tabaServer.tabaserver.repository.CarRepository;
 
 import java.util.stream.Collectors;
 import java.util.List;
@@ -17,14 +21,17 @@ import java.util.List;
 public class CalibrationService {
 
     private final CalibrationRepository calibrationRepository;
+    private final CarRepository carRepository;
 
     @Transactional
     public CalibrationResponseDto createCalibration(CalibrationDto calibrationDto){
+        Car currentCar = carRepository.findById(calibrationDto.carId())
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_CAR)); //나중에 추가
         Calibration calibration = Calibration.builder()
                 .sensorType(calibrationDto.sensorType())
                 .pressureMax(calibrationDto.pressureMax())
                 .pressureMin(calibrationDto.pressureMin())
-                .car(calibrationDto.car())
+                .car(currentCar)
                 .build();
 
         calibrationRepository.save(calibration);
@@ -34,7 +41,7 @@ public class CalibrationService {
                 calibration.getPressureMax(),
                 calibration.getPressureMin(),
                 calibration.getCalibrationTime(),
-                calibration.getCar()
+                calibration.getCar().getId()
         );
     }
 
@@ -48,7 +55,7 @@ public class CalibrationService {
                 calibration.getPressureMax(),
                 calibration.getPressureMin(),
                 calibration.getCalibrationTime(),
-                calibration.getCar()
+                calibration.getCar().getId()
         );
     }
 
@@ -56,12 +63,16 @@ public class CalibrationService {
     public CalibrationResponseDto updateCalibration(Long id, CalibrationDto calibrationDto){
         Calibration calibration = calibrationRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Calibration not found"));
+
+        Car currentCar = carRepository.findById(calibrationDto.carId())
+                        .orElseThrow(()->new CommonException(ErrorCode.NOT_FOUND_CAR));
         calibration.updateCalibration(
                 calibrationDto.sensorType(),
                 calibrationDto.pressureMax(),
                 calibrationDto.pressureMin(),
-                calibrationDto.car()
+                currentCar
         );
+
         calibrationRepository.save(calibration);
         return CalibrationResponseDto.of(
                 calibration.getId(),
@@ -69,7 +80,7 @@ public class CalibrationService {
                 calibration.getPressureMax(),
                 calibration.getPressureMin(),
                 calibration.getCalibrationTime(),
-                calibration.getCar()
+                calibration.getCar().getId()
         );
     }
 
@@ -88,7 +99,7 @@ public class CalibrationService {
                         calibration.getPressureMax(),
                         calibration.getPressureMin(),
                         calibration.getCalibrationTime(),
-                        calibration.getCar()
+                        calibration.getCar().getId()
                 )).collect(Collectors.toList());
     }
 }
