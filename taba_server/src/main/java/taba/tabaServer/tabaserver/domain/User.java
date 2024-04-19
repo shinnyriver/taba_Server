@@ -50,4 +50,17 @@ public class User {
         this.userBirth = userBirth;
         this.createdAt = LocalDateTime.now();
     }
+
+
+    public void updateUser(
+            String email,
+            String password,
+            GenderEnum gender,
+            LocalDate userBirth
+    ) {
+        this.email = email;
+        this.password = password;
+        this.gender = gender;
+        this.userBirth = userBirth;
+    }
 }
