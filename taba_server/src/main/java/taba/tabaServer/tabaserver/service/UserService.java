@@ -28,23 +28,42 @@ public class UserService {
                 .userBirth(createUserDto.userBirth())
                 .build();
         User savedUser = userRepository.save(newUser);
-        return UserResponseDto.of(savedUser.getId(), savedUser.getEmail(),
-                savedUser.getGender(), savedUser.getUserBirth());
+        return UserResponseDto.of(
+                savedUser.getId(),
+                savedUser.getEmail(),
+                savedUser.getGender(),
+                savedUser.getUserBirth()
+        );
     }
 
     @Transactional(readOnly = true)
     public UserResponseDto getUserById(Long id) {
-        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
-        return UserResponseDto.of(user.getId(), user.getEmail(), user.getGender(), user.getUserBirth());
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        return UserResponseDto.of(
+                user.getId(),
+                user.getEmail(),
+                user.getGender(),
+                user.getUserBirth());
     }
 
     @Transactional
     public UserResponseDto updateUser(Long id, UpdateUserDto updateUserDto) {
-        User existingUser = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
-        existingUser.updateUser(updateUserDto.email(), updateUserDto.password(), updateUserDto.gender(), updateUserDto.userBirth());
+        User existingUser = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        existingUser.updateUser(
+                updateUserDto.email(),
+                updateUserDto.password(),
+                updateUserDto.gender(),
+                updateUserDto.userBirth()
+        );
         userRepository.save(existingUser);
-        return UserResponseDto.of(existingUser.getId(), existingUser.getEmail(),
-                existingUser.getGender(), existingUser.getUserBirth());
+        return UserResponseDto.of(
+                existingUser.getId(),
+                existingUser.getEmail(),
+                existingUser.getGender(),
+                existingUser.getUserBirth()
+        );
     }
 
     @Transactional
@@ -56,9 +75,13 @@ public class UserService {
     @Transactional(readOnly = true)
     public List<UserResponseDto> getAllUsers() {
         return userRepository.findAll().stream()
-                .map(user -> UserResponseDto.of(user.getId(), user.getEmail(),
-                        user.getGender(), user.getUserBirth()))
-                .collect(Collectors.toList());
+                .map(user -> UserResponseDto.of(
+                        user.getId(),
+                        user.getEmail(),
+                        user.getGender(),
+                        user.getUserBirth()
+                        )
+                ).collect(Collectors.toList());
     }
 
 }
