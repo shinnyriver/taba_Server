@@ -21,8 +21,8 @@ public class UserController {
 
 
     @PostMapping
-    public ResponseDto<?> createUser(@RequestBody CreateUserDto dto) {
-        return ResponseDto.ok(userService.createUser(dto));
+    public ResponseDto<?> createUser(@RequestBody CreateUserDto createUserDto) {
+        return ResponseDto.ok(userService.createUser(createUserDto));
     }
 
     @GetMapping("/{id}")
@@ -31,8 +31,8 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseDto<?> updateUser(@PathVariable Long id, @RequestBody UpdateUserDto dto) {
-        return ResponseDto.ok(userService.updateUser(id, dto));
+    public ResponseDto<?> updateUser(@PathVariable Long id, @RequestBody UpdateUserDto updateUserDto) {
+        return ResponseDto.ok(userService.updateUser(id, updateUserDto));
     }
 
     @DeleteMapping("/{id}")
