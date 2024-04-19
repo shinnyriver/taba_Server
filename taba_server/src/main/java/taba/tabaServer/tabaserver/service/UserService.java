@@ -20,12 +20,12 @@ public class UserService {
     private final UserRepository userRepository;
 
     @Transactional
-    public UserResponseDto createUser(CreateUserDto dto) {
+    public UserResponseDto createUser(CreateUserDto createUserDto) {
         User newUser = User.builder()
-                .email(dto.email())
-                .password(dto.password())
-                .gender(dto.gender())
-                .userBirth(dto.userBirth())
+                .email(createUserDto.email())
+                .password(createUserDto.password())
+                .gender(createUserDto.gender())
+                .userBirth(createUserDto.userBirth())
                 .build();
         User savedUser = userRepository.save(newUser);
         return UserResponseDto.of(savedUser.getId(), savedUser.getEmail(),
@@ -39,17 +39,18 @@ public class UserService {
     }
 
     @Transactional
-    public UserResponseDto updateUser(Long id, UpdateUserDto dto) {
+    public UserResponseDto updateUser(Long id, UpdateUserDto updateUserDto) {
         User existingUser = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
-        existingUser.updateUser(dto.email(), dto.password(), dto.gender(), dto.userBirth());
+        existingUser.updateUser(updateUserDto.email(), updateUserDto.password(), updateUserDto.gender(), updateUserDto.userBirth());
         userRepository.save(existingUser);
         return UserResponseDto.of(existingUser.getId(), existingUser.getEmail(),
                 existingUser.getGender(), existingUser.getUserBirth());
     }
 
     @Transactional
-    public void deleteUser(Long id) {
+    public Boolean deleteUser(Long id) {
         userRepository.deleteById(id);
+        return Boolean.TRUE;
     }
 
     @Transactional(readOnly = true)
@@ -59,4 +60,5 @@ public class UserService {
                         user.getGender(), user.getUserBirth()))
                 .collect(Collectors.toList());
     }
+
 }
