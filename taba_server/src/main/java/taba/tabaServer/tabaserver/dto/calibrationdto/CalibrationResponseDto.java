@@ -16,7 +16,7 @@ public record CalibrationResponseDto(
         @JsonProperty("pressureMax") double pressureMax,
         @JsonProperty("pressureMin") double pressureMin,
         @JsonProperty("createdAt")LocalDateTime calibrationTime,
-        @JsonProperty("car")Car car
+        @JsonProperty("carId")Long carId
         ) implements Serializable {
             public static CalibrationResponseDto of(
                     final Long id,
@@ -24,7 +24,7 @@ public record CalibrationResponseDto(
                     final double pressureMax,
                     final double pressureMin,
                     final LocalDateTime calibrationTime,
-                    final Car car
+                    final Long carId
             )    {
                 return CalibrationResponseDto.builder()
                         .id(id)
@@ -32,7 +32,7 @@ public record CalibrationResponseDto(
                         .pressureMax(pressureMax)
                         .pressureMin(pressureMin)
                         .calibrationTime(calibrationTime)
-                        .car(car)
+                        .carId(carId)
                         .build();
             }
 }
