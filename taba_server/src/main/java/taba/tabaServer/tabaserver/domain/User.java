@@ -7,9 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import taba.tabaServer.tabaserver.enums.GenderEnum;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Entity
 @Getter
@@ -21,9 +21,6 @@ public class User {
     @Column(name = "user_id")
     private Long id;
 
-    @Column(name = "login_id", unique = true)
-    private String loginId;
-
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
@@ -34,23 +31,23 @@ public class User {
     @Enumerated(EnumType.STRING)
     private GenderEnum gender;
 
+    @Column(name = "birthday", nullable = false)
+    private LocalDate userBirth;
+
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy="user", cascade = CascadeType.ALL)
-    private List<DrivingSession> drivingSessions = new ArrayList<>();
-
     @Builder
     public User(
-            final String loginId,
             final String email,
             final String password,
-            final GenderEnum gender
+            final GenderEnum gender,
+            final LocalDate userBirth
     ) {
-        this.loginId = loginId;
         this.email = email;
         this.password = password;
         this.gender = gender;
+        this.userBirth = userBirth;
         this.createdAt = LocalDateTime.now();
     }
 }

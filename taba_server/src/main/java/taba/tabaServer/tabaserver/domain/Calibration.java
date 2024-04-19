@@ -5,10 +5,9 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import taba.tabaServer.tabaserver.enums.SensorType;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Getter
@@ -20,36 +19,37 @@ public class Calibration {
     @Column(name = "calibration_id")
     private Long id;
 
-    @Column(name = "min_break")
-    private double minBreak;
+    @Column(name = "sensor_type")
+    @Enumerated(EnumType.STRING)
+    private SensorType sensorType;
 
-    @Column(name = "max_break")
-    private double maxBreak;
+    @Column(name = "pressure_max")
+    private double pressureMax;
 
-    @Column(name = "min_accel")
-    private double minAccel;
-
-    @Column(name = "max_accel")
-    private double maxAccel;
+    @Column(name = "pressure_min")
+    private double pressureMin;
 
     @Column(name = "created_at")
     private LocalDateTime calibrationTime;
 
-    @OneToOne()
-    @JoinColumn(name="sensor_id", nullable = false, unique = true)
-    private Sensor sensor;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "car_id")
+    private Car car;
 
     @Builder
     public Calibration(
-            final double minBreak,
-            final double maxBreak,
-            final double minAccel,
-            final double maxAccel
+            final SensorType sensorType,
+            final double pressureMax,
+            final double pressureMin,
+            final LocalDateTime calibrationTime,
+            final Car car
     ) {
-        this.minBreak = minBreak;
-        this.minAccel = minAccel;
-        this.maxBreak = maxBreak;
-        this.maxAccel = maxAccel;
+        this.sensorType = sensorType;
+        this.pressureMax = pressureMax;
+        this.pressureMin = pressureMin;
         this.calibrationTime = LocalDateTime.now();
+        this.car = car;
     }
+
+
 }
