@@ -19,11 +19,6 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    @Autowired
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
     @Transactional
     public UserResponseDto createUser(CreateUserDto dto) {
         User newUser = User.builder()
