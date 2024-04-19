@@ -16,10 +16,10 @@ public record UpdateUserDto(
         @JsonProperty("userBirth") LocalDate userBirth
 ) implements Serializable {
     public static UpdateUserDto of(
-            String email,
-            String password,
-            GenderEnum gender,
-            LocalDate userBirth
+            final String email,
+            final String password,
+            final GenderEnum gender,
+            final LocalDate userBirth
     ) {
         return UpdateUserDto.builder()
                 .email(email)

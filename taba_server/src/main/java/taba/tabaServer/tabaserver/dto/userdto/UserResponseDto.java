@@ -15,10 +15,10 @@ public record UserResponseDto(
         @JsonProperty("userBirth") LocalDate userBirth
 ) implements Serializable {
     public static UserResponseDto of(
-            Long id,
-            String email,
-            GenderEnum gender,
-            LocalDate userBirth
+            final Long id,
+            final String email,
+            final GenderEnum gender,
+            final LocalDate userBirth
     ) {
         return UserResponseDto.builder()
                 .id(id)
