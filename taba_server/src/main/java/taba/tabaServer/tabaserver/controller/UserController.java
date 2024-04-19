@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import taba.tabaServer.tabaserver.dto.global.ResponseDto;
 import taba.tabaServer.tabaserver.dto.userdto.CreateUserDto;
 import taba.tabaServer.tabaserver.dto.userdto.UpdateUserDto;
 import taba.tabaServer.tabaserver.dto.userdto.UserResponseDto;
@@ -20,32 +21,27 @@ public class UserController {
 
 
     @PostMapping
-    public ResponseEntity<UserResponseDto> createUser(@RequestBody CreateUserDto dto) {
-        UserResponseDto createdUser = userService.createUser(dto);
-        return ResponseEntity.ok(createdUser);
+    public ResponseDto<?> createUser(@RequestBody CreateUserDto createUserDto) {
+        return ResponseDto.ok(userService.createUser(createUserDto));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserResponseDto> getUserById(@PathVariable Long id) {
-        UserResponseDto user = userService.getUserById(id);
-        return ResponseEntity.ok(user);
+    public ResponseDto<?> getUserById(@PathVariable Long id) {
+        return ResponseDto.ok(userService.getUserById(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserResponseDto> updateUser(@PathVariable Long id, @RequestBody UpdateUserDto dto) {
-        UserResponseDto updatedUser = userService.updateUser(id, dto);
-        return ResponseEntity.ok(updatedUser);
+    public ResponseDto<?> updateUser(@PathVariable Long id, @RequestBody UpdateUserDto updateUserDto) {
+        return ResponseDto.ok(userService.updateUser(id, updateUserDto));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-        userService.deleteUser(id);
-        return ResponseEntity.ok().build();
+    public ResponseDto<?> deleteUser(@PathVariable Long id) {
+        return ResponseDto.ok(userService.deleteUser(id));
     }
 
     @GetMapping
-    public ResponseEntity<List<UserResponseDto>> getAllUsers() {
-        List<UserResponseDto> users = userService.getAllUsers();
-        return ResponseEntity.ok(users);
+    public ResponseDto<?> getAllUsers() {
+        return ResponseDto.ok(userService.getAllUsers());
     }
 }

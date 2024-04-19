@@ -15,10 +15,10 @@ public record CreateUserDto(
         @JsonProperty("userBirth") LocalDate userBirth
 ) implements Serializable {
     public static CreateUserDto of(
-            String email,
-            String password,
-            GenderEnum gender,
-            LocalDate userBirth
+            final String email,
+            final String password,
+            final GenderEnum gender,
+            final LocalDate userBirth
         ) {
         return CreateUserDto.builder()
                 .email(email)
