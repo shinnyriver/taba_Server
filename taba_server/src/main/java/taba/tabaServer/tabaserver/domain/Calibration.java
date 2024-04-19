@@ -41,7 +41,6 @@ public class Calibration {
             final SensorType sensorType,
             final double pressureMax,
             final double pressureMin,
-            final LocalDateTime calibrationTime,
             final Car car
     ) {
         this.sensorType = sensorType;
@@ -51,5 +50,17 @@ public class Calibration {
         this.car = car;
     }
 
+    public void updateCalibration(
+            SensorType sensorType,
+            double pressureMax,
+            double pressureMin,
+            Car car
+    ) {
+        this.sensorType = sensorType;
+        this.pressureMax = pressureMax;
+        this.pressureMin = pressureMin;
+        this.calibrationTime = LocalDateTime.now();
+        this.car = car;
+    }
 
 }
