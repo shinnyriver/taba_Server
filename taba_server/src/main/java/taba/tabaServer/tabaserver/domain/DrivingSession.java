@@ -5,6 +5,8 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import taba.tabaServer.tabaserver.enums.DrivingStatus;
+import taba.tabaServer.tabaserver.enums.ErrorStatus;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -32,21 +34,25 @@ public class DrivingSession {
     private LocalDateTime endTime;
 
     @Column(nullable = false)
-    private boolean isError;
+    @Enumerated(EnumType.STRING)
+    private DrivingStatus drivingStatus;
 
-    @OneToMany(mappedBy = "drivingSession", cascade = CascadeType.ALL)
-    private List<SensorData> sensorDatas = new ArrayList<>();
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private ErrorStatus errorStatus;
 
     @Builder
     public DrivingSession(
             final User user,
             final LocalDateTime startTime,
             final LocalDateTime endTime,
-            final boolean isError
+            final DrivingStatus drivingStatus,
+            final ErrorStatus errorStatus
     ) {
         this.user = user;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.isError = isError;
+        this.drivingStatus = drivingStatus;
+        this.errorStatus = errorStatus;
     }
 }
