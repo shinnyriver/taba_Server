@@ -34,18 +34,28 @@ public class SensorData {
     @Column(nullable = false)
     private double speed;
 
+    @Column(nullable = false)
+    private String latitude;
+
+    @Column(nullable = false)
+    private String longitude;
+
     @Builder
     public SensorData(
             final DrivingSession drivingSession,
             final LocalDateTime timestamp,
             final double breakPressure,
             final double accelPressure,
-            final double speed
+            final double speed,
+            final String latitude,
+            final String longitude
     ) {
         this.drivingSession = drivingSession;
         this.timestamp = timestamp;
         this.breakPressure = breakPressure;
         this.accelPressure = accelPressure;
         this.speed = speed;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 }
