@@ -91,8 +91,8 @@ public class CalibrationService {
     }
 
     @Transactional(readOnly = true)
-    public List<CalibrationResponseDto> getAllCalibration() {
-        return calibrationRepository.findAll().stream()
+    public List<CalibrationResponseDto> getAllCalibration(Long id) {
+        return calibrationRepository.findAllByCarId(id).stream()
                 .map(calibration -> CalibrationResponseDto.of(
                         calibration.getId(),
                         calibration.getSensorType(),
