@@ -34,6 +34,8 @@ public enum ErrorCode {
     NOT_FOUND_CAR(40400, HttpStatus.NOT_FOUND, "차가 존재하지 않습니다."),
     NOT_FOUND_CALIBRATION(40401, HttpStatus.NOT_FOUND, "캘리브레이션이 존재하지 않습니다."),
     NOT_FOUND_USER(40402,HttpStatus.NOT_FOUND, "유저가 존재하지 않습니다."),
+    NOT_FOUND_DRIVING_SESSION(40403,HttpStatus.NOT_FOUND,"드라이빙 세션이 존재하지 않습니다."),
+    NOT_FOUND_SENSOR_DATA(40404,HttpStatus.NOT_FOUND,"센서 데이터가 존재하지 않습니다."),
     //500
     INTERNAL_SERVER_ERROR(50000, HttpStatus.INTERNAL_SERVER_ERROR, "서버 내부 오류입니다")
 
