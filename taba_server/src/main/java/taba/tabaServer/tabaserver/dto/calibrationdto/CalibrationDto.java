@@ -13,7 +13,6 @@ public record CalibrationDto(
         @JsonProperty("sensorType") SensorType sensorType,
         @JsonProperty("pressureMax") double pressureMax,
         @JsonProperty("pressureMin") double pressureMin,
-        @JsonProperty("createdAt")LocalDateTime calibrationTime,
         @JsonProperty("carId")Long carId
 
         ) implements Serializable {
@@ -27,7 +26,6 @@ public record CalibrationDto(
                         .sensorType(sensorType)
                         .pressureMax(pressureMax)
                         .pressureMin(pressureMin)
-                        .calibrationTime(LocalDateTime.now())
                         .carId(carId)
                         .build();
             }

@@ -33,8 +33,8 @@ public class CalibrationController {
         return ResponseDto.ok(calibrationService.deleteCalibration(id));
     }
 
-    @GetMapping
-    public ResponseDto<?> getAllCalibrations() {
-        return ResponseDto.ok(calibrationService.getAllCalibration());
+    @GetMapping("/findbycarid/{id}")
+    public ResponseDto<?> getAllCalibrationsByCarId(@PathVariable Long id) {
+        return ResponseDto.ok(calibrationService.getAllCalibration(id));
     }
 }
