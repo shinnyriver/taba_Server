@@ -23,11 +23,11 @@ public class SensorDataService {
     private final DrivingSessionRepository drivingSessionRepository;
 
     @Transactional
-    public SensorData createSensorData(SensorDataRequestDto sensorDataRequestDto){
+    public SensorDataResponseDto createSensorData(SensorDataRequestDto sensorDataRequestDto){
         DrivingSession drivingSession = drivingSessionRepository.findById(sensorDataRequestDto.drivingSessionId())
                 .orElseThrow(()-> new CommonException(ErrorCode.NOT_FOUND_DRIVING_SESSION));
 
-        return sensorDataRepository.save(SensorData.builder()
+        SensorData save = sensorDataRepository.save(SensorData.builder()
                 .drivingSession(drivingSession)
                 .breakPressure(sensorDataRequestDto.breakPressure())
                 .accelPressure(sensorDataRequestDto.accelPressure())
@@ -36,6 +36,15 @@ public class SensorDataService {
                 .longitude(sensorDataRequestDto.longitude())
                 .build()
         );
+
+        return SensorDataResponseDto.builder()
+                .drivingSessionId(save.getDrivingSession().getId())
+                .breakPressure(save.getBreakPressure())
+                .accelPressure(save.getAccelPressure())
+                .speed(save.getSpeed())
+                .latitude(save.getLatitude())
+                .longitude(save.getLongitude())
+                .build();
     }
 
     @Transactional

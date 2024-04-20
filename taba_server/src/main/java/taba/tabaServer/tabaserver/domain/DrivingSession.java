@@ -52,7 +52,7 @@ public class DrivingSession {
             final ErrorStatus errorStatus
     ) {
         this.user = user;
-        this.startTime = startTime;
+        this.startTime = LocalDateTime.now();
         this.drivingStatus = drivingStatus;
         this.errorStatus = errorStatus;
     }

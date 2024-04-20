@@ -32,10 +32,11 @@ public class DrivingSessionService {
                 .orElseThrow(()-> new CommonException(ErrorCode.NOT_FOUND_USER));
         DrivingSession drivingSession = DrivingSession.builder()
                 .user(currentUser)
-                .startTime(drivingSessionRequestDto.startTime())
                 .drivingStatus(drivingSessionRequestDto.drivingStatus())
                 .errorStatus(ErrorStatus.NORMAL)
                 .build();
+
+        drivingSessionRepository.save(drivingSession);
 
         return DrivingSessionResponseDto.of(
                 drivingSession.getUser().getId(),
