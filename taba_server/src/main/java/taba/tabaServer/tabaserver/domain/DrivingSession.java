@@ -30,8 +30,11 @@ public class DrivingSession {
     @Column(nullable = false)
     private LocalDateTime startTime;
 
-    @Column(nullable = false)
+    @Column
     private LocalDateTime endTime;
+
+    @Column
+    private LocalDateTime errorTime;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -45,14 +48,22 @@ public class DrivingSession {
     public DrivingSession(
             final User user,
             final LocalDateTime startTime,
-            final LocalDateTime endTime,
             final DrivingStatus drivingStatus,
             final ErrorStatus errorStatus
     ) {
         this.user = user;
         this.startTime = startTime;
-        this.endTime = endTime;
         this.drivingStatus = drivingStatus;
         this.errorStatus = errorStatus;
+    }
+
+    public void errorOccured(ErrorStatus errorStatus) {
+        this.errorStatus = errorStatus;
+        this.errorTime = LocalDateTime.now();
+    }
+
+    public void endSession(DrivingStatus drivingStatus) {
+        this.drivingStatus = drivingStatus;
+        this.endTime = LocalDateTime.now();
     }
 }
