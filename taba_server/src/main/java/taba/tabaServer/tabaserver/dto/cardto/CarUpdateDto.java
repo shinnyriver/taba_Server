@@ -7,26 +7,23 @@ import taba.tabaServer.tabaserver.enums.CarSize;
 import java.io.Serializable;
 
 @Builder
-public record CarResponseDto(
+public record CarUpdateDto(
         @JsonProperty("carName") String carName,
         @JsonProperty("carSize") CarSize carSize,
         @JsonProperty("totalDistance") int totalDistance,
-        @JsonProperty("carNumber") String carNumber,
-        @JsonProperty("userId") Long userId
+        @JsonProperty("carNumber") String carNumber
         ) implements Serializable {
-            public static CarResponseDto of(
+            public static CarUpdateDto of(
                     final String carName,
                     final CarSize carSize,
                     final int totalDistance,
-                    final String carNumber,
-                    final Long userid
+                    final String carNumber
             ) {
-                return CarResponseDto.builder()
+                return CarUpdateDto.builder()
                         .carName(carName)
                         .carSize(carSize)
                         .totalDistance(totalDistance)
                         .carNumber(carNumber)
-                        .userId(userid)
                         .build();
             }
 }
