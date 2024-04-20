@@ -48,7 +48,7 @@ public class CalibrationService {
     @Transactional
     public CalibrationResponseDto getCalibrationById(Long id){
         Calibration calibration = calibrationRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Calibration not found"));
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_CALIBRATION));
         return CalibrationResponseDto.of(
                 calibration.getId(),
                 calibration.getSensorType(),
@@ -62,7 +62,7 @@ public class CalibrationService {
     @Transactional
     public CalibrationResponseDto updateCalibration(Long id, CalibrationDto calibrationDto){
         Calibration calibration = calibrationRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Calibration not found"));
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_CALIBRATION));
 
         Car currentCar = carRepository.findById(calibrationDto.carId())
                         .orElseThrow(()->new CommonException(ErrorCode.NOT_FOUND_CAR));

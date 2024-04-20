@@ -49,4 +49,16 @@ public class Car {
         this.carNumber = carNumber;
         this.user = user;
     }
+
+    public void updateCar(
+            String carName,
+            CarSize carSize,
+            int totalDistance,
+            String carNumber
+    ) {
+        this.carName = carName;
+        this.carSize = carSize;
+        this.totalDistance = totalDistance;
+        this.carNumber = carNumber;
+    }
 }

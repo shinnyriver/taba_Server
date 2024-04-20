@@ -8,6 +8,8 @@ import taba.tabaServer.tabaserver.domain.User;
 import taba.tabaServer.tabaserver.dto.userdto.CreateUserDto;
 import taba.tabaServer.tabaserver.dto.userdto.UpdateUserDto;
 import taba.tabaServer.tabaserver.dto.userdto.UserResponseDto;
+import taba.tabaServer.tabaserver.exception.CommonException;
+import taba.tabaServer.tabaserver.exception.ErrorCode;
 import taba.tabaServer.tabaserver.repository.UserRepository;
 
 import java.util.List;
@@ -39,7 +41,7 @@ public class UserService {
     @Transactional(readOnly = true)
     public UserResponseDto getUserById(Long id) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_USER));
         return UserResponseDto.of(
                 user.getId(),
                 user.getEmail(),
@@ -50,7 +52,7 @@ public class UserService {
     @Transactional
     public UserResponseDto updateUser(Long id, UpdateUserDto updateUserDto) {
         User existingUser = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_USER));
         existingUser.updateUser(
                 updateUserDto.email(),
                 updateUserDto.password(),
