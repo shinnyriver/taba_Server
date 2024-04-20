@@ -35,7 +35,7 @@ public class DrivingSessionController {
         return ResponseDto.ok(drivingSessionService.drivingSessionErrorOccured(id,drivingSessionErrorOccuredDto));
     }
 
-    @DeleteMapping("{/id}")
+    @DeleteMapping("/{id}")
     public ResponseDto<?> deleteDrivingSession(@PathVariable Long id){
         return ResponseDto.ok(drivingSessionService.deleteDrivingSession(id));
     }
