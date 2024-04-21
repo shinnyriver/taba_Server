@@ -139,3 +139,6 @@ gradle-app.setting
 
 ### QueryDSL관련 파일 ###
 /src/main/generated/
+
+
+application.yml
