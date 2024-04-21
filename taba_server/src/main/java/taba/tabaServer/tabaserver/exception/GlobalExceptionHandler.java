@@ -32,4 +32,17 @@ public class GlobalExceptionHandler {
         log.error("handleArgumentNotValidException() in GlobalExceptionHandler throw MethodArgumentNotValidException : {}", e.getMessage());
         return ResponseDto.fail(e);
     }
+
+    @ExceptionHandler(value = {CommonException.class})
+    public ResponseDto<?> handleCustomException(CommonException e){
+        return ResponseDto.fail(e);
+    }
+
+
+    @ExceptionHandler(value = {Exception.class})
+    public ResponseDto<?> handleServerException(Exception e){
+        log.info("occurred exception in handleServerError = {}", e.getMessage());
+        e.printStackTrace();
+        return ResponseDto.fail(new CommonException(ErrorCode.INTERNAL_SERVER_ERROR));
+    }
 }
