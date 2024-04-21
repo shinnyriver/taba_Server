@@ -4,11 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class JpashopApplication {
+public class TabaApplication {
 
 	public static void main(String[] args) {
-		System.out.println("test2");
-		SpringApplication.run(JpashopApplication.class, args);
-		System.out.println("PR Test");
+		SpringApplication.run(TabaApplication.class, args);
 	}
 }
