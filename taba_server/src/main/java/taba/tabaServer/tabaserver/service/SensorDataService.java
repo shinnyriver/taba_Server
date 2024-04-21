@@ -7,6 +7,7 @@ import taba.tabaServer.tabaserver.domain.DrivingSession;
 import taba.tabaServer.tabaserver.domain.SensorData;
 import taba.tabaServer.tabaserver.dto.sensordatadto.SensorDataRequestDto;
 import taba.tabaServer.tabaserver.dto.sensordatadto.SensorDataResponseDto;
+import taba.tabaServer.tabaserver.enums.DrivingStatus;
 import taba.tabaServer.tabaserver.exception.CommonException;
 import taba.tabaServer.tabaserver.exception.ErrorCode;
 import taba.tabaServer.tabaserver.repository.DrivingSessionRepository;
@@ -26,6 +27,10 @@ public class SensorDataService {
     public SensorDataResponseDto createSensorData(SensorDataRequestDto sensorDataRequestDto){
         DrivingSession drivingSession = drivingSessionRepository.findById(sensorDataRequestDto.drivingSessionId())
                 .orElseThrow(()-> new CommonException(ErrorCode.NOT_FOUND_DRIVING_SESSION));
+
+        if(drivingSession.getDrivingStatus() != DrivingStatus.DRIVING){
+            throw new CommonException(ErrorCode.DRIVING_STATUS_NONE);
+        }
 
         SensorData save = sensorDataRepository.save(SensorData.builder()
                 .drivingSession(drivingSession)
