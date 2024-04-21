@@ -28,6 +28,4 @@ public class SensorDataController {
         return ResponseDto.ok(sensorDataService.deleteSensorDataById(id));
     }
 
-
-
 }
