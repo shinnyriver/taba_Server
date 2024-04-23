@@ -28,4 +28,9 @@ public class SensorDataController {
         return ResponseDto.ok(sensorDataService.deleteSensorDataById(id));
     }
 
+    @DeleteMapping("/sessionid/{id}")
+    public ResponseDto<?> deleteSensorDataBySessionId(@PathVariable Long id){
+        return ResponseDto.ok(sensorDataService.deleteSensorDataByDrivingSessionId(id));
+    }
+
 }
