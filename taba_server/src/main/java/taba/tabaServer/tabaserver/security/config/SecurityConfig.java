@@ -27,7 +27,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .httpBasic().disable() // HTTP 기본 인증 비활성화
-                .csrf().disable() // CSRF 보호 비활성화
+//                .csrf().disable() // CSRF 보호 비활성화
                 .cors().and() // CORS 설정 활성화
                 .authorizeRequests() // 요청에 대한 보안 검사 시작
                 .requestMatchers("/api/**").permitAll() // "/api/**" 경로의 모든 요청을 인증 없이 허용
