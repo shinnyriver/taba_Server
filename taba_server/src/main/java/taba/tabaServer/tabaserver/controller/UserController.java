@@ -1,4 +1,4 @@
-package taba.tabaServer.tabaserver.controller.social;
+package taba.tabaServer.tabaserver.controller;
 
 import taba.tabaServer.tabaserver.config.AuthTokensGenerator;
 import taba.tabaServer.tabaserver.domain.User;
