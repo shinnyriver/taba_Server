@@ -59,6 +59,13 @@ public class SensorDataService {
     }
 
     @Transactional
+    public Boolean deleteSensorDataByDrivingSessionId(Long id){
+        List<SensorData> sensorDataByDrivingSessionId = sensorDataRepository.findSensorDataByDrivingSessionId(id);
+        sensorDataRepository.deleteAll(sensorDataByDrivingSessionId);
+        return Boolean.TRUE;
+    }
+
+    @Transactional
     public List<SensorDataResponseDto> getAllSensorDataByDrivingSessionId(Long id){
         return sensorDataRepository.findSensorDataByDrivingSessionId(id).stream()
                 .map(sensorData -> SensorDataResponseDto.of(
