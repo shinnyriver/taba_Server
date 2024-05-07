@@ -22,7 +22,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private OAuthProvider oauthProvider;
 
-    @Column(name="user_name")
+    @Column(name="name")
     private String name;
 
     @Column(name = "email", nullable = false, unique = true)
