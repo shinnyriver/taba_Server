@@ -1,47 +1,35 @@
-package taba.tabaServer.tabaserver.controller;
+package taba.tabaServer.tabaserver.controller.social;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import taba.tabaServer.tabaserver.config.AuthTokensGenerator;
+import taba.tabaServer.tabaserver.domain.User;
 import taba.tabaServer.tabaserver.dto.global.ResponseDto;
-import taba.tabaServer.tabaserver.dto.userdto.CreateUserDto;
-import taba.tabaServer.tabaserver.dto.userdto.UpdateUserDto;
-import taba.tabaServer.tabaserver.dto.userdto.UserResponseDto;
-import taba.tabaServer.tabaserver.service.UserService;
+import taba.tabaServer.tabaserver.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/users")
 @RequiredArgsConstructor
+@RequestMapping("/api/members")
 public class UserController {
+    private final UserRepository userRepository;
+    private final AuthTokensGenerator authTokensGenerator;
 
-    private final UserService userService;
-
-
-    @PostMapping
-    public ResponseDto<?> createUser(@RequestBody CreateUserDto createUserDto) {
-        return ResponseDto.ok(userService.createUser(createUserDto));
-    }
-
-    @GetMapping("/{id}")
-    public ResponseDto<?> getUserById(@PathVariable Long id) {
-        return ResponseDto.ok(userService.getUserById(id));
-    }
-
-    @PutMapping("/{id}")
-    public ResponseDto<?> updateUser(@PathVariable Long id, @RequestBody UpdateUserDto updateUserDto) {
-        return ResponseDto.ok(userService.updateUser(id, updateUserDto));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseDto<?> deleteUser(@PathVariable Long id) {
-        return ResponseDto.ok(userService.deleteUser(id));
-    }
-
+    //모든 사용자 찾기
     @GetMapping
-    public ResponseDto<?> getAllUsers() {
-        return ResponseDto.ok(userService.getAllUsers());
+    public ResponseDto<?> findAll() {
+        return ResponseDto.ok(userRepository.findAll());
+    }
+
+    //엑세스 토큰 기반 조회
+    @GetMapping("/{accessToken}")
+    public ResponseDto<?> findByAccessToken(@PathVariable String accessToken) {
+        Long memberId = authTokensGenerator.extractMemberId(accessToken);
+        return ResponseDto.ok(userRepository.findById(memberId));
     }
 }
