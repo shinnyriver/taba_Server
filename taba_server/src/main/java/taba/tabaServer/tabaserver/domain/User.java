@@ -1,15 +1,13 @@
 package taba.tabaServer.tabaserver.domain;
 
+import taba.tabaServer.tabaserver.config.oauth.OAuthProvider;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import taba.tabaServer.tabaserver.enums.GenderEnum;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-
 
 @Entity
 @Getter
@@ -17,50 +15,59 @@ import java.time.LocalDateTime;
 @Table(name="users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
+    @GeneratedValue
+    @Column(name="user_id")
     private Long id;
+
+    @Enumerated(EnumType.STRING)
+    private OAuthProvider oauthProvider;
+
+    @Column(name="user_name")
+    private String name;
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "password", nullable = false)
+    //Ouath2 기능을 위해 nullable=true로 설정
+    @Column(name = "password", nullable = true)
     private String password;
 
     @Column(name = "gender", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private GenderEnum gender;
+    private String gender;
+
+    @Column(name="birthyear", nullable = false)
+    private String birthyear;
 
     @Column(name = "birthday", nullable = false)
-    private LocalDate userBirth;
+    private String birthday;
 
-    @Column(name = "created_at")
+    @Column(name = "mobile_number", nullable = false)
+    private String mobile;
+
+    //Ouath2 기능을 위해 nullable=true로 설정
+    @Column(name="created_at", nullable = true)
     private LocalDateTime createdAt;
 
     @Builder
     public User(
+            final String name,
             final String email,
             final String password,
-            final GenderEnum gender,
-            final LocalDate userBirth
+            final String gender,
+            final String birthday,
+            final String birthyear,
+            final String mobile,
+            final OAuthProvider oauthProvider
     ) {
+        this.name=name;
         this.email = email;
         this.password = password;
         this.gender = gender;
-        this.userBirth = userBirth;
+        this.birthday = birthday;
+        this.birthyear = birthyear;
         this.createdAt = LocalDateTime.now();
-    }
-
-
-    public void updateUser(
-            String email,
-            String password,
-            GenderEnum gender,
-            LocalDate userBirth
-    ) {
-        this.email = email;
-        this.password = password;
-        this.gender = gender;
-        this.userBirth = userBirth;
+        this.mobile=mobile;
+        this.name=name;
+        this.oauthProvider=oauthProvider;
     }
 }
