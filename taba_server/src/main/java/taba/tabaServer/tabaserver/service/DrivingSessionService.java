@@ -3,6 +3,7 @@ package taba.tabaServer.tabaserver.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import taba.tabaServer.tabaserver.domain.Car;
 import taba.tabaServer.tabaserver.domain.DrivingSession;
 import taba.tabaServer.tabaserver.domain.User;
 import taba.tabaServer.tabaserver.dto.calibrationdto.CalibrationResponseDto;
@@ -13,6 +14,7 @@ import taba.tabaServer.tabaserver.dto.drivingsessiondto.DrivingSessionUpdateDto;
 import taba.tabaServer.tabaserver.enums.ErrorStatus;
 import taba.tabaServer.tabaserver.exception.CommonException;
 import taba.tabaServer.tabaserver.exception.ErrorCode;
+import taba.tabaServer.tabaserver.repository.CarRepository;
 import taba.tabaServer.tabaserver.repository.DrivingSessionRepository;
 import taba.tabaServer.tabaserver.repository.UserRepository;
 
@@ -25,13 +27,17 @@ public class DrivingSessionService {
 
     private final DrivingSessionRepository drivingSessionRepository;
     private final UserRepository userRepository;
+    private final CarRepository carRepository;
 
     @Transactional
     public DrivingSessionResponseDto createDrivingSession(DrivingSessionRequestDto drivingSessionRequestDto){
         User currentUser = userRepository.findById(drivingSessionRequestDto.userId())
                 .orElseThrow(()-> new CommonException(ErrorCode.NOT_FOUND_USER));
+        Car currentCar = carRepository.findById(drivingSessionRequestDto.carId())
+                .orElseThrow(()-> new CommonException(ErrorCode.NOT_FOUND_CAR));
         DrivingSession drivingSession = DrivingSession.builder()
                 .user(currentUser)
+                .car(currentCar)
                 .drivingStatus(drivingSessionRequestDto.drivingStatus())
                 .errorStatus(ErrorStatus.NORMAL)
                 .build();
@@ -40,6 +46,7 @@ public class DrivingSessionService {
 
         return DrivingSessionResponseDto.of(
                 drivingSession.getUser().getId(),
+                drivingSession.getCar().getId(),
                 drivingSession.getStartTime(),
                 drivingSession.getEndTime(),
                 drivingSession.getErrorTime(),
@@ -55,6 +62,7 @@ public class DrivingSessionService {
 
         return DrivingSessionResponseDto.of(
                 drivingSession.getUser().getId(),
+                drivingSession.getCar().getId(),
                 drivingSession.getStartTime(),
                 drivingSession.getEndTime(),
                 drivingSession.getErrorTime(),
@@ -73,6 +81,7 @@ public class DrivingSessionService {
 
         return DrivingSessionResponseDto.of(
                 drivingSession.getUser().getId(),
+                drivingSession.getCar().getId(),
                 drivingSession.getStartTime(),
                 drivingSession.getEndTime(),
                 drivingSession.getErrorTime(),
@@ -92,6 +101,7 @@ public class DrivingSessionService {
 
         return DrivingSessionResponseDto.of(
                 drivingSession.getUser().getId(),
+                drivingSession.getCar().getId(),
                 drivingSession.getStartTime(),
                 drivingSession.getEndTime(),
                 drivingSession.getErrorTime(),
@@ -111,6 +121,7 @@ public class DrivingSessionService {
         return drivingSessionRepository.findDrivingSessionByUserId(userId).stream()
                 .map(drivingsession -> DrivingSessionResponseDto.of(
                         drivingsession.getUser().getId(),
+                        drivingsession.getCar().getId(),
                         drivingsession.getStartTime(),
                         drivingsession.getEndTime(),
                         drivingsession.getErrorTime(),
@@ -124,6 +135,7 @@ public class DrivingSessionService {
         return drivingSessionRepository.findByErrorStatus(errorStatus).stream()
                 .map(drivingsession -> DrivingSessionResponseDto.of(
                         drivingsession.getUser().getId(),
+                        drivingsession.getCar().getId(),
                         drivingsession.getStartTime(),
                         drivingsession.getEndTime(),
                         drivingsession.getErrorTime(),
