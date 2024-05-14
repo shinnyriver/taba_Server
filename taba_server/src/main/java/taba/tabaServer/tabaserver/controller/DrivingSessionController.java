@@ -6,6 +6,7 @@ import taba.tabaServer.tabaserver.dto.drivingsessiondto.DrivingSessionErrorOccur
 import taba.tabaServer.tabaserver.dto.drivingsessiondto.DrivingSessionRequestDto;
 import taba.tabaServer.tabaserver.dto.drivingsessiondto.DrivingSessionUpdateDto;
 import taba.tabaServer.tabaserver.dto.global.ResponseDto;
+import taba.tabaServer.tabaserver.enums.ErrorStatus;
 import taba.tabaServer.tabaserver.service.DrivingSessionService;
 
 @RestController
@@ -43,5 +44,10 @@ public class DrivingSessionController {
     @GetMapping("/findbyuser/{userId}")
     public ResponseDto<?> getAllDrivingSessionByUser(@PathVariable Long userId){
         return ResponseDto.ok(drivingSessionService.getAllDrivingSessionByUserId(userId));
+    }
+
+    @GetMapping("/errorstats/{errorStatus}")
+    public ResponseDto<?> getDrivingSessionsByErrorStatus(@PathVariable ErrorStatus errorStatus){
+        return ResponseDto.ok(drivingSessionService.findByErrorStatus(errorStatus));
     }
 }

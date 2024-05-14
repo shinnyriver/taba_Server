@@ -118,4 +118,18 @@ public class DrivingSessionService {
                         drivingsession.getErrorStatus()
                 )).collect(Collectors.toList());
     }
+
+    @Transactional
+    public List<DrivingSessionResponseDto> findByErrorStatus(ErrorStatus errorStatus){
+        return drivingSessionRepository.findByErrorStatus(errorStatus).stream()
+                .map(drivingsession -> DrivingSessionResponseDto.of(
+                        drivingsession.getUser().getId(),
+                        drivingsession.getStartTime(),
+                        drivingsession.getEndTime(),
+                        drivingsession.getErrorTime(),
+                        drivingsession.getDrivingStatus(),
+                        drivingsession.getErrorStatus()
+                )).collect(Collectors.toList());
+
+    }
 }
