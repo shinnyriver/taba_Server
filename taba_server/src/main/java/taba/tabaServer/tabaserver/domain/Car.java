@@ -31,6 +31,10 @@ public class Car {
     @Column(name = "car_number", nullable = false)
     private String carNumber;
 
+    @Lob
+    @Column(name = "photo")
+    private byte[] photo;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
     private User user;
@@ -41,12 +45,14 @@ public class Car {
             final CarSize carSize,
             final int totalDistance,
             final String carNumber,
+            final byte[] photo,
             final User user
     ) {
         this.carName = carName;
         this.carSize = carSize;
         this.totalDistance = totalDistance;
         this.carNumber = carNumber;
+        this.photo = photo;
         this.user = user;
     }
 

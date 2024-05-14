@@ -12,6 +12,7 @@ public record CarResponseDto(
         @JsonProperty("carSize") CarSize carSize,
         @JsonProperty("totalDistance") int totalDistance,
         @JsonProperty("carNumber") String carNumber,
+        @JsonProperty("photo") byte[] photo,
         @JsonProperty("userId") Long userId
         ) implements Serializable {
             public static CarResponseDto of(
@@ -19,6 +20,7 @@ public record CarResponseDto(
                     final CarSize carSize,
                     final int totalDistance,
                     final String carNumber,
+                    final byte[] photo,
                     final Long userid
             ) {
                 return CarResponseDto.builder()
@@ -26,6 +28,7 @@ public record CarResponseDto(
                         .carSize(carSize)
                         .totalDistance(totalDistance)
                         .carNumber(carNumber)
+                        .photo(photo)
                         .userId(userid)
                         .build();
             }

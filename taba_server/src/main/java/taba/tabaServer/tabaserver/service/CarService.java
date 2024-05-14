@@ -32,6 +32,7 @@ public class CarService {
                 .carNumber(carDto.carNumber())
                 .carSize(carDto.carSize())
                 .totalDistance(carDto.totalDistance())
+                .photo(carDto.photo())
                 .user(currentUser)
                 .build();
 
@@ -41,6 +42,7 @@ public class CarService {
                 currentCar.getCarSize(),
                 currentCar.getTotalDistance(),
                 currentCar.getCarNumber(),
+                currentCar.getPhoto(),
                 currentCar.getUser().getId()
         );
     }
@@ -54,6 +56,7 @@ public class CarService {
                 findCar.getCarSize(),
                 findCar.getTotalDistance(),
                 findCar.getCarNumber(),
+                findCar.getPhoto(),
                 findCar.getUser().getId()
         );
     }
@@ -80,6 +83,7 @@ public class CarService {
                 findCar.getCarSize(),
                 findCar.getTotalDistance(),
                 findCar.getCarNumber(),
+                findCar.getPhoto(),
                 findCar.getUser().getId()
         );
     }
@@ -98,6 +102,7 @@ public class CarService {
                         car.getCarSize(),
                         car.getTotalDistance(),
                         car.getCarNumber(),
+                        car.getPhoto(),
                         car.getUser().getId()
                 )).collect(Collectors.toList());
     }
