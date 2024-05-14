@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @Builder
 public record DrivingSessionResponseDto(
         @JsonProperty("userId") Long userId,
+        @JsonProperty("carId") Long carId,
         @JsonProperty("startTime") LocalDateTime startTime,
         @JsonProperty("endTime") LocalDateTime endTime,
         @JsonProperty("errorTime") LocalDateTime errorTime,
@@ -19,6 +20,7 @@ public record DrivingSessionResponseDto(
         ) implements Serializable {
             public static DrivingSessionResponseDto of(
                     final Long userId,
+                    final Long carId,
                     final LocalDateTime startTime,
                     final LocalDateTime endTime,
                     final LocalDateTime errorTime,
@@ -27,6 +29,7 @@ public record DrivingSessionResponseDto(
             ) {
                 return DrivingSessionResponseDto.builder()
                         .userId(userId)
+                        .carId(carId)
                         .startTime(startTime)
                         .endTime(endTime)
                         .errorTime(errorTime)
