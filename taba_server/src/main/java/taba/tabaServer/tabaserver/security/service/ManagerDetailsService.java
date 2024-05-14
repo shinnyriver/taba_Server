@@ -2,6 +2,7 @@ package taba.tabaServer.tabaserver.security.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,6 +14,7 @@ import taba.tabaServer.tabaserver.repository.ManagerRepository;
 
 @Service
 @RequiredArgsConstructor
+@Primary
 public class ManagerDetailsService implements UserDetailsService {
     private final ManagerRepository managerRepository;
     private final PasswordEncoder passwordEncoder;
