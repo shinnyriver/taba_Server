@@ -27,6 +27,10 @@ public class DrivingSession {
     @JoinColumn(name="user_id", nullable = false)
     private User user;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="car_id", nullable = false)
+    private Car car;
+
     @Column(nullable = false)
     private LocalDateTime startTime;
 
@@ -47,11 +51,13 @@ public class DrivingSession {
     @Builder
     public DrivingSession(
             final User user,
+            final Car car,
             final LocalDateTime startTime,
             final DrivingStatus drivingStatus,
             final ErrorStatus errorStatus
     ) {
         this.user = user;
+        this.car = car;
         this.startTime = LocalDateTime.now();
         this.drivingStatus = drivingStatus;
         this.errorStatus = errorStatus;
