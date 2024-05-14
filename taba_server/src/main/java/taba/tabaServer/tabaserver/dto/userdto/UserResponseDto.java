@@ -11,20 +11,23 @@ import java.time.LocalDate;
 public record UserResponseDto(
         @JsonProperty("id") Long id,
         @JsonProperty("email") String email,
-        @JsonProperty("gender") GenderEnum gender,
-        @JsonProperty("userBirth") LocalDate userBirth
+        @JsonProperty("gender") String gender,
+        @JsonProperty("birthyear") String birthyear,
+        @JsonProperty("birthday") String birthday
 ) implements Serializable {
     public static UserResponseDto of(
             final Long id,
             final String email,
-            final GenderEnum gender,
-            final LocalDate userBirth
+            final String gender,
+            final String birthyear,
+            final String birthday
     ) {
         return UserResponseDto.builder()
                 .id(id)
                 .email(email)
                 .gender(gender)
-                .userBirth(userBirth)
+                .birthyear(birthyear)
+                .birthday(birthday)
                 .build();
     }
 }
