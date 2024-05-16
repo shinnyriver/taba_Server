@@ -13,7 +13,6 @@ import taba.tabaServer.tabaserver.dto.managerdto.CreateManagerDto;
 import taba.tabaServer.tabaserver.dto.managerdto.ManagerLoginDto;
 import taba.tabaServer.tabaserver.exception.CommonException;
 import taba.tabaServer.tabaserver.exception.ErrorCode;
-import taba.tabaServer.tabaserver.repository.ManagerRepository;
 import taba.tabaServer.tabaserver.service.ManagerService;
 
 @RestController
@@ -21,7 +20,6 @@ import taba.tabaServer.tabaserver.service.ManagerService;
 @RequestMapping("/api/managers")
 public class ManagerController {
     private final ManagerService managerService;
-    private final ManagerRepository managerRepository;
 
     @PostMapping("/register")
     public ResponseDto<?> registerManager(@RequestBody CreateManagerDto createManagerDto){
