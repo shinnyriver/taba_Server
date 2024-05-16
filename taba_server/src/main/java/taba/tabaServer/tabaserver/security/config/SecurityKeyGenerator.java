@@ -1,15 +1,19 @@
 package taba.tabaServer.tabaserver.security.config;
 
-import java.security.SecureRandom;
-import java.util.Base64;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class SecurityKeyGenerator {
-    public static String generateKey() {
-        SecureRandom random = new SecureRandom();
-        byte[] keyBytes = new byte[32]; // 256 비트 키 생성
-        random.nextBytes(keyBytes);
-        return Base64.getUrlEncoder().withoutPadding().encodeToString(keyBytes);
+
+    private final JwtProperties jwtProperties;
+
+    @Autowired
+    public SecurityKeyGenerator(JwtProperties jwtProperties) {
+        this.jwtProperties = jwtProperties;
+    }
+
+    public String generateKey() {
+        return jwtProperties.getSecretKey();
     }
 }
-
-

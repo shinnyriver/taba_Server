@@ -3,15 +3,21 @@ package taba.tabaServer.tabaserver.component;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import taba.tabaServer.tabaserver.security.config.SecurityKeyGenerator;
+import taba.tabaServer.tabaserver.security.config.JwtProperties;
 
 import java.util.Date;
 
 @Component
 public class JwtUtil {
 
-    private final String secretKey = SecurityKeyGenerator.generateKey(); // 비밀키 설정
+    private final JwtProperties jwtProperties;
+
+    @Autowired
+    public JwtUtil(JwtProperties jwtProperties) {
+        this.jwtProperties = jwtProperties;
+    }
 
     // JWT 생성
     public String generateToken(String username) {
@@ -19,14 +25,14 @@ public class JwtUtil {
                 .setSubject(username)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // 10시간 유효
-                .signWith(SignatureAlgorithm.HS256, secretKey.getBytes())
+                .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecretKey().getBytes())
                 .compact();
     }
 
     // JWT에서 클레임 추출
     public Claims extractAllClaims(String token) {
         return Jwts.parser()
-                .setSigningKey(secretKey.getBytes())
+                .setSigningKey(jwtProperties.getSecretKey().getBytes())
                 .parseClaimsJws(token)
                 .getBody();
     }
