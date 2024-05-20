@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import taba.tabaServer.tabaserver.security.config.JwtProperties;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 @Component
@@ -25,14 +26,14 @@ public class JwtUtil {
                 .setSubject(username)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // 10시간 유효
-                .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecretKey().getBytes())
+                .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecretKey().getBytes(StandardCharsets.UTF_8))
                 .compact();
     }
 
     // JWT에서 클레임 추출
     public Claims extractAllClaims(String token) {
         return Jwts.parser()
-                .setSigningKey(jwtProperties.getSecretKey().getBytes())
+                .setSigningKey(jwtProperties.getSecretKey().getBytes(StandardCharsets.UTF_8))
                 .parseClaimsJws(token)
                 .getBody();
     }
