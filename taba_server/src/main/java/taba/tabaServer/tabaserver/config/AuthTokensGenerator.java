@@ -28,6 +28,10 @@ public class AuthTokensGenerator {
         String accessToken = jwtTokenProvider.generate(subject, accessTokenExpiredAt);
         String refreshToken = jwtTokenProvider.generate(subject, refreshTokenExpiredAt);
 
+        // 로그 추가
+        System.out.println("Generated Access Token: " + accessToken);
+        System.out.println("Generated Refresh Token: " + refreshToken);
+
         return AuthTokens.of(accessToken, refreshToken, BEARER_TYPE, ACCESS_TOKEN_EXPIRE_TIME / 1000L);
     }
     //Access Token 에서 memberId (사용자 식별값) 추출

@@ -7,6 +7,7 @@ import taba.tabaServer.tabaserver.domain.Calibration;
 import taba.tabaServer.tabaserver.domain.Car;
 import taba.tabaServer.tabaserver.dto.calibrationdto.CalibrationDto;
 import taba.tabaServer.tabaserver.dto.calibrationdto.CalibrationResponseDto;
+import taba.tabaServer.tabaserver.enums.SensorType;
 import taba.tabaServer.tabaserver.exception.CommonException;
 import taba.tabaServer.tabaserver.exception.ErrorCode;
 import taba.tabaServer.tabaserver.repository.CalibrationRepository;
@@ -41,7 +42,7 @@ public class CalibrationService {
                 calibration.getPressureMax(),
                 calibration.getPressureMin(),
                 calibration.getCalibrationTime(),
-                calibration.getCar().getId()
+                calibration.getCar().getCarId()
         );
     }
 
@@ -55,7 +56,7 @@ public class CalibrationService {
                 calibration.getPressureMax(),
                 calibration.getPressureMin(),
                 calibration.getCalibrationTime(),
-                calibration.getCar().getId()
+                calibration.getCar().getCarId()
         );
     }
 
@@ -80,7 +81,7 @@ public class CalibrationService {
                 calibration.getPressureMax(),
                 calibration.getPressureMin(),
                 calibration.getCalibrationTime(),
-                calibration.getCar().getId()
+                calibration.getCar().getCarId()
         );
     }
 
@@ -92,14 +93,15 @@ public class CalibrationService {
 
     @Transactional(readOnly = true)
     public List<CalibrationResponseDto> getAllCalibration(Long id) {
-        return calibrationRepository.findAllByCarId(id).stream()
+        return calibrationRepository.findAllByCar_CarId(id).stream()
                 .map(calibration -> CalibrationResponseDto.of(
                         calibration.getId(),
                         calibration.getSensorType(),
                         calibration.getPressureMax(),
                         calibration.getPressureMin(),
                         calibration.getCalibrationTime(),
-                        calibration.getCar().getId()
+                        calibration.getCar().getCarId()
                 )).collect(Collectors.toList());
     }
+
 }

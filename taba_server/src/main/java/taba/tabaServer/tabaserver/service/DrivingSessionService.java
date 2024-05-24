@@ -46,7 +46,7 @@ public class DrivingSessionService {
 
         return DrivingSessionResponseDto.of(
                 drivingSession.getUser().getId(),
-                drivingSession.getCar().getId(),
+                drivingSession.getCar().getCarId(),
                 drivingSession.getStartTime(),
                 drivingSession.getEndTime(),
                 drivingSession.getErrorTime(),
@@ -62,7 +62,7 @@ public class DrivingSessionService {
 
         return DrivingSessionResponseDto.of(
                 drivingSession.getUser().getId(),
-                drivingSession.getCar().getId(),
+                drivingSession.getCar().getCarId(),
                 drivingSession.getStartTime(),
                 drivingSession.getEndTime(),
                 drivingSession.getErrorTime(),
@@ -81,7 +81,7 @@ public class DrivingSessionService {
 
         return DrivingSessionResponseDto.of(
                 drivingSession.getUser().getId(),
-                drivingSession.getCar().getId(),
+                drivingSession.getCar().getCarId(),
                 drivingSession.getStartTime(),
                 drivingSession.getEndTime(),
                 drivingSession.getErrorTime(),
@@ -101,7 +101,7 @@ public class DrivingSessionService {
 
         return DrivingSessionResponseDto.of(
                 drivingSession.getUser().getId(),
-                drivingSession.getCar().getId(),
+                drivingSession.getCar().getCarId(),
                 drivingSession.getStartTime(),
                 drivingSession.getEndTime(),
                 drivingSession.getErrorTime(),
@@ -121,7 +121,7 @@ public class DrivingSessionService {
         return drivingSessionRepository.findDrivingSessionByUserId(userId).stream()
                 .map(drivingsession -> DrivingSessionResponseDto.of(
                         drivingsession.getUser().getId(),
-                        drivingsession.getCar().getId(),
+                        drivingsession.getCar().getCarId(),
                         drivingsession.getStartTime(),
                         drivingsession.getEndTime(),
                         drivingsession.getErrorTime(),
@@ -135,7 +135,7 @@ public class DrivingSessionService {
         return drivingSessionRepository.findByErrorStatus(errorStatus).stream()
                 .map(drivingsession -> DrivingSessionResponseDto.of(
                         drivingsession.getUser().getId(),
-                        drivingsession.getCar().getId(),
+                        drivingsession.getCar().getCarId(),
                         drivingsession.getStartTime(),
                         drivingsession.getEndTime(),
                         drivingsession.getErrorTime(),

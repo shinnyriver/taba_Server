@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import taba.tabaServer.tabaserver.dto.calibrationdto.CalibrationDto;
 import taba.tabaServer.tabaserver.dto.global.ResponseDto;
+import taba.tabaServer.tabaserver.enums.SensorType;
 import taba.tabaServer.tabaserver.service.CalibrationService;
 
 @RestController
@@ -33,8 +34,9 @@ public class CalibrationController {
         return ResponseDto.ok(calibrationService.deleteCalibration(id));
     }
 
-    @GetMapping("/findbycarid/{id}")
-    public ResponseDto<?> getAllCalibrationsByCarId(@PathVariable Long id) {
-        return ResponseDto.ok(calibrationService.getAllCalibration(id));
+    @GetMapping("/findbycarid/{carId}")
+    public ResponseDto<?> getAllCalibrationsByCarId(@PathVariable Long carId) {
+        return ResponseDto.ok(calibrationService.getAllCalibration(carId));
     }
+
 }

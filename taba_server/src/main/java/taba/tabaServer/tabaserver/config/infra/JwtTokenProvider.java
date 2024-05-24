@@ -65,4 +65,13 @@ public class JwtTokenProvider {
             return false;
         }
     }
+
+    public boolean validTokenByName(String accessToken, String username) {
+        try {
+            String tokenUsername = extractSubject(accessToken);
+            return username.equals(tokenUsername) && validToken(accessToken);
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

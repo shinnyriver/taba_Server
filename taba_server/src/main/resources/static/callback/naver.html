@@ -1,0 +1,43 @@
+<!-- kakao_callback.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kakao Login Callback</title>
+</head>
+<body>
+<script>
+    // URL에서 쿼리 파라미터 추출
+    function getParameterByName(name, url = window.location.href) {
+        name = name.replace(/[\[\]]/g, '\\$&');
+        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+
+    // 인가 코드 추출
+    var code = getParameterByName('code');
+
+    if (code) {
+        // 서버로 인가 코드 전송
+        fetch('http://localhost:8080/api/kakao/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ code: code })
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                // 추가 로직 수행, 예: 성공 페이지로 리다이렉트
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+</script>
+</body>
+</html>
