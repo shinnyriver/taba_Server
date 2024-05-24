@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/members")
+@RequestMapping("/api/users")
 public class UserController {
     private final UserRepository userRepository;
     private final AuthTokensGenerator authTokensGenerator;
@@ -27,9 +27,22 @@ public class UserController {
     }
 
     //엑세스 토큰 기반 조회
-    @GetMapping("/{accessToken}")
+    @GetMapping("/token/{accessToken}")
     public ResponseDto<?> findByAccessToken(@PathVariable String accessToken) {
         Long memberId = authTokensGenerator.extractMemberId(accessToken);
         return ResponseDto.ok(userRepository.findById(memberId));
     }
+
+    //사용자 id로 조회
+    @GetMapping("/{id}")
+    public ResponseDto<?> findById(@PathVariable Long userId) {
+        return ResponseDto.ok(userRepository.findById(userId));
+    }
+
+    //사용자 이름으로 조회
+    @GetMapping("/name/{name}")
+    public ResponseDto<?> findByName(@PathVariable String name) {
+        return ResponseDto.ok(userRepository.findByName(name));
+    }
+
 }
