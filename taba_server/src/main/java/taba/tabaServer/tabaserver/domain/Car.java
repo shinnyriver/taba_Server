@@ -47,6 +47,8 @@ public class Car {
     @Column(name = "purchase_date")
     private LocalDate purchaseDate; // 구매일자 필드 추가
 
+    @Column(name="driving_score")
+    private int drivingScore; // 운전점수 필드 추가
     @Builder
     public Car(
             final Long carId,
@@ -55,8 +57,9 @@ public class Car {
             final int totalDistance,
             final String carNumber,
             final byte[] photo,
-            final String insurance,
+            final String insurance, // 보험 정보 필드 추가
             final LocalDate purchaseDate, // 구매일자 필드 추가
+            final int drivingScore, // 운전 점수 필드 추가
             final User user
     ) {
         this.carId=carId;
@@ -67,6 +70,7 @@ public class Car {
         this.photo = photo;
         this.insurance = insurance;
         this.purchaseDate = purchaseDate; // 구매일자 필드 추가
+        this.drivingScore=drivingScore;
         this.user = user;
     }
 

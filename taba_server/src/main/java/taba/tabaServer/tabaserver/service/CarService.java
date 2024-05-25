@@ -43,6 +43,7 @@ public class CarService {
                     .insurance(carDto.insurance())
                     .user(currentUser)
                     .purchaseDate(carDto.purchaseDate())
+                    .drivingScore(carDto.drivingScore())
                     .build();
             //저장
             carRepository.save(currentCar);
@@ -56,7 +57,8 @@ public class CarService {
                     currentCar.getUser().getId(),
                     currentCar.getPhoto(),
                     currentCar.getInsurance(),
-                    currentCar.getPurchaseDate()
+                    currentCar.getPurchaseDate(),
+                    currentCar.getDrivingScore()
             );
         }
 
@@ -75,7 +77,8 @@ public class CarService {
                     findCar.getUser().getId(),
                     findCar.getPhoto(),
                     findCar.getInsurance(),
-                    findCar.getPurchaseDate()
+                    findCar.getPurchaseDate(),
+                    findCar.getDrivingScore()
             );
         }
 
@@ -98,6 +101,7 @@ public class CarService {
                     photoBytes,
                     carUpdateDto.insurance(),
                     carUpdateDto.purchaseDate()
+
             );
 
             carRepository.save(findCar);
@@ -111,7 +115,8 @@ public class CarService {
                     findCar.getUser().getId(),
                     findCar.getPhoto(),
                     findCar.getInsurance(),
-                    findCar.getPurchaseDate()
+                    findCar.getPurchaseDate(),
+                    findCar.getDrivingScore()
             );
         }
 
@@ -133,7 +138,8 @@ public class CarService {
                             car.getUser().getId(),
                             car.getPhoto(),
                             car.getInsurance(),
-                            car.getPurchaseDate()
+                            car.getPurchaseDate(),
+                            car.getDrivingScore()
                     )).collect(Collectors.toList());
         }
 

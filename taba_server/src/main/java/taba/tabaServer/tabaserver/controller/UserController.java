@@ -35,8 +35,8 @@ public class UserController {
 
     //사용자 id로 조회
     @GetMapping("/{id}")
-    public ResponseDto<?> findById(@PathVariable Long userId) {
-        return ResponseDto.ok(userRepository.findById(userId));
+    public ResponseDto<?> findById(@PathVariable Long id) {
+        return ResponseDto.ok(userRepository.findById(id));
     }
 
     //사용자 이름으로 조회

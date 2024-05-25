@@ -17,7 +17,8 @@ public record CarResponseDto(
         @JsonProperty("photo") byte[] photo,
         @JsonProperty("userId") Long userId,
         @JsonProperty("insurance") String insurance, // 보험 정보 필드 추가
-        @JsonProperty("purchaseDate") LocalDate purchaseDate // 구매 일자 필드 추가
+        @JsonProperty("purchaseDate") LocalDate purchaseDate, // 구매 일자 필드 추가
+        @JsonProperty("drivingScore") int drivingScore  // 운전 점수 필드 추가
 
         ) implements Serializable {
             public static CarResponseDto of(
@@ -29,7 +30,8 @@ public record CarResponseDto(
                     final Long userid,
                     final byte[] photo,
                     final String insurance,
-                    final LocalDate purchaseDate
+                    final LocalDate purchaseDate,
+                    final int drivingScore
             ) {
                 return CarResponseDto.builder()
                         .carId(carId)
@@ -41,6 +43,7 @@ public record CarResponseDto(
                         .userId(userid)
                         .insurance(insurance)
                         .purchaseDate(purchaseDate)
+                        .drivingScore(drivingScore)
                         .build();
             }
 }
