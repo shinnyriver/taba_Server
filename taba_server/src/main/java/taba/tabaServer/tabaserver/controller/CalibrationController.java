@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import taba.tabaServer.tabaserver.dto.calibrationdto.CalibrationDto;
 import taba.tabaServer.tabaserver.dto.global.ResponseDto;
-import taba.tabaServer.tabaserver.enums.SensorType;
 import taba.tabaServer.tabaserver.service.CalibrationService;
 
 @RestController

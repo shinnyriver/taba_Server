@@ -34,7 +34,7 @@ public class SensorDataService {
 
         SensorData save = sensorDataRepository.save(SensorData.builder()
                 .drivingSession(drivingSession)
-                .breakPressure(sensorDataRequestDto.breakPressure())
+                .brakePressure(sensorDataRequestDto.brakePressure())
                 .accelPressure(sensorDataRequestDto.accelPressure())
                 .speed(sensorDataRequestDto.speed())
                 .latitude(sensorDataRequestDto.latitude())
@@ -44,7 +44,7 @@ public class SensorDataService {
 
         return SensorDataResponseDto.builder()
                 .drivingSessionId(save.getDrivingSession().getId())
-                .breakPressure(save.getBreakPressure())
+                .brakePressure(save.getBrakePressure())
                 .accelPressure(save.getAccelPressure())
                 .speed(save.getSpeed())
                 .latitude(save.getLatitude())
@@ -71,7 +71,7 @@ public class SensorDataService {
                 .map(sensorData -> SensorDataResponseDto.of(
                         sensorData.getDrivingSession().getId(),
                         sensorData.getTimestamp(),
-                        sensorData.getBreakPressure(),
+                        sensorData.getBrakePressure(),
                         sensorData.getAccelPressure(),
                         sensorData.getSpeed(),
                         sensorData.getLatitude(),
