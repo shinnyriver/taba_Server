@@ -49,6 +49,8 @@ public class Car {
 
     @Column(name="driving_score")
     private int drivingScore; // 운전점수 필드 추가
+
+
     @Builder
     public Car(
             final Long carId,

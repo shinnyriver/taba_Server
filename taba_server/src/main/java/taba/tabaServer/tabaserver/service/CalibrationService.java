@@ -92,7 +92,7 @@ public class CalibrationService {
     }
 
     @Transactional(readOnly = true)
-    public List<CalibrationResponseDto> getAllCalibration(Long id) {
+    public List<CalibrationResponseDto> getAllCalibrationById(Long id) {
         return calibrationRepository.findAllByCar_CarId(id).stream()
                 .map(calibration -> CalibrationResponseDto.of(
                         calibration.getId(),
@@ -104,4 +104,17 @@ public class CalibrationService {
                 )).collect(Collectors.toList());
     }
 
+    //차량 이름으로 캘리브레이션 조회하기
+    @Transactional(readOnly = true)
+    public List<CalibrationResponseDto> getAllCalibrationByName(String carName) {
+        return calibrationRepository.findAllByCar_CarName(carName).stream()
+                .map(calibration -> CalibrationResponseDto.of(
+                        calibration.getId(),
+                        calibration.getSensorType(),
+                        calibration.getPressureMax(),
+                        calibration.getPressureMin(),
+                        calibration.getCalibrationTime(),
+                        calibration.getCar().getCarId()
+                )).collect(Collectors.toList());
+    }
 }

@@ -34,9 +34,15 @@ public class CalibrationController {
         return ResponseDto.ok(calibrationService.deleteCalibration(id));
     }
 
-    @GetMapping("/findbycarid/{carId}")
+    //차량 id으로 캘리브레이션 찾기
+    @GetMapping("/car-id/{carId}")
     public ResponseDto<?> getAllCalibrationsByCarId(@PathVariable Long carId) {
-        return ResponseDto.ok(calibrationService.getAllCalibration(carId));
+        return ResponseDto.ok(calibrationService.getAllCalibrationById(carId));
+    }
+    //차량 이름으로 캘리브레이션 찾기
+    @GetMapping("/car-name/{carName}")
+    public ResponseDto<?> getAllCalibrationsByName(@PathVariable String carName) {
+        return ResponseDto.ok(calibrationService.getAllCalibrationByName(carName));
     }
 
 }

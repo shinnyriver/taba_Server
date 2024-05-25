@@ -33,8 +33,9 @@ public class CarController {
     public ResponseDto<?> deleteCar(@PathVariable Long id){
         return ResponseDto.ok(carService.deleteCar(id));
     }
-
-    @GetMapping("/findbyuser/{userId}")
+    
+    //사용자 id로 조회
+    @GetMapping("/user/{userId}")
     public ResponseDto<?> getAllCarsByuser(@PathVariable Long userId){
         return ResponseDto.ok(carService.getAllCarByUser(userId));
     }
