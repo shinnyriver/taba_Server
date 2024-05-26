@@ -1,13 +1,18 @@
 package taba.tabaServer.tabaserver.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
+import taba.tabaServer.tabaserver.domain.DrivingSession;
 import taba.tabaServer.tabaserver.dto.drivingsessiondto.DrivingSessionErrorOccuredDto;
 import taba.tabaServer.tabaserver.dto.drivingsessiondto.DrivingSessionRequestDto;
 import taba.tabaServer.tabaserver.dto.drivingsessiondto.DrivingSessionUpdateDto;
 import taba.tabaServer.tabaserver.dto.global.ResponseDto;
 import taba.tabaServer.tabaserver.enums.ErrorStatus;
 import taba.tabaServer.tabaserver.service.DrivingSessionService;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/drivingsessions")
@@ -49,5 +54,12 @@ public class DrivingSessionController {
     @GetMapping("/errorstats/{errorStatus}")
     public ResponseDto<?> getDrivingSessionsByErrorStatus(@PathVariable ErrorStatus errorStatus){
         return ResponseDto.ok(drivingSessionService.findByErrorStatus(errorStatus));
+    }
+
+    @GetMapping("/search")  //usage : /api/drivingsessions/search?startDate=2024-05-01&endDate=2024-05-08
+    public ResponseDto<?> getSessionsBetween(
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+        return ResponseDto.ok(drivingSessionService.getSessionsBetweenDates(startDate, endDate));
     }
 }

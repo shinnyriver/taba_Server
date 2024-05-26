@@ -18,6 +18,7 @@ import taba.tabaServer.tabaserver.repository.CarRepository;
 import taba.tabaServer.tabaserver.repository.DrivingSessionRepository;
 import taba.tabaServer.tabaserver.repository.UserRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,7 +48,9 @@ public class DrivingSessionService {
         return DrivingSessionResponseDto.of(
                 drivingSession.getUser().getId(),
                 drivingSession.getCar().getCarId(),
+                drivingSession.getStartDate(),
                 drivingSession.getStartTime(),
+                drivingSession.getEndDate(),
                 drivingSession.getEndTime(),
                 drivingSession.getErrorTime(),
                 drivingSession.getDrivingStatus(),
@@ -63,7 +66,9 @@ public class DrivingSessionService {
         return DrivingSessionResponseDto.of(
                 drivingSession.getUser().getId(),
                 drivingSession.getCar().getCarId(),
+                drivingSession.getStartDate(),
                 drivingSession.getStartTime(),
+                drivingSession.getEndDate(),
                 drivingSession.getEndTime(),
                 drivingSession.getErrorTime(),
                 drivingSession.getDrivingStatus(),
@@ -82,7 +87,9 @@ public class DrivingSessionService {
         return DrivingSessionResponseDto.of(
                 drivingSession.getUser().getId(),
                 drivingSession.getCar().getCarId(),
+                drivingSession.getStartDate(),
                 drivingSession.getStartTime(),
+                drivingSession.getEndDate(),
                 drivingSession.getEndTime(),
                 drivingSession.getErrorTime(),
                 drivingSession.getDrivingStatus(),
@@ -96,13 +103,15 @@ public class DrivingSessionService {
         DrivingSession drivingSession = drivingSessionRepository.findById(id)
                 .orElseThrow(()-> new CommonException(ErrorCode.NOT_FOUND_DRIVING_SESSION));
 
-        drivingSession.errorOccured(drivingSessionErrorOccuredDto.errorStatus());
+        drivingSession.errorOccurred(drivingSessionErrorOccuredDto.errorStatus());
         drivingSessionRepository.save(drivingSession);
 
         return DrivingSessionResponseDto.of(
                 drivingSession.getUser().getId(),
                 drivingSession.getCar().getCarId(),
+                drivingSession.getStartDate(),
                 drivingSession.getStartTime(),
+                drivingSession.getEndDate(),
                 drivingSession.getEndTime(),
                 drivingSession.getErrorTime(),
                 drivingSession.getDrivingStatus(),
@@ -122,7 +131,9 @@ public class DrivingSessionService {
                 .map(drivingsession -> DrivingSessionResponseDto.of(
                         drivingsession.getUser().getId(),
                         drivingsession.getCar().getCarId(),
+                        drivingsession.getStartDate(),
                         drivingsession.getStartTime(),
+                        drivingsession.getEndDate(),
                         drivingsession.getEndTime(),
                         drivingsession.getErrorTime(),
                         drivingsession.getDrivingStatus(),
@@ -136,12 +147,18 @@ public class DrivingSessionService {
                 .map(drivingsession -> DrivingSessionResponseDto.of(
                         drivingsession.getUser().getId(),
                         drivingsession.getCar().getCarId(),
+                        drivingsession.getStartDate(),
                         drivingsession.getStartTime(),
+                        drivingsession.getEndDate(),
                         drivingsession.getEndTime(),
                         drivingsession.getErrorTime(),
                         drivingsession.getDrivingStatus(),
                         drivingsession.getErrorStatus()
                 )).collect(Collectors.toList());
 
+    }
+
+    public List<DrivingSession> getSessionsBetweenDates(LocalDate start, LocalDate end) {
+        return drivingSessionRepository.findAllByStartDateBetween(start, end);
     }
 }
