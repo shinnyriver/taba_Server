@@ -142,8 +142,8 @@ public class DrivingSessionService {
     }
 
     @Transactional
-    public List<DrivingSessionResponseDto> findByErrorStatus(ErrorStatus errorStatus){
-        return drivingSessionRepository.findByErrorStatus(errorStatus).stream()
+    public List<DrivingSessionResponseDto> findAllByErrorStatus(ErrorStatus errorStatus){
+        return drivingSessionRepository.findAllByErrorStatus(errorStatus).stream()
                 .map(drivingsession -> DrivingSessionResponseDto.of(
                         drivingsession.getUser().getId(),
                         drivingsession.getCar().getCarId(),

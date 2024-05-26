@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface DrivingSessionRepository extends JpaRepository<DrivingSession, Long> {
     List<DrivingSession> findDrivingSessionByUserId(Long userId);
-    List<DrivingSession> findByErrorStatus(ErrorStatus errorStatus);
+    List<DrivingSession> findAllByErrorStatus(ErrorStatus errorStatus);
     List<DrivingSession> findAllByStartDateBetween(LocalDate start, LocalDate end);
 }

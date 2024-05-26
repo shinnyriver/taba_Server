@@ -53,7 +53,7 @@ public class DrivingSessionController {
 
     @GetMapping("/errorstats/{errorStatus}")
     public ResponseDto<?> getDrivingSessionsByErrorStatus(@PathVariable ErrorStatus errorStatus){
-        return ResponseDto.ok(drivingSessionService.findByErrorStatus(errorStatus));
+        return ResponseDto.ok(drivingSessionService.findAllByErrorStatus(errorStatus));
     }
 
     @GetMapping("/search")  //usage : /api/drivingsessions/search?startDate=2024-05-01&endDate=2024-05-08

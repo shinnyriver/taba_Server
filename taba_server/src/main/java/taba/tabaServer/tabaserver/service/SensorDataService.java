@@ -8,12 +8,17 @@ import taba.tabaServer.tabaserver.domain.SensorData;
 import taba.tabaServer.tabaserver.dto.sensordatadto.SensorDataRequestDto;
 import taba.tabaServer.tabaserver.dto.sensordatadto.SensorDataResponseDto;
 import taba.tabaServer.tabaserver.enums.DrivingStatus;
+import taba.tabaServer.tabaserver.enums.ErrorStatus;
 import taba.tabaServer.tabaserver.exception.CommonException;
 import taba.tabaServer.tabaserver.exception.ErrorCode;
 import taba.tabaServer.tabaserver.repository.DrivingSessionRepository;
 import taba.tabaServer.tabaserver.repository.SensorDataRepository;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintWriter;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -77,5 +82,27 @@ public class SensorDataService {
                         sensorData.getLatitude(),
                         sensorData.getLongitude()
                 )).collect(Collectors.toList());
+    }
+
+    @Transactional
+    public ByteArrayInputStream getSensorDataAsCsvForSession(Long sessionId){
+        Optional<DrivingSession> sessionOptional = drivingSessionRepository.findById(sessionId);
+        if (sessionOptional.isPresent() && sessionOptional.get().getErrorStatus() == ErrorStatus.ERROR) {
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            PrintWriter writer = new PrintWriter(out);
+            writer.println("SessionId,Timestamp,BrakePressure,AccelPressure,Speed,Latitude,Longitude");
+
+            List<SensorData> sensorDataList = sensorDataRepository.findAllByDrivingSession(sessionOptional.get());
+            for (SensorData data : sensorDataList) {
+                writer.printf("%d,%s,%f,%f,%f,%s,%s\n",
+                        sessionOptional.get().getId(), data.getTimestamp(),
+                        data.getBrakePressure(), data.getAccelPressure(),
+                        data.getSpeed(), data.getLatitude(), data.getLongitude());
+            }
+            writer.flush();
+            return new ByteArrayInputStream(out.toByteArray());
+        } else {
+            return null; // Or handle this case appropriately based on your application needs
+        }
     }
 }
