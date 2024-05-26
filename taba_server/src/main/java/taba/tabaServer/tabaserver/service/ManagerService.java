@@ -3,6 +3,7 @@ package taba.tabaServer.tabaserver.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import taba.tabaServer.tabaserver.component.JwtTokenService;
 import taba.tabaServer.tabaserver.component.JwtUtil;
 import taba.tabaServer.tabaserver.domain.Manager;
 import taba.tabaServer.tabaserver.dto.managerdto.CreateManagerDto;
@@ -15,7 +16,7 @@ import taba.tabaServer.tabaserver.repository.ManagerRepository;
 public class ManagerService {
 
     private final ManagerRepository managerRepository;
-    private final JwtUtil jwtUtil;
+    private final JwtTokenService jwtTokenService;
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public ResponseManagerDto createManager(CreateManagerDto createManagerDto){
@@ -38,7 +39,7 @@ public class ManagerService {
     public String login(ManagerLoginDto managerLoginDto){
         Manager manager = managerRepository.findByLoginId(managerLoginDto.loginId());
         if (manager != null && passwordEncoder.matches(managerLoginDto.password(), manager.getPassword())) {
-            return jwtUtil.generateToken(manager.getLoginId());
+            return jwtTokenService.generateToken(manager.getLoginId());
         }
         return null;
     }
