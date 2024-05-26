@@ -46,7 +46,7 @@ public class UserController {
         return ResponseDto.ok(userRepository.findByName(name));
     }
 
-    //유저 통계
+    //유저 통계 usage : /api/users/statistics?startDate=2024-01-01T00:00:00&endDate=2024-01-31T23:59:59
     @GetMapping("/statistics")
     public ResponseDto<?> getUserStatistics(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime start,
@@ -54,6 +54,5 @@ public class UserController {
     ) {
         return ResponseDto.ok(userService.getUserStatisticsBetweenDates(start, end));
     }
-
 
 }
