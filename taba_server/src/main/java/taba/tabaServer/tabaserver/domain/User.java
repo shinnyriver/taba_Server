@@ -48,6 +48,9 @@ public class User {
     @Column(name="created_at", nullable = true)
     private LocalDateTime createdAt;
 
+    @Column(name="withdraw_at", nullable = true)
+    private LocalDateTime withdrawAt;
+
     @Builder
     public User(
             final String name,
@@ -69,5 +72,9 @@ public class User {
         this.mobile=mobile;
         this.name=name;
         this.oauthProvider=oauthProvider;
+    }
+
+    public void withdraw(Long id){
+        this.withdrawAt = LocalDateTime.now();
     }
 }

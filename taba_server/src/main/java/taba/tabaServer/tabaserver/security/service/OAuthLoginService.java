@@ -26,7 +26,12 @@ public class OAuthLoginService {
     public AuthTokens login(OAuthLoginParams params) {
         OAuthInfoResponse oAuthInfoResponse = requestOAuthInfoService.request(params);
         Long memberId = findOrCreateMember(oAuthInfoResponse);
-        return authTokensGenerator.generate(memberId);
+        //토큰 생성
+        AuthTokens tokens= authTokensGenerator.generate(memberId);
+        // 로그 추가
+        System.out.println("Generated Tokens: " + tokens);
+
+        return tokens;
     }
 
     //사용자 id 찾기

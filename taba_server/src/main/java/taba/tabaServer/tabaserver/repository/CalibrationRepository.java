@@ -9,5 +9,8 @@ import java.util.Optional;
 
 public interface CalibrationRepository extends JpaRepository<Calibration, Long> {
     Optional<Calibration> findBySensorType(SensorType sensorType);
-    List<Calibration> findAllByCarId(Long carId);
+    List<Calibration> findAllByCar_CarId(Long carId);
+
+    List<Calibration> findAllByCar_CarName(String carName);
+
 }

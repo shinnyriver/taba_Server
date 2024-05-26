@@ -9,11 +9,13 @@ import taba.tabaServer.tabaserver.domain.User;
 import taba.tabaServer.tabaserver.dto.userdto.CreateUserDto;
 import taba.tabaServer.tabaserver.dto.userdto.UpdateUserDto;
 import taba.tabaServer.tabaserver.dto.userdto.UserResponseDto;
+import taba.tabaServer.tabaserver.dto.userdto.UserStatisticsDto;
 import taba.tabaServer.tabaserver.exception.CommonException;
 import taba.tabaServer.tabaserver.exception.ErrorCode;
 import taba.tabaServer.tabaserver.repository.UserRepository;
 import taba.tabaServer.tabaserver.security.config.SecurityConfig;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,4 +57,13 @@ public class UserService {
                 ).collect(Collectors.toList());
     }
 
+    @Transactional
+    public UserStatisticsDto getUserStatisticsBetweenDates(LocalDateTime start, LocalDateTime end){
+        Long newUsers = userRepository.countByCreatedAtBetween(start, end);
+        Long withdrawUsers = userRepository.countByWithdrawAtBetween(start, end);
+        return UserStatisticsDto.of(
+                newUsers,
+                withdrawUsers
+        );
+    }
 }

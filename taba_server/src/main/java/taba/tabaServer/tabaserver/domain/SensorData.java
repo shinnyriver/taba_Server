@@ -26,7 +26,7 @@ public class SensorData {
     private LocalDateTime timestamp;
 
     @Column(nullable = false)
-    private double breakPressure;
+    private double brakePressure;
 
     @Column(nullable = false)
     private double accelPressure;
@@ -43,7 +43,7 @@ public class SensorData {
     @Builder
     public SensorData(
             final DrivingSession drivingSession,
-            final double breakPressure,
+            final double brakePressure,
             final double accelPressure,
             final double speed,
             final String latitude,
@@ -51,7 +51,7 @@ public class SensorData {
     ) {
         this.drivingSession = drivingSession;
         this.timestamp = LocalDateTime.now();
-        this.breakPressure = breakPressure;
+        this.brakePressure = brakePressure;
         this.accelPressure = accelPressure;
         this.speed = speed;
         this.latitude = latitude;

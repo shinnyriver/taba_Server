@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public record SensorDataResponseDto(
         @JsonProperty("drivingSessionId") Long drivingSessionId,
         @JsonProperty("timeStamp")LocalDateTime timeStamp,
-        @JsonProperty("breakPressure") double breakPressure,
+        @JsonProperty("brakePressure") double brakePressure,
         @JsonProperty("accelPressure") double accelPressure,
         @JsonProperty("speed") double speed,
         @JsonProperty("latitude") String latitude,
@@ -19,7 +19,7 @@ public record SensorDataResponseDto(
     public static SensorDataResponseDto of(
             final Long drivingSessionId,
             final LocalDateTime timeStamp,
-            final double breakPressure,
+            final double brakePressure,
             final double accelPressure,
             final double speed,
             final String latitude,
@@ -28,7 +28,7 @@ public record SensorDataResponseDto(
         return SensorDataResponseDto.builder()
                 .drivingSessionId(drivingSessionId)
                 .timeStamp(timeStamp)
-                .breakPressure(breakPressure)
+                .brakePressure(brakePressure)
                 .accelPressure(accelPressure)
                 .speed(speed)
                 .latitude(latitude)
