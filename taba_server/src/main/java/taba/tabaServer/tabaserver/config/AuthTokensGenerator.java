@@ -1,7 +1,6 @@
 package taba.tabaServer.tabaserver.config;
 
 import taba.tabaServer.tabaserver.component.JwtTokenService;
-import taba.tabaServer.tabaserver.config.infra.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

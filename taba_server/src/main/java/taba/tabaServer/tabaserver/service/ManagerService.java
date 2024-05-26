@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import taba.tabaServer.tabaserver.component.JwtTokenService;
-import taba.tabaServer.tabaserver.component.JwtUtil;
 import taba.tabaServer.tabaserver.domain.Manager;
 import taba.tabaServer.tabaserver.dto.managerdto.CreateManagerDto;
 import taba.tabaServer.tabaserver.dto.managerdto.ManagerLoginDto;
