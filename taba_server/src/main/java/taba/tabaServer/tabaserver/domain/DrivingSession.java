@@ -8,10 +8,9 @@ import lombok.NoArgsConstructor;
 import taba.tabaServer.tabaserver.enums.DrivingStatus;
 import taba.tabaServer.tabaserver.enums.ErrorStatus;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.time.LocalTime;
 
 @Entity
 @Getter
@@ -32,10 +31,16 @@ public class DrivingSession {
     private Car car;
 
     @Column(nullable = false)
-    private LocalDateTime startTime;
+    private LocalDate startDate;
+
+    @Column(nullable = false)
+    private LocalTime startTime;
 
     @Column
-    private LocalDateTime endTime;
+    private LocalDate endDate;
+
+    @Column
+    private LocalTime endTime;
 
     @Column
     private LocalDateTime errorTime;
@@ -52,24 +57,27 @@ public class DrivingSession {
     public DrivingSession(
             final User user,
             final Car car,
-            final LocalDateTime startTime,
+            final LocalDate startDate,
+            final LocalTime startTime,
             final DrivingStatus drivingStatus,
             final ErrorStatus errorStatus
     ) {
         this.user = user;
         this.car = car;
-        this.startTime = LocalDateTime.now();
+        this.startDate = startDate;
+        this.startTime = startTime;
         this.drivingStatus = drivingStatus;
         this.errorStatus = errorStatus;
     }
 
-    public void errorOccured(ErrorStatus errorStatus) {
+    public void errorOccurred(ErrorStatus errorStatus) {
         this.errorStatus = errorStatus;
         this.errorTime = LocalDateTime.now();
     }
 
     public void endSession(DrivingStatus drivingStatus) {
+        this.endDate = LocalDate.now();
+        this.endTime = LocalTime.now();
         this.drivingStatus = drivingStatus;
-        this.endTime = LocalDateTime.now();
     }
 }

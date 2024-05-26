@@ -6,14 +6,18 @@ import taba.tabaServer.tabaserver.enums.DrivingStatus;
 import taba.tabaServer.tabaserver.enums.ErrorStatus;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Builder
 public record DrivingSessionResponseDto(
-        @JsonProperty("userId") Long userId,
-        @JsonProperty("carId") Long carId,
-        @JsonProperty("startTime") LocalDateTime startTime,
-        @JsonProperty("endTime") LocalDateTime endTime,
+        @JsonProperty("user_id") Long userId,
+        @JsonProperty("car_id") Long carId,
+        @JsonProperty("start_date") LocalDate startDate,
+        @JsonProperty("start_time") LocalTime startTime,
+        @JsonProperty("end_date") LocalDate endDate,
+        @JsonProperty("end_time") LocalTime endTime,
         @JsonProperty("errorTime") LocalDateTime errorTime,
         @JsonProperty("drivingStatus") DrivingStatus drivingStatus,
         @JsonProperty("errorStatus")ErrorStatus errorStatus
@@ -21,8 +25,10 @@ public record DrivingSessionResponseDto(
             public static DrivingSessionResponseDto of(
                     final Long userId,
                     final Long carId,
-                    final LocalDateTime startTime,
-                    final LocalDateTime endTime,
+                    final LocalDate startDate,
+                    final LocalTime startTime,
+                    final LocalDate endDate,
+                    final LocalTime endTime,
                     final LocalDateTime errorTime,
                     final DrivingStatus drivingStatus,
                     final ErrorStatus errorStatus
@@ -30,7 +36,9 @@ public record DrivingSessionResponseDto(
                 return DrivingSessionResponseDto.builder()
                         .userId(userId)
                         .carId(carId)
+                        .startDate(startDate)
                         .startTime(startTime)
+                        .endDate(endDate)
                         .endTime(endTime)
                         .errorTime(errorTime)
                         .drivingStatus(drivingStatus)

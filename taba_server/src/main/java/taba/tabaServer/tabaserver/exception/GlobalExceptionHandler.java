@@ -1,6 +1,7 @@
 package taba.tabaServer.tabaserver.exception;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -34,15 +35,22 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(value = {CommonException.class})
-    public ResponseDto<?> handleCustomException(CommonException e){
+    public ResponseDto<?> handleCustomException(CommonException e) {
         return ResponseDto.fail(e);
     }
 
 
     @ExceptionHandler(value = {Exception.class})
-    public ResponseDto<?> handleServerException(Exception e){
+    public ResponseDto<?> handleServerException(Exception e) {
         log.info("occurred exception in handleServerError = {}", e.getMessage());
         e.printStackTrace();
         return ResponseDto.fail(new CommonException(ErrorCode.INTERNAL_SERVER_ERROR));
+    }
+
+    // 데이터 무결성 위반 예외 처리기 추가
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseDto<?> handleDataIntegrityViolationException(DataIntegrityViolationException e) {
+        log.error("handleDataIntegrityViolationException() in GlobalExceptionHandler : {}", e.getMessage());
+        return ResponseDto.fail(new CommonException(ErrorCode.DATA_INTEGRITY_VIOLATION));
     }
 }

@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CommonException extends RuntimeException{
     private final ErrorCode errorCode;
+
+    @Override
     public String getMessage() {
         return this.errorCode.getMessage();
     }
