@@ -20,8 +20,13 @@ public class NaverLoginService {
     //로그인 하기
     public AuthTokens login(NaverUserDto naverUserDto) {
         NaverInfoResponse naverInfo = createNaverInfoResponse(naverUserDto);
+        /**
+         * subject인 email로 사용자 정보찾기
+         */
+        String email = naverInfo.getResponse().getEmail();
+        //사용자 중복 검증 및 회원가입
         Long memberId = findOrCreateMember(naverInfo);
-        return authTokensGenerator.generate(memberId);
+        return authTokensGenerator.generate(email);
     }
 
     //사용자 id 찾기(새로운 사용자면 회원가입)

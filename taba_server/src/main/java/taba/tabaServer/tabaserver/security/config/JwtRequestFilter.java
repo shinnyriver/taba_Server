@@ -1,5 +1,6 @@
 package taba.tabaServer.tabaserver.security.config;
 
+import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -34,13 +35,15 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             jwt = authorizationHeader.substring(7);
-            userType = jwtTokenService.extractUserType(jwt);  // userType 추출 로직 구현 필요
+            userType = jwtTokenService.extractUserType(jwt);  
         }
 
         if (jwt != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetailsService userDetailsService = getUserDetailsService(userType);
-            String username = jwtTokenService.extractUsername(jwt);
-            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+            // 사용자 이메일을 추출
+            String email = jwtTokenService.extractUserEmail(jwt);
+
+            UserDetails userDetails = userDetailsService.loadUserByUsername(email);
 
             if (jwtTokenService.validateToken(jwt, userDetails.getUsername())) {
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(

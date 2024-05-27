@@ -58,6 +58,17 @@ public class JwtTokenService {
             return e.getClaims();
         }
     }
+    /**
+     *  사용자 이메일(Subject) 추출
+     */
+    public String extractUserEmail(String token) {
+        return Jwts.parser()
+                .setSigningKey(key)
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
+    }
+
 
     public String extractSubject(String accessToken) {
         Claims claims = parseClaims(accessToken);
