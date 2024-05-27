@@ -1,26 +1,27 @@
 package taba.tabaServer.tabaserver.security.config;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationContext;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
-import org.springframework.web.filter.OncePerRequestFilter;
-import taba.tabaServer.tabaserver.component.JwtTokenService;
-
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.web.filter.OncePerRequestFilter;
+import taba.tabaServer.tabaserver.component.JwtTokenService;
+
 import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
 public class JwtRequestFilter extends OncePerRequestFilter {
 
-    private final UserDetailsService userDetailsService;
+    private final ApplicationContext appContext;
     private final JwtTokenService jwtTokenService;
 
     @Override
@@ -28,20 +29,18 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         final String authorizationHeader = request.getHeader("Authorization");
 
-        String username = null;
         String jwt = null;
+        String userType = null;
 
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             jwt = authorizationHeader.substring(7);
-            try {
-                username = jwtTokenService.extractUsername(jwt);
-            } catch (Exception e) {
-                logger.error("JWT 토큰 추출 중 오류 발생", e);
-            }
+            userType = jwtTokenService.extractUserType(jwt);  // userType 추출 로직 구현 필요
         }
 
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+        if (jwt != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            UserDetailsService userDetailsService = getUserDetailsService(userType);
+            String username = jwtTokenService.extractUsername(jwt);
+            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
             if (jwtTokenService.validateToken(jwt, userDetails.getUsername())) {
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
@@ -51,5 +50,13 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             }
         }
         chain.doFilter(request, response);
+    }
+
+    private UserDetailsService getUserDetailsService(String userType) {
+        if ("manager".equals(userType)) {
+            return appContext.getBean("managerDetailsService", UserDetailsService.class);
+        } else {
+            return appContext.getBean("userDetailsServiceImpl", UserDetailsService.class);
+        }
     }
 }

@@ -81,6 +81,12 @@ public class JwtTokenService {
         return extractAllClaims(token).getSubject();
     }
 
+    public String extractUserType(String token) {
+        Claims claims = extractAllClaims(token);
+        return claims.get("userType", String.class);  // "userType"은 토큰 생성 시 클레임에 추가된 키
+    }
+
+
     // 토큰 만료 시간 확인
     public boolean isTokenExpired(String token) {
         return extractAllClaims(token).getExpiration().before(new Date());

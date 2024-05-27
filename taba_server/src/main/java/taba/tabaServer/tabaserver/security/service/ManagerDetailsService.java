@@ -29,7 +29,7 @@ public class ManagerDetailsService implements UserDetailsService {
         return User.builder()
                 .username(manager.getLoginId())
                 .password(manager.getPassword())
-                .authorities("ROLE_" + manager.getManagerType().name()) // Assuming ManagerType is an enum that represents the role
+                .authorities("ROLE_MANAGER") // Assuming ManagerType is an enum that represents the role
                 .accountExpired(false)
                 .accountLocked(false)
                 .credentialsExpired(false)
