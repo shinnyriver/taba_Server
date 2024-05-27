@@ -27,11 +27,11 @@ public class UserController {
         return ResponseDto.ok(userRepository.findAll());
     }
 
-    //엑세스 토큰 기반 조회
+    //엑세스 토큰 기반 조회(토큰의 subject인 email로 조사)
     @GetMapping("/token/{accessToken}")
     public ResponseDto<?> findByAccessToken(@PathVariable String accessToken) {
-        Long memberId = authTokensGenerator.extractMemberId(accessToken);
-        return ResponseDto.ok(userRepository.findById(memberId));
+        String email= authTokensGenerator.extractUserEmail(accessToken);
+        return ResponseDto.ok(userRepository.findByEmail(email));
     }
 
     //사용자 id로 조회
