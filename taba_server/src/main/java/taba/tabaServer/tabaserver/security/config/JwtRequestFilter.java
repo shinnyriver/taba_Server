@@ -53,7 +53,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     }
 
     private UserDetailsService getUserDetailsService(String userType) {
-        if ("manager".equals(userType)) {
+        if ("MANAGER".equals(userType)) {
             return appContext.getBean("managerDetailsService", UserDetailsService.class);
         } else {
             return appContext.getBean("userDetailsServiceImpl", UserDetailsService.class);
