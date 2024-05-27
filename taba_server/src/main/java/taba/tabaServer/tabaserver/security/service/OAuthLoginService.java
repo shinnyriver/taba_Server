@@ -23,17 +23,21 @@ public class OAuthLoginService {
      * 3. Access Token 생성 후 내려주기
      */
     //로그인 하기
+    // 로그인 하기
     public AuthTokens login(OAuthLoginParams params) {
         OAuthInfoResponse oAuthInfoResponse = requestOAuthInfoService.request(params);
+        /**
+         * subject인 email로 사용자 정보찾기
+         */
+        String email = oAuthInfoResponse.getEmail();
         Long memberId = findOrCreateMember(oAuthInfoResponse);
         //토큰 생성
-        AuthTokens tokens= authTokensGenerator.generate(memberId);
+        AuthTokens tokens= authTokensGenerator.generate(email);
         // 로그 추가
         System.out.println("Generated Tokens: " + tokens);
 
         return tokens;
     }
-
     //사용자 id 찾기
     private Long findOrCreateMember(OAuthInfoResponse oAuthInfoResponse) {
         return memberRepository.findByEmail(oAuthInfoResponse.getEmail())

@@ -22,14 +22,18 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + username));
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " +  email));
 
         // 권한 설정, 여기서는 모든 사용자를 "USER" 권한을 가지게 설정
-        return new org.springframework.security.core.userdetails.User(
+        /**
+         * CustomUserDetails로 변경
+         */
+        return new CustomUserDetails(
                 user.getEmail(),
-                user.getPassword(),
-                Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));
+                user.getPassword(), // 비밀번호가 없을 경우 null이 될 수 있음
+                Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"))
+        );
     }
 }
