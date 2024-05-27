@@ -26,9 +26,10 @@ public class ManagerController {
 
     @PostMapping("/login")
     public ResponseDto<?> login(@RequestBody ManagerLoginDto managerLoginDto){
-        String token = managerService.login(managerLoginDto);
+        String token = managerService.login(managerLoginDto).jwt();
         if(token != null){
-            return ResponseDto.ok(new AuthenticationResponse(token));
+            AuthenticationResponse authenticationResponse = new AuthenticationResponse(token);
+            return ResponseDto.ok(managerService.login(managerLoginDto));
         } else {
             return ResponseDto.fail(new CommonException(ErrorCode.LOGIN_FAILURE));
         }

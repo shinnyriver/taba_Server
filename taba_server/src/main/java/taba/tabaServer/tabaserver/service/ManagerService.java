@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import taba.tabaServer.tabaserver.component.JwtTokenService;
 import taba.tabaServer.tabaserver.domain.Manager;
 import taba.tabaServer.tabaserver.dto.managerdto.CreateManagerDto;
+import taba.tabaServer.tabaserver.dto.managerdto.JwtResponseDto;
 import taba.tabaServer.tabaserver.dto.managerdto.ManagerLoginDto;
 import taba.tabaServer.tabaserver.dto.managerdto.ResponseManagerDto;
 import taba.tabaServer.tabaserver.repository.ManagerRepository;
@@ -35,11 +36,19 @@ public class ManagerService {
                 .build();
     }
 
-    public String login(ManagerLoginDto managerLoginDto){
+    public JwtResponseDto login(ManagerLoginDto managerLoginDto){
         Manager manager = managerRepository.findByLoginId(managerLoginDto.loginId());
         if (manager != null && passwordEncoder.matches(managerLoginDto.password(), manager.getPassword())) {
-            return jwtTokenService.generateToken(manager.getLoginId());
+            String jwt = jwtTokenService.generateToken(manager.getLoginId());
+            return JwtResponseDto.builder()
+                    .jwt(jwt)
+                    .name(manager.getName())
+                    .build();
         }
-        return null;
+
+        return JwtResponseDto.builder()
+                .jwt(null)
+                .name(null)
+                .build();
     }
 }

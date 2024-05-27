@@ -18,13 +18,16 @@ public class AuthTokensGenerator {
 
     private final JwtTokenService jwtTokenService;
 
-    //memberId (사용자 식별값) 을 받아 Access Token 을 생성
-    public AuthTokens generate(Long memberId) {
+    //user email(사용자 식별값) 을 받아 Access Token 을 생성
+    /**
+     * user jwt subject: email(oauth2에서 사용자 식별자인 email로 검증)
+     */
+    public AuthTokens generate(String email) {
         long now = (new Date()).getTime();
         Date accessTokenExpiredAt = new Date(now + ACCESS_TOKEN_EXPIRE_TIME);
         Date refreshTokenExpiredAt = new Date(now + REFRESH_TOKEN_EXPIRE_TIME);
 
-        String subject = memberId.toString();
+        String subject = email; //이메일을 subject로 사용
         String accessToken = jwtTokenService.generate(subject, accessTokenExpiredAt);
         String refreshToken = jwtTokenService.generate(subject, refreshTokenExpiredAt);
 
@@ -34,8 +37,11 @@ public class AuthTokensGenerator {
 
         return AuthTokens.of(accessToken, refreshToken, BEARER_TYPE, ACCESS_TOKEN_EXPIRE_TIME / 1000L);
     }
-    //Access Token 에서 memberId (사용자 식별값) 추출
-    public Long extractMemberId(String accessToken) {
-        return Long.valueOf(jwtTokenService.extractSubject(accessToken));
+
+    /**
+     *     AccessToken 에서 userEmail (사용자 식별값) 추출
+     */
+    public String extractUserEmail(String accessToken) {
+        return jwtTokenService.extractUserEmail(accessToken);
     }
 }
