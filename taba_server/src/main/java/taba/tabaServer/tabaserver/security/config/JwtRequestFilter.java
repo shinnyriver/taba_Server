@@ -1,6 +1,5 @@
 package taba.tabaServer.tabaserver.security.config;
 
-import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
