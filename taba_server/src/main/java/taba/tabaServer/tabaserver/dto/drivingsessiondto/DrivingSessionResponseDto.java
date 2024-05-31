@@ -18,7 +18,8 @@ public record DrivingSessionResponseDto(
         @JsonProperty("start_time") LocalTime startTime,
         @JsonProperty("end_date") LocalDate endDate,
         @JsonProperty("end_time") LocalTime endTime,
-        @JsonProperty("errorTime") LocalDateTime errorTime,
+        //스네이크 케이스로 전환(errorTime -> error_time)
+        @JsonProperty("error_time") LocalDateTime errorTime,
         @JsonProperty("drivingStatus") DrivingStatus drivingStatus,
         @JsonProperty("errorStatus")ErrorStatus errorStatus
         ) implements Serializable {
