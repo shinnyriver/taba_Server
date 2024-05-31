@@ -42,6 +42,7 @@ public class SensorData {
 
     @Builder
     public SensorData(
+            final Long id,
             final DrivingSession drivingSession,
             final double brakePressure,
             final double accelPressure,
@@ -49,6 +50,7 @@ public class SensorData {
             final String latitude,
             final String longitude
     ) {
+        this.id=id;
         this.drivingSession = drivingSession;
         this.timestamp = LocalDateTime.now();
         this.brakePressure = brakePressure;
