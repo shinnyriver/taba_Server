@@ -55,6 +55,7 @@ public class DrivingSessionService {
         drivingSessionRepository.save(drivingSession);
 
         return DrivingSessionResponseDto.of(
+                drivingSession.getId(),
                 drivingSession.getUser().getId(),
                 drivingSession.getCar().getCarId(),
                 drivingSession.getStartDate(),
@@ -73,6 +74,7 @@ public class DrivingSessionService {
                 .orElseThrow(()-> new CommonException(ErrorCode.NOT_FOUND_DRIVING_SESSION));
 
         return DrivingSessionResponseDto.of(
+                drivingSession.getId(),
                 drivingSession.getUser().getId(),
                 drivingSession.getCar().getCarId(),
                 drivingSession.getStartDate(),
@@ -94,6 +96,7 @@ public class DrivingSessionService {
         drivingSessionRepository.save(drivingSession);
 
         return DrivingSessionResponseDto.of(
+                drivingSession.getId(),
                 drivingSession.getUser().getId(),
                 drivingSession.getCar().getCarId(),
                 drivingSession.getStartDate(),
@@ -116,6 +119,7 @@ public class DrivingSessionService {
         drivingSessionRepository.save(drivingSession);
 
         return DrivingSessionResponseDto.of(
+                drivingSession.getId(),
                 drivingSession.getUser().getId(),
                 drivingSession.getCar().getCarId(),
                 drivingSession.getStartDate(),
@@ -138,6 +142,7 @@ public class DrivingSessionService {
     public List<DrivingSessionResponseDto> getAllDrivingSessionByUserId(Long userId){
         return drivingSessionRepository.findDrivingSessionByUserId(userId).stream()
                 .map(drivingsession -> DrivingSessionResponseDto.of(
+                        drivingsession.getId(),
                         drivingsession.getUser().getId(),
                         drivingsession.getCar().getCarId(),
                         drivingsession.getStartDate(),
@@ -154,6 +159,7 @@ public class DrivingSessionService {
     public List<DrivingSessionResponseDto> findAllByErrorStatus(ErrorStatus errorStatus){
         return drivingSessionRepository.findAllByErrorStatus(errorStatus).stream()
                 .map(drivingsession -> DrivingSessionResponseDto.of(
+                        drivingsession.getId(),
                         drivingsession.getUser().getId(),
                         drivingsession.getCar().getCarId(),
                         drivingsession.getStartDate(),
