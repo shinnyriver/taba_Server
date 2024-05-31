@@ -87,9 +87,6 @@ public class CarService {
             Car findCar = carRepository.findById(id)
                     .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_CAR));
 
-            User findUser = userRepository.findById(findCar.getCarId())
-                    .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_USER));
-
             byte[] photoBytes = Base64.getDecoder().decode(carUpdateDto.photo());
 
             findCar.updateCar(
