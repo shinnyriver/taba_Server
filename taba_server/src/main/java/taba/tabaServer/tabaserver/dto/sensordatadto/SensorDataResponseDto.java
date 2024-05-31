@@ -2,6 +2,7 @@ package taba.tabaServer.tabaserver.dto.sensordatadto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
+import taba.tabaServer.tabaserver.enums.ErrorStatus;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -14,7 +15,8 @@ public record SensorDataResponseDto(
         @JsonProperty("accelPressure") double accelPressure,
         @JsonProperty("speed") double speed,
         @JsonProperty("latitude") String latitude,
-        @JsonProperty("longitude") String longitude
+        @JsonProperty("longitude") String longitude,
+        @JsonProperty("error_status") ErrorStatus errorStatus
 ) implements Serializable {
     public static SensorDataResponseDto of(
             final Long drivingSessionId,
@@ -23,7 +25,8 @@ public record SensorDataResponseDto(
             final double accelPressure,
             final double speed,
             final String latitude,
-            final String longitude
+            final String longitude,
+            final ErrorStatus errorStatus
     ) {
         return SensorDataResponseDto.builder()
                 .drivingSessionId(drivingSessionId)
@@ -33,6 +36,7 @@ public record SensorDataResponseDto(
                 .speed(speed)
                 .latitude(latitude)
                 .longitude(longitude)
+                .errorStatus(errorStatus)
                 .build();
     }
 }
