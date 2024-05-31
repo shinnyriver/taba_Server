@@ -54,6 +54,7 @@ public class SensorDataService {
                 .speed(save.getSpeed())
                 .latitude(save.getLatitude())
                 .longitude(save.getLongitude())
+                .errorStatus(drivingSession.getErrorStatus())
                 .build();
     }
 
@@ -80,7 +81,8 @@ public class SensorDataService {
                         sensorData.getAccelPressure(),
                         sensorData.getSpeed(),
                         sensorData.getLatitude(),
-                        sensorData.getLongitude()
+                        sensorData.getLongitude(),
+                        sensorData.getDrivingSession().getErrorStatus()
                 )).collect(Collectors.toList());
     }
 
