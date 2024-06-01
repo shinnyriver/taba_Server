@@ -6,6 +6,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import taba.tabaServer.tabaserver.enums.UserActiveStatus;
 
 import java.time.LocalDateTime;
 
@@ -51,6 +52,10 @@ public class User {
     @Column(name="withdraw_at", nullable = true)
     private LocalDateTime withdrawAt;
 
+    @Column(name="active_status", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private UserActiveStatus userActiveStatus;
+
     @Builder
     public User(
             final String name,
@@ -60,7 +65,8 @@ public class User {
             final String birthday,
             final String birthyear,
             final String mobile,
-            final OAuthProvider oauthProvider
+            final OAuthProvider oauthProvider,
+            final UserActiveStatus userActiveStatus
     ) {
         this.name=name;
         this.email = email;
@@ -70,11 +76,14 @@ public class User {
         this.birthyear = birthyear;
         this.createdAt = LocalDateTime.now();
         this.mobile=mobile;
-        this.name=name;
         this.oauthProvider=oauthProvider;
+        this.userActiveStatus=UserActiveStatus.ACTIVE;
     }
 
-    public void withdraw(Long id){
+    public void withdraw(){
+        this.name = null;
+        this.password = null;
         this.withdrawAt = LocalDateTime.now();
+        this.userActiveStatus=UserActiveStatus.WITHDRAW;
     }
 }
