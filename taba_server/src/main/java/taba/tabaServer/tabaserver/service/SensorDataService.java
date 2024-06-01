@@ -48,9 +48,11 @@ public class SensorDataService {
         );
 
         return SensorDataResponseDto.builder()
+                .sensorId(save.getId())
                 .drivingSessionId(save.getDrivingSession().getId())
                 .brakePressure(save.getBrakePressure())
                 .accelPressure(save.getAccelPressure())
+                .timeStamp(save.getTimestamp())
                 .speed(save.getSpeed())
                 .latitude(save.getLatitude())
                 .longitude(save.getLongitude())
@@ -75,6 +77,7 @@ public class SensorDataService {
     public List<SensorDataResponseDto> getAllSensorDataByDrivingSessionId(Long id){
         return sensorDataRepository.findSensorDataByDrivingSessionId(id).stream()
                 .map(sensorData -> SensorDataResponseDto.of(
+                        sensorData.getId(),
                         sensorData.getDrivingSession().getId(),
                         sensorData.getTimestamp(),
                         sensorData.getBrakePressure(),

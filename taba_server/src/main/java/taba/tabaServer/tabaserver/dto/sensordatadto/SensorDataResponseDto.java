@@ -9,7 +9,8 @@ import java.time.LocalDateTime;
 
 @Builder
 public record SensorDataResponseDto(
-        @JsonProperty("drivingSessionId") Long drivingSessionId,
+        @JsonProperty("sensor_id") Long sensorId,
+        @JsonProperty("driving_session_id") Long drivingSessionId,
         @JsonProperty("timeStamp")LocalDateTime timeStamp,
         @JsonProperty("brakePressure") double brakePressure,
         @JsonProperty("accelPressure") double accelPressure,
@@ -19,6 +20,7 @@ public record SensorDataResponseDto(
         @JsonProperty("error_status") ErrorStatus errorStatus
 ) implements Serializable {
     public static SensorDataResponseDto of(
+            final Long sensorId,
             final Long drivingSessionId,
             final LocalDateTime timeStamp,
             final double brakePressure,
@@ -29,6 +31,7 @@ public record SensorDataResponseDto(
             final ErrorStatus errorStatus
     ) {
         return SensorDataResponseDto.builder()
+                .sensorId(sensorId)
                 .drivingSessionId(drivingSessionId)
                 .timeStamp(timeStamp)
                 .brakePressure(brakePressure)

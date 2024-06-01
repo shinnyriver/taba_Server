@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Builder
 public record SensorDataRequestDto(
-        @JsonProperty("drivingSessionId") Long drivingSessionId,
+        @JsonProperty("driving_session_id") Long drivingSessionId,
         @JsonProperty("brakePressure") double brakePressure,
         @JsonProperty("accelPressure") double accelPressure,
         @JsonProperty("speed") double speed,
