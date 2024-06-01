@@ -16,6 +16,7 @@ import taba.tabaServer.tabaserver.repository.DrivingSessionRepository;
 import taba.tabaServer.tabaserver.repository.UserRepository;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,9 +35,18 @@ public class DrivingSessionService {
                 .orElseThrow(()-> new CommonException(ErrorCode.NOT_FOUND_USER));
         Car currentCar = carRepository.findById(drivingSessionRequestDto.carId())
                 .orElseThrow(()-> new CommonException(ErrorCode.NOT_FOUND_CAR));
+
+        /**
+         * 데이터 무결성 방지(운전 시작의 시각 및 날짜가 nullable로 설정)
+         */
+        LocalDate today = LocalDate.now(); // 오늘 날짜
+        LocalTime now = LocalTime.now(); // 현재 시간
+
         DrivingSession drivingSession = DrivingSession.builder()
                 .user(currentUser)
                 .car(currentCar)
+                .startDate(today)
+                .startTime(now)
                 .drivingStatus(drivingSessionRequestDto.drivingStatus())
                 .errorStatus(ErrorStatus.NORMAL)
                 .build();
