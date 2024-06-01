@@ -43,4 +43,8 @@ public class Manager {
         this.name = name;
         this.managerType = managerType;
     }
+
+    public void updatePassword(String password){
+        this.password = password;
+    }
 }

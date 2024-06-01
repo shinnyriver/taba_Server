@@ -62,4 +62,9 @@ public class DrivingSessionController {
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
         return ResponseDto.ok(drivingSessionService.getSessionsBetweenDates(startDate, endDate));
     }
+
+    @GetMapping("error/list")
+    public ResponseDto<?> getErrorList(){
+        return ResponseDto.ok(drivingSessionService.getErrorList());
+    }
 }
