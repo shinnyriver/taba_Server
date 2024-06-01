@@ -26,7 +26,7 @@ public class User {
     @Column(name="name")
     private String name;
 
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(name = "email", nullable = true, unique = true)
     private String email;
 
     //Ouath2 기능을 위해 nullable=true로 설정
@@ -81,8 +81,9 @@ public class User {
     }
 
     public void withdraw(){
-        this.name = null;
-        this.password = null;
+        this.name = "withdraw";
+        this.password = "0000";
+        this.email = null;
         this.withdrawAt = LocalDateTime.now();
         this.userActiveStatus=UserActiveStatus.WITHDRAW;
     }
