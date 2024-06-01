@@ -5,11 +5,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import taba.tabaServer.tabaserver.component.JwtTokenService;
 import taba.tabaServer.tabaserver.domain.Manager;
-import taba.tabaServer.tabaserver.dto.managerdto.CreateManagerDto;
-import taba.tabaServer.tabaserver.dto.managerdto.JwtResponseDto;
-import taba.tabaServer.tabaserver.dto.managerdto.ManagerLoginDto;
-import taba.tabaServer.tabaserver.dto.managerdto.ResponseManagerDto;
+import taba.tabaServer.tabaserver.dto.managerdto.*;
+import taba.tabaServer.tabaserver.exception.CommonException;
+import taba.tabaServer.tabaserver.exception.ErrorCode;
 import taba.tabaServer.tabaserver.repository.ManagerRepository;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -37,7 +38,8 @@ public class ManagerService {
     }
 
     public JwtResponseDto login(ManagerLoginDto managerLoginDto){
-        Manager manager = managerRepository.findByLoginId(managerLoginDto.loginId());
+        Manager manager = managerRepository.findByLoginId(managerLoginDto.loginId())
+                .orElseThrow(()-> new CommonException(ErrorCode.NOT_FOUND_MANAGER));
         if (manager != null && passwordEncoder.matches(managerLoginDto.password(), manager.getPassword())) {
             String jwt = jwtTokenService.generateToken(manager.getLoginId());
             return JwtResponseDto.builder()
@@ -50,5 +52,13 @@ public class ManagerService {
                 .jwt(null)
                 .name(null)
                 .build();
+    }
+
+    public Boolean updatePassword(UpdateManagerDto updateManagerDto){
+        String encodedPassword = passwordEncoder.encode(updateManagerDto.password());
+        Manager manager = managerRepository.findByLoginId(updateManagerDto.id())
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_MANAGER));
+        manager.updatePassword(encodedPassword);
+        return Boolean.TRUE;
     }
 }

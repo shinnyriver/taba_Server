@@ -9,6 +9,7 @@ import taba.tabaServer.tabaserver.dto.global.AuthenticationResponse;
 import taba.tabaServer.tabaserver.dto.global.ResponseDto;
 import taba.tabaServer.tabaserver.dto.managerdto.CreateManagerDto;
 import taba.tabaServer.tabaserver.dto.managerdto.ManagerLoginDto;
+import taba.tabaServer.tabaserver.dto.managerdto.UpdateManagerDto;
 import taba.tabaServer.tabaserver.exception.CommonException;
 import taba.tabaServer.tabaserver.exception.ErrorCode;
 import taba.tabaServer.tabaserver.service.ManagerService;
@@ -33,5 +34,10 @@ public class ManagerController {
         } else {
             return ResponseDto.fail(new CommonException(ErrorCode.LOGIN_FAILURE));
         }
+    }
+
+    @PostMapping("/update")
+    public ResponseDto<?> updatePassword(@RequestBody UpdateManagerDto updateManagerDto){
+        return ResponseDto.ok(managerService.updatePassword(updateManagerDto));
     }
 }

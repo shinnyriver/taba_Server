@@ -7,10 +7,7 @@ import taba.tabaServer.tabaserver.domain.Car;
 import taba.tabaServer.tabaserver.domain.DrivingSession;
 import taba.tabaServer.tabaserver.domain.User;
 import taba.tabaServer.tabaserver.dto.calibrationdto.CalibrationResponseDto;
-import taba.tabaServer.tabaserver.dto.drivingsessiondto.DrivingSessionErrorOccuredDto;
-import taba.tabaServer.tabaserver.dto.drivingsessiondto.DrivingSessionRequestDto;
-import taba.tabaServer.tabaserver.dto.drivingsessiondto.DrivingSessionResponseDto;
-import taba.tabaServer.tabaserver.dto.drivingsessiondto.DrivingSessionUpdateDto;
+import taba.tabaServer.tabaserver.dto.drivingsessiondto.*;
 import taba.tabaServer.tabaserver.enums.ErrorStatus;
 import taba.tabaServer.tabaserver.exception.CommonException;
 import taba.tabaServer.tabaserver.exception.ErrorCode;
@@ -19,7 +16,7 @@ import taba.tabaServer.tabaserver.repository.DrivingSessionRepository;
 import taba.tabaServer.tabaserver.repository.UserRepository;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,17 +34,9 @@ public class DrivingSessionService {
                 .orElseThrow(()-> new CommonException(ErrorCode.NOT_FOUND_USER));
         Car currentCar = carRepository.findById(drivingSessionRequestDto.carId())
                 .orElseThrow(()-> new CommonException(ErrorCode.NOT_FOUND_CAR));
-        /**
-         * 데이터 무결성 방지(운전 시작의 시각 및 날짜가 nullable로 설정)
-         */
-        LocalDate today = LocalDate.now(); // 오늘 날짜
-        LocalTime now = LocalTime.now(); // 현재 시간
-
         DrivingSession drivingSession = DrivingSession.builder()
                 .user(currentUser)
                 .car(currentCar)
-                .startDate(today)
-                .startTime(now)
                 .drivingStatus(drivingSessionRequestDto.drivingStatus())
                 .errorStatus(ErrorStatus.NORMAL)
                 .build();
@@ -115,7 +104,7 @@ public class DrivingSessionService {
         DrivingSession drivingSession = drivingSessionRepository.findById(id)
                 .orElseThrow(()-> new CommonException(ErrorCode.NOT_FOUND_DRIVING_SESSION));
 
-        drivingSession.errorOccurred(drivingSessionErrorOccuredDto.errorStatus());
+        drivingSession.errorOccurred(drivingSessionErrorOccuredDto);
         drivingSessionRepository.save(drivingSession);
 
         return DrivingSessionResponseDto.of(
@@ -176,4 +165,18 @@ public class DrivingSessionService {
     public List<DrivingSession> getSessionsBetweenDates(LocalDate start, LocalDate end) {
         return drivingSessionRepository.findAllByStartDateBetween(start, end);
     }
+
+    public List<ErrorListResponseDto> getErrorList(){
+        List<ErrorStatus> statuses = Arrays.asList(ErrorStatus.ERROR, ErrorStatus.SOLVE);
+        return drivingSessionRepository.findAllByErrorStatusIn(statuses).stream()
+                .map(drivingsession -> ErrorListResponseDto.of(
+                        drivingsession.getId(),
+                        drivingsession.getCar().getCarSize(),
+                        drivingsession.getCar().getCarNumber(),
+                        drivingsession.getErrorLatitude(),
+                        drivingsession.getErrorLongitude(),
+                        drivingsession.getErrorStatus()
+                )).collect(Collectors.toList());
+    }
+
 }
