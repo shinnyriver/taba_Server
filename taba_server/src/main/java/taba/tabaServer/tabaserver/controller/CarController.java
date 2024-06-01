@@ -39,4 +39,19 @@ public class CarController {
     public ResponseDto<?> getAllCarsByuser(@PathVariable Long userId){
         return ResponseDto.ok(carService.getAllCarByUser(userId));
     }
+
+    @GetMapping("/manager/list")
+    public ResponseDto<?> getAllCarsForManager(){
+        return ResponseDto.ok(carService.getCarListForManager());
+    }
+
+    @GetMapping("/carnumber/{carNumber}")
+    public ResponseDto<?> getCarByCarNumber(@PathVariable String carNumber){
+        return ResponseDto.ok(carService.getCarByCarNumber(carNumber));
+    }
+
+    @GetMapping("/statistics/carsize")
+    public ResponseDto<?> getStatisticsByCarSize(){
+        return ResponseDto.ok(carService.countCarByCarSize());
+    }
 }

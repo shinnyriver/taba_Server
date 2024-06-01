@@ -17,6 +17,7 @@ import taba.tabaServer.tabaserver.security.config.SecurityConfig;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,7 +41,9 @@ public class UserService {
 
     @Transactional
     public Boolean deleteUser(Long id) {
-        userRepository.deleteById(id);
+        User user = userRepository.findById(id)
+                .orElseThrow(()->new CommonException(ErrorCode.NOT_FOUND_USER));
+        user.withdraw();
         return Boolean.TRUE;
     }
 
