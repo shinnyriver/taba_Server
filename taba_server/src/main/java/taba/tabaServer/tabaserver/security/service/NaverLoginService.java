@@ -25,7 +25,7 @@ public class NaverLoginService {
          */
         String email = naverInfo.getResponse().getEmail();
         //사용자 중복 검증 및 회원가입
-        Long memberId = findOrCreateMember(naverInfo);
+        Long userId = findOrCreateMember(naverInfo);
         return authTokensGenerator.generate(email);
     }
 
@@ -59,6 +59,7 @@ public class NaverLoginService {
                 .birthyear(oAuthInfoResponse.getBirthyear())
                 .birthday(oAuthInfoResponse.getBirthday())
                 .mobile(oAuthInfoResponse.getMobile())
+                .userActiveStatus(oAuthInfoResponse.getUserActiveStatus())
                 .build();
 
         return userRepository.save(user).getId();

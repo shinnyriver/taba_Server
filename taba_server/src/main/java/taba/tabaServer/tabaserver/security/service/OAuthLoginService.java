@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class OAuthLoginService {
-    private final UserRepository memberRepository;
+    private final UserRepository userRepository;
     private final AuthTokensGenerator authTokensGenerator;
     private final RequestOAuthInfoService requestOAuthInfoService;
 
@@ -30,7 +30,7 @@ public class OAuthLoginService {
          * subject인 email로 사용자 정보찾기
          */
         String email = oAuthInfoResponse.getEmail();
-        Long memberId = findOrCreateMember(oAuthInfoResponse);
+        Long userId = findOrCreateMember(oAuthInfoResponse);
         //토큰 생성
         AuthTokens tokens= authTokensGenerator.generate(email);
         // 로그 추가
@@ -40,7 +40,7 @@ public class OAuthLoginService {
     }
     //사용자 id 찾기
     private Long findOrCreateMember(OAuthInfoResponse oAuthInfoResponse) {
-        return memberRepository.findByEmail(oAuthInfoResponse.getEmail())
+        return userRepository.findByEmail(oAuthInfoResponse.getEmail())
                 .map(User::getId)
                 .orElseGet(() -> newMember(oAuthInfoResponse));
     }
@@ -55,8 +55,9 @@ public class OAuthLoginService {
                 .birthyear(oAuthInfoResponse.getBirthyear())
                 .birthday(oAuthInfoResponse.getBirthday())
                 .mobile(oAuthInfoResponse.getMobile())
+                .userActiveStatus(oAuthInfoResponse.getUserActiveStatus())
                 .build();
 
-        return memberRepository.save(user).getId();
+        return userRepository.save(user).getId();
     }
 }
