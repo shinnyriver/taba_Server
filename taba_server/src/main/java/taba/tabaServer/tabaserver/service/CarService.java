@@ -5,10 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import taba.tabaServer.tabaserver.domain.Car;
 import taba.tabaServer.tabaserver.domain.User;
-import taba.tabaServer.tabaserver.dto.cardto.CarDto;
-import taba.tabaServer.tabaserver.dto.cardto.CarListResponseDto;
-import taba.tabaServer.tabaserver.dto.cardto.CarResponseDto;
-import taba.tabaServer.tabaserver.dto.cardto.CarUpdateDto;
+import taba.tabaServer.tabaserver.dto.cardto.*;
+import taba.tabaServer.tabaserver.enums.CarSize;
 import taba.tabaServer.tabaserver.exception.CommonException;
 import taba.tabaServer.tabaserver.exception.ErrorCode;
 import taba.tabaServer.tabaserver.repository.CarRepository;
@@ -169,5 +167,14 @@ public class CarService {
                 findCar.getPurchaseDate(),
                 findCar.getDrivingScore()
         );
+    }
+
+    @Transactional
+    public CarSizeDto countCarByCarSize(){
+        Long small = carRepository.countByCarSize(CarSize.SMALL);
+        Long medium = carRepository.countByCarSize(CarSize.MEDIUM);
+        Long large = carRepository.countByCarSize(CarSize.LARGE);
+
+        return CarSizeDto.of(small, medium, large);
     }
 }

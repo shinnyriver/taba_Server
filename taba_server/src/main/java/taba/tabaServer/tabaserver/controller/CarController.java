@@ -49,4 +49,9 @@ public class CarController {
     public ResponseDto<?> getCarByCarNumber(@PathVariable String carNumber){
         return ResponseDto.ok(carService.getCarByCarNumber(carNumber));
     }
+
+    @GetMapping("/statistics/carsize")
+    public ResponseDto<?> getStatisticsByCarSize(){
+        return ResponseDto.ok(carService.countCarByCarSize());
+    }
 }

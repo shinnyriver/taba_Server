@@ -12,4 +12,5 @@ public interface DrivingSessionRepository extends JpaRepository<DrivingSession, 
     List<DrivingSession> findDrivingSessionByUserId(Long userId);
     List<DrivingSession> findAllByErrorStatus(ErrorStatus errorStatus);
     List<DrivingSession> findAllByStartDateBetween(LocalDate start, LocalDate end);
+    List<DrivingSession> findAllByErrorStatusIn(List<ErrorStatus> errorStatuses);
 }

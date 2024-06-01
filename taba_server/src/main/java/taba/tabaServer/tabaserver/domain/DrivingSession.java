@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import taba.tabaServer.tabaserver.dto.drivingsessiondto.DrivingSessionErrorOccuredDto;
 import taba.tabaServer.tabaserver.enums.DrivingStatus;
 import taba.tabaServer.tabaserver.enums.ErrorStatus;
 
@@ -53,6 +54,12 @@ public class DrivingSession {
     @Enumerated(EnumType.STRING)
     private ErrorStatus errorStatus;
 
+    @Column(name = "error_latitude",nullable = true)
+    private String errorLatitude;
+
+    @Column(name = "error_longitude", nullable = true)
+    private String errorLongitude;
+
     @Builder
     public DrivingSession(
             final User user,
@@ -70,9 +77,11 @@ public class DrivingSession {
         this.errorStatus = errorStatus;
     }
 
-    public void errorOccurred(ErrorStatus errorStatus) {
-        this.errorStatus = errorStatus;
+    public void errorOccurred(DrivingSessionErrorOccuredDto drivingSessionErrorOccuredDto) {
+        this.errorStatus = drivingSessionErrorOccuredDto.errorStatus();
         this.errorTime = LocalDateTime.now();
+        this.errorLatitude = drivingSessionErrorOccuredDto.latitude();
+        this.errorLongitude = drivingSessionErrorOccuredDto.longitude();
     }
 
     public void endSession(DrivingStatus drivingStatus) {
