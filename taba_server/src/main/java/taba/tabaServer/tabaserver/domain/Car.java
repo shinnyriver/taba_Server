@@ -1,6 +1,5 @@
 package taba.tabaServer.tabaserver.domain;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
