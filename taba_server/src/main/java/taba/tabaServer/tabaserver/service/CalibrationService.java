@@ -7,7 +7,6 @@ import taba.tabaServer.tabaserver.domain.Calibration;
 import taba.tabaServer.tabaserver.domain.Car;
 import taba.tabaServer.tabaserver.dto.calibrationdto.CalibrationDto;
 import taba.tabaServer.tabaserver.dto.calibrationdto.CalibrationResponseDto;
-import taba.tabaServer.tabaserver.enums.SensorType;
 import taba.tabaServer.tabaserver.exception.CommonException;
 import taba.tabaServer.tabaserver.exception.ErrorCode;
 import taba.tabaServer.tabaserver.repository.CalibrationRepository;
