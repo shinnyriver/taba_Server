@@ -89,7 +89,8 @@ public class SensorDataService {
                                         ErrorStatus.ERROR,
                                         sensorData.getLatitude(),
                                         sensorData.getLongitude()
-                                ));
+                                )
+                        );
                     }
                 });
     }
