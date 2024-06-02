@@ -3,6 +3,7 @@ package taba.tabaServer.tabaserver.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import taba.tabaServer.tabaserver.component.JwtTokenService;
 import taba.tabaServer.tabaserver.domain.Manager;
 import taba.tabaServer.tabaserver.dto.managerdto.*;
@@ -10,7 +11,6 @@ import taba.tabaServer.tabaserver.exception.CommonException;
 import taba.tabaServer.tabaserver.exception.ErrorCode;
 import taba.tabaServer.tabaserver.repository.ManagerRepository;
 
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +20,7 @@ public class ManagerService {
     private final JwtTokenService jwtTokenService;
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
+    @Transactional
     public ResponseManagerDto createManager(CreateManagerDto createManagerDto){
         String encodedPassword = passwordEncoder.encode(createManagerDto.password());
         Manager save = managerRepository.save(Manager.builder()
@@ -27,7 +28,7 @@ public class ManagerService {
                         .password(encodedPassword)
                         .name(createManagerDto.name())
                         .managerType(createManagerDto.managerType())
-                .build()
+                        .build()
         );
 
         return ResponseManagerDto.builder()
@@ -54,6 +55,7 @@ public class ManagerService {
                 .build();
     }
 
+    @Transactional
     public Boolean updatePassword(UpdateManagerDto updateManagerDto){
         String encodedPassword = passwordEncoder.encode(updateManagerDto.password());
         Manager manager = managerRepository.findByLoginId(updateManagerDto.id())

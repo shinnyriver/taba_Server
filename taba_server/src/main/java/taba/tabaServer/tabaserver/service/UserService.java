@@ -1,23 +1,17 @@
 package taba.tabaServer.tabaserver.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import taba.tabaServer.tabaserver.domain.User;
-import taba.tabaServer.tabaserver.dto.userdto.CreateUserDto;
-import taba.tabaServer.tabaserver.dto.userdto.UpdateUserDto;
 import taba.tabaServer.tabaserver.dto.userdto.UserResponseDto;
 import taba.tabaServer.tabaserver.dto.userdto.UserStatisticsDto;
 import taba.tabaServer.tabaserver.exception.CommonException;
 import taba.tabaServer.tabaserver.exception.ErrorCode;
 import taba.tabaServer.tabaserver.repository.UserRepository;
-import taba.tabaServer.tabaserver.security.config.SecurityConfig;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service

@@ -10,7 +10,6 @@ import taba.tabaServer.tabaserver.domain.Car;
 import taba.tabaServer.tabaserver.domain.DrivingSession;
 import taba.tabaServer.tabaserver.domain.User;
 import taba.tabaServer.tabaserver.dto.aidto.FlaskDrivingSessionDto;
-import taba.tabaServer.tabaserver.dto.calibrationdto.CalibrationResponseDto;
 import taba.tabaServer.tabaserver.dto.drivingsessiondto.*;
 import taba.tabaServer.tabaserver.enums.ErrorStatus;
 import taba.tabaServer.tabaserver.enums.SensorType;
@@ -25,7 +24,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -66,6 +64,9 @@ public class DrivingSessionService {
         Calibration brakeCalibration = calibrationRepository.findByCar_CarIdAndSensorType(currentCar.getCarId(), SensorType.BRAKE)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_CALIBRATION));
 
+
+        drivingSessionRepository.save(drivingSession);
+
         sendDrivingSessionToFlask(FlaskDrivingSessionDto.of(
                 currentCar.getCarId(),
                 accelCalibration.getSensorType(),
@@ -77,8 +78,6 @@ public class DrivingSessionService {
                 brakeCalibration.getSensorType(),
                 brakeCalibration.getPressureMax()
         ));
-
-        drivingSessionRepository.save(drivingSession);
 
         return DrivingSessionResponseDto.of(
                 drivingSession.getId(),
@@ -208,10 +207,12 @@ public class DrivingSessionService {
 
     }
 
+    @Transactional
     public List<DrivingSession> getSessionsBetweenDates(LocalDate start, LocalDate end) {
         return drivingSessionRepository.findAllByStartDateBetween(start, end);
     }
 
+    @Transactional
     public List<ErrorListResponseDto> getErrorList(){
         List<ErrorStatus> statuses = Arrays.asList(ErrorStatus.ERROR, ErrorStatus.SOLVE);
         return drivingSessionRepository.findAllByErrorStatusIn(statuses).stream()
