@@ -6,7 +6,6 @@ import taba.tabaServer.tabaserver.config.AuthTokens;
 import taba.tabaServer.tabaserver.config.infra.kakao.KakaoLoginParams;
 
 import taba.tabaServer.tabaserver.config.infra.naver.NaverUserDto;
-import taba.tabaServer.tabaserver.dto.global.ResponseDto;
 import taba.tabaServer.tabaserver.security.service.NaverLoginService;
 import taba.tabaServer.tabaserver.security.service.OAuthLoginService;
 import lombok.RequiredArgsConstructor;
