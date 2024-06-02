@@ -208,10 +208,12 @@ public class DrivingSessionService {
 
     }
 
+    @Transactional
     public List<DrivingSession> getSessionsBetweenDates(LocalDate start, LocalDate end) {
         return drivingSessionRepository.findAllByStartDateBetween(start, end);
     }
 
+    @Transactional
     public List<ErrorListResponseDto> getErrorList(){
         List<ErrorStatus> statuses = Arrays.asList(ErrorStatus.ERROR, ErrorStatus.SOLVE);
         return drivingSessionRepository.findAllByErrorStatusIn(statuses).stream()

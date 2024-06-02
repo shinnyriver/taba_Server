@@ -1,7 +1,9 @@
 package taba.tabaServer.tabaserver.controller;
 
+import io.jsonwebtoken.io.IOException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import taba.tabaServer.tabaserver.dto.global.ResponseDto;
@@ -40,18 +42,23 @@ public class SensorDataController {
         return ResponseDto.ok(sensorDataService.deleteSensorDataByDrivingSessionId(id));
     }
 
-    @GetMapping("/session/{sessionId}/csv") //특정 drivingsession id를 통한 csv 전송
-    public ResponseEntity<ByteArrayInputStream> downloadSessionData(@PathVariable Long sessionId){
-        ByteArrayInputStream stream = sensorDataService.getSensorDataAsCsvForSession(sessionId);
-        if(stream == null){
-            return ResponseEntity.notFound().build();
-        } else {
-            HttpHeaders headers = new HttpHeaders();
-            headers.add("Content-Disposition",
-                    "attachment; filename=session_" + sessionId + "_data.csv");
-            return ResponseEntity.ok()
-                    .headers(headers)
-                    .body(stream);
+    @GetMapping("/csv/{sessionId}")
+    public ResponseEntity<byte[]> getSensorDataAsCsvForSession(@PathVariable Long sessionId) {
+        ByteArrayInputStream byteArrayInputStream = sensorDataService.getSensorDataAsCsvForSession(sessionId);
+
+        if (byteArrayInputStream == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "attachment; filename=sensordata.csv");
+        headers.add("Content-Type", "text/csv");
+
+        try {
+            byte[] csvData = byteArrayInputStream.readAllBytes();
+            return new ResponseEntity<>(csvData, headers, HttpStatus.OK);
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 }
