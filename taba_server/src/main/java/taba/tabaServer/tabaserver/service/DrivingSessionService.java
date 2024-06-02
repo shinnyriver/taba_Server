@@ -10,7 +10,6 @@ import taba.tabaServer.tabaserver.domain.Car;
 import taba.tabaServer.tabaserver.domain.DrivingSession;
 import taba.tabaServer.tabaserver.domain.User;
 import taba.tabaServer.tabaserver.dto.aidto.FlaskDrivingSessionDto;
-import taba.tabaServer.tabaserver.dto.calibrationdto.CalibrationResponseDto;
 import taba.tabaServer.tabaserver.dto.drivingsessiondto.*;
 import taba.tabaServer.tabaserver.enums.ErrorStatus;
 import taba.tabaServer.tabaserver.enums.SensorType;
@@ -25,7 +24,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
