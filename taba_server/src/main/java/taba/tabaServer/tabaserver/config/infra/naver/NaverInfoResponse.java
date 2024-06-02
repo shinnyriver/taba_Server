@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import taba.tabaServer.tabaserver.config.oauth.OAuthInfoResponse;
 import taba.tabaServer.tabaserver.config.oauth.OAuthProvider;
+import taba.tabaServer.tabaserver.enums.UserActiveStatus;
 
 @Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -81,6 +82,14 @@ public class NaverInfoResponse implements OAuthInfoResponse {
     @Override
     public OAuthProvider getOAuthProvider() {
         return OAuthProvider.NAVER;
+    }
+
+    /**
+     * 회원 가입시 ACTIVE 상태로 저장
+     */ 
+    @Override
+    public UserActiveStatus getUserActiveStatus() {
+        return UserActiveStatus.ACTIVE;
     }
 
     // 이 메소드를 추가하여 Response 객체를 직접 설정할 수 있게 합니다.
