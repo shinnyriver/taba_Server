@@ -77,7 +77,7 @@ public class SensorDataService {
 
     private void sendSensorDataToFlask(FlaskSensorDataDto flaskSensorDataDto, SensorData sensorData){
         webClient.post()
-                .uri("http://localhost:8080/")
+                .uri("http://localhost:5000/predict")
                 .body(Mono.just(flaskSensorDataDto), FlaskSensorDataDto.class)
                 .retrieve()
                 .bodyToMono(ErrorStatus.class)

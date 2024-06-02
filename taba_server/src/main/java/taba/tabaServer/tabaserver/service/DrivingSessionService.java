@@ -96,7 +96,7 @@ public class DrivingSessionService {
 
     private void sendDrivingSessionToFlask(FlaskDrivingSessionDto flaskDrivingSessionDto){
         webClient.post()
-                .uri("http://127.0.0.1:8080/")
+                .uri("http://127.0.0.1:5000/calibration")
                 .body(Mono.just(flaskDrivingSessionDto), FlaskDrivingSessionDto.class)
                 .retrieve();
 
