@@ -8,8 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import taba.tabaServer.tabaserver.dto.global.ResponseDto;
 import taba.tabaServer.tabaserver.dto.sensordatadto.SensorDataRequestDto;
-import taba.tabaServer.tabaserver.exception.CommonException;
-import taba.tabaServer.tabaserver.exception.ErrorCode;
 import taba.tabaServer.tabaserver.service.SensorDataService;
 
 import java.io.ByteArrayInputStream;
