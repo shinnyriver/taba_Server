@@ -60,10 +60,10 @@ public class DrivingSessionService {
                 .errorStatus(ErrorStatus.NORMAL)
                 .build();
 
-        Calibration accelCalibration = calibrationRepository.findCalibrationByCarAndSensorType(currentCar.getCarId(), SensorType.ACCEL)
+        Calibration accelCalibration = calibrationRepository.findByCarAndSensorType(currentCar, SensorType.ACCEL)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_CALIBRATION));
 
-        Calibration brakeCalibration = calibrationRepository.findCalibrationByCarAndSensorType(currentCar.getCarId(), SensorType.BRAKE)
+        Calibration brakeCalibration = calibrationRepository.findByCarAndSensorType(currentCar, SensorType.BRAKE)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_CALIBRATION));
 
         sendDrivingSessionToFlask(FlaskDrivingSessionDto.of(
