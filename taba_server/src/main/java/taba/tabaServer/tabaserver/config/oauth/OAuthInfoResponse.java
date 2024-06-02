@@ -1,5 +1,7 @@
 package taba.tabaServer.tabaserver.config.oauth;
 
+import taba.tabaServer.tabaserver.enums.UserActiveStatus;
+
 public interface OAuthInfoResponse {
 
     /**
@@ -15,4 +17,5 @@ public interface OAuthInfoResponse {
     String getMobile();
 
     OAuthProvider getOAuthProvider();
+    UserActiveStatus getUserActiveStatus();
 }

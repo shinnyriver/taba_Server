@@ -3,8 +3,12 @@ package taba.tabaServer.tabaserver.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 import taba.tabaServer.tabaserver.domain.DrivingSession;
 import taba.tabaServer.tabaserver.domain.SensorData;
+import taba.tabaServer.tabaserver.dto.aidto.FlaskSensorDataDto;
+import taba.tabaServer.tabaserver.dto.drivingsessiondto.DrivingSessionErrorOccuredDto;
 import taba.tabaServer.tabaserver.dto.sensordatadto.SensorDataRequestDto;
 import taba.tabaServer.tabaserver.dto.sensordatadto.SensorDataResponseDto;
 import taba.tabaServer.tabaserver.enums.DrivingStatus;
@@ -27,6 +31,8 @@ public class SensorDataService {
 
     private final SensorDataRepository sensorDataRepository;
     private final DrivingSessionRepository drivingSessionRepository;
+    private final WebClient webClient;
+    private final DrivingSessionService drivingSessionService;
 
     @Transactional
     public SensorDataResponseDto createSensorData(SensorDataRequestDto sensorDataRequestDto){
@@ -47,6 +53,15 @@ public class SensorDataService {
                 .build()
         );
 
+        sendSensorDataToFlask(FlaskSensorDataDto.of(
+                drivingSession.getId(),
+                save.getBrakePressure(),
+                save.getAccelPressure(),
+                save.getSpeed()
+                ),
+                save
+        );
+
         return SensorDataResponseDto.builder()
                 .sensorId(save.getId())
                 .drivingSessionId(save.getDrivingSession().getId())
@@ -58,6 +73,26 @@ public class SensorDataService {
                 .longitude(save.getLongitude())
                 .errorStatus(drivingSession.getErrorStatus())
                 .build();
+    }
+
+    private void sendSensorDataToFlask(FlaskSensorDataDto flaskSensorDataDto, SensorData sensorData){
+        webClient.post()
+                .uri("http://localhost:5000/predict")
+                .body(Mono.just(flaskSensorDataDto), FlaskSensorDataDto.class)
+                .retrieve()
+                .bodyToMono(ErrorStatus.class)
+                .subscribe(response -> {
+                    if(ErrorStatus.ERROR.equals(response)) {
+                        drivingSessionService.drivingSessionErrorOccured(
+                                flaskSensorDataDto.drivingSessionId(),
+                                DrivingSessionErrorOccuredDto.of(
+                                        ErrorStatus.ERROR,
+                                        sensorData.getLatitude(),
+                                        sensorData.getLongitude()
+                                )
+                        );
+                    }
+                });
     }
 
     @Transactional
@@ -107,7 +142,7 @@ public class SensorDataService {
             writer.flush();
             return new ByteArrayInputStream(out.toByteArray());
         } else {
-            return null; // Or handle this case appropriately based on your application needs
+            return null;
         }
     }
 }

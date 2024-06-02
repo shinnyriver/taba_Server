@@ -3,21 +3,29 @@ package taba.tabaServer.tabaserver.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
+import taba.tabaServer.tabaserver.domain.Calibration;
 import taba.tabaServer.tabaserver.domain.Car;
 import taba.tabaServer.tabaserver.domain.DrivingSession;
 import taba.tabaServer.tabaserver.domain.User;
+import taba.tabaServer.tabaserver.dto.aidto.FlaskDrivingSessionDto;
 import taba.tabaServer.tabaserver.dto.calibrationdto.CalibrationResponseDto;
 import taba.tabaServer.tabaserver.dto.drivingsessiondto.*;
 import taba.tabaServer.tabaserver.enums.ErrorStatus;
+import taba.tabaServer.tabaserver.enums.SensorType;
 import taba.tabaServer.tabaserver.exception.CommonException;
 import taba.tabaServer.tabaserver.exception.ErrorCode;
+import taba.tabaServer.tabaserver.repository.CalibrationRepository;
 import taba.tabaServer.tabaserver.repository.CarRepository;
 import taba.tabaServer.tabaserver.repository.DrivingSessionRepository;
 import taba.tabaServer.tabaserver.repository.UserRepository;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,6 +35,8 @@ public class DrivingSessionService {
     private final DrivingSessionRepository drivingSessionRepository;
     private final UserRepository userRepository;
     private final CarRepository carRepository;
+    private final CalibrationRepository calibrationRepository;
+    private final WebClient webClient;
 
     @Transactional
     public DrivingSessionResponseDto createDrivingSession(DrivingSessionRequestDto drivingSessionRequestDto){
@@ -34,12 +44,39 @@ public class DrivingSessionService {
                 .orElseThrow(()-> new CommonException(ErrorCode.NOT_FOUND_USER));
         Car currentCar = carRepository.findById(drivingSessionRequestDto.carId())
                 .orElseThrow(()-> new CommonException(ErrorCode.NOT_FOUND_CAR));
+
+        /**
+         * 데이터 무결성 방지(운전 시작의 시각 및 날짜가 nullable로 설정)
+         */
+        LocalDate today = LocalDate.now(); // 오늘 날짜
+        LocalTime now = LocalTime.now(); // 현재 시간
+
         DrivingSession drivingSession = DrivingSession.builder()
                 .user(currentUser)
                 .car(currentCar)
+                .startDate(today)
+                .startTime(now)
                 .drivingStatus(drivingSessionRequestDto.drivingStatus())
                 .errorStatus(ErrorStatus.NORMAL)
                 .build();
+
+        Calibration accelCalibration = calibrationRepository.findByCar_CarIdAndSensorType(currentCar.getCarId(), SensorType.ACCEL)
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_CALIBRATION));
+
+        Calibration brakeCalibration = calibrationRepository.findByCar_CarIdAndSensorType(currentCar.getCarId(), SensorType.BRAKE)
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_CALIBRATION));
+
+        sendDrivingSessionToFlask(FlaskDrivingSessionDto.of(
+                currentCar.getCarId(),
+                accelCalibration.getSensorType(),
+                accelCalibration.getPressureMax()
+        ));
+
+        sendDrivingSessionToFlask(FlaskDrivingSessionDto.of(
+                currentCar.getCarId(),
+                brakeCalibration.getSensorType(),
+                brakeCalibration.getPressureMax()
+        ));
 
         drivingSessionRepository.save(drivingSession);
 
@@ -55,6 +92,15 @@ public class DrivingSessionService {
                 drivingSession.getDrivingStatus(),
                 drivingSession.getErrorStatus()
         );
+    }
+
+    private void sendDrivingSessionToFlask(FlaskDrivingSessionDto flaskDrivingSessionDto){
+        webClient.post()
+                .uri("http://127.0.0.1:5000/calibration")
+                .body(Mono.just(flaskDrivingSessionDto), FlaskDrivingSessionDto.class)
+                .retrieve();
+
+        System.out.println("Flask Server Response");
     }
 
     @Transactional
