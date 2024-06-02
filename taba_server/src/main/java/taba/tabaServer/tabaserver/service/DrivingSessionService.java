@@ -64,6 +64,9 @@ public class DrivingSessionService {
         Calibration brakeCalibration = calibrationRepository.findByCar_CarIdAndSensorType(currentCar.getCarId(), SensorType.BRAKE)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_CALIBRATION));
 
+
+        drivingSessionRepository.save(drivingSession);
+
         sendDrivingSessionToFlask(FlaskDrivingSessionDto.of(
                 currentCar.getCarId(),
                 accelCalibration.getSensorType(),
@@ -75,8 +78,6 @@ public class DrivingSessionService {
                 brakeCalibration.getSensorType(),
                 brakeCalibration.getPressureMax()
         ));
-
-        drivingSessionRepository.save(drivingSession);
 
         return DrivingSessionResponseDto.of(
                 drivingSession.getId(),
