@@ -3,7 +3,6 @@ package taba.tabaServer.tabaserver.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
-import taba.tabaServer.tabaserver.domain.DrivingSession;
 import taba.tabaServer.tabaserver.dto.drivingsessiondto.DrivingSessionErrorOccuredDto;
 import taba.tabaServer.tabaserver.dto.drivingsessiondto.DrivingSessionRequestDto;
 import taba.tabaServer.tabaserver.dto.drivingsessiondto.DrivingSessionUpdateDto;
@@ -12,7 +11,6 @@ import taba.tabaServer.tabaserver.enums.ErrorStatus;
 import taba.tabaServer.tabaserver.service.DrivingSessionService;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/drivingsessions")
