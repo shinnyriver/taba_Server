@@ -8,8 +8,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class WebClientConfig {
     @Bean
     public WebClient webClient() {
-        return WebClient.builder()
-                .baseUrl("http://localhost:8000/api") // Django 서버 URL
-                .build();
+        return WebClient.builder().build();
     }
 }

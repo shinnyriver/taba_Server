@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import taba.tabaServer.tabaserver.config.oauth.OAuthInfoResponse;
 import taba.tabaServer.tabaserver.config.oauth.OAuthProvider;
+import taba.tabaServer.tabaserver.enums.UserActiveStatus;
 
 @Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -43,6 +44,15 @@ public class KakaoInfoResponse implements OAuthInfoResponse {
     public OAuthProvider getOAuthProvider() {
         return OAuthProvider.KAKAO;
     }
+
+    /**
+     * 회원 가입시 ACTIVE 상태로 저장
+     */
+    @Override
+    public UserActiveStatus getUserActiveStatus() {
+        return UserActiveStatus.ACTIVE;
+    }
+
     @Override
     public String getGender() {
         return kakaoAccount.gender;
