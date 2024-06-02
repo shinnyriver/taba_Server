@@ -125,7 +125,7 @@ public class SensorDataService {
     }
 
     @Transactional
-    public ByteArrayInputStream getSensorDataAsCsvForSession(Long sessionId){   //error상태이고, 세션id가 주어져야함
+    public ByteArrayInputStream getSensorDataAsCsvForSession(Long sessionId) {
         Optional<DrivingSession> sessionOptional = drivingSessionRepository.findById(sessionId);
         if (sessionOptional.isPresent() && sessionOptional.get().getErrorStatus() == ErrorStatus.ERROR) {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
