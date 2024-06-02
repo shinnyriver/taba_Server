@@ -51,10 +51,10 @@ public class Calibration {
     }
 
     public void updateCalibration(
-            SensorType sensorType,
-            double pressureMax,
-            double pressureMin,
-            Car car
+            final SensorType sensorType,
+            final double pressureMax,
+            final double pressureMin,
+            final Car car
     ) {
         this.sensorType = sensorType;
         this.pressureMax = pressureMax;
