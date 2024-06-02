@@ -141,7 +141,7 @@ public class SensorDataService {
             writer.flush();
             return new ByteArrayInputStream(out.toByteArray());
         } else {
-            return null; // Or handle this case appropriately based on your application needs
+            return null;
         }
     }
 }
