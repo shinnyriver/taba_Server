@@ -10,6 +10,7 @@ import taba.tabaServer.tabaserver.domain.Car;
 import taba.tabaServer.tabaserver.domain.DrivingSession;
 import taba.tabaServer.tabaserver.domain.User;
 import taba.tabaServer.tabaserver.dto.aidto.FlaskDrivingSessionDto;
+import taba.tabaServer.tabaserver.dto.aidto.FlaskResponseDto;
 import taba.tabaServer.tabaserver.dto.drivingsessiondto.*;
 import taba.tabaServer.tabaserver.enums.ErrorStatus;
 import taba.tabaServer.tabaserver.enums.SensorType;
@@ -97,9 +98,9 @@ public class DrivingSessionService {
                 .uri("http://127.0.0.1:5000/calibration")
                 .body(Mono.just(flaskDrivingSessionDto), FlaskDrivingSessionDto.class)
                 .retrieve()
-                .bodyToMono(String.class)
+                .bodyToMono(FlaskResponseDto.class)
                 .doOnSuccess(response -> {
-                    System.out.println("Flask Server Response: " + response);
+                    System.out.println("Flask Server Response: " + response.message());
                 })
                 .doOnError(error -> {
                     System.err.println("Error connecting to Flask server: " + error.getMessage());
