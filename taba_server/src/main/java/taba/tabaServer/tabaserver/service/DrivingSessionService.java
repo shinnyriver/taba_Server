@@ -64,9 +64,6 @@ public class DrivingSessionService {
         Calibration brakeCalibration = calibrationRepository.findByCar_CarIdAndSensorType(currentCar.getCarId(), SensorType.BRAKE)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_CALIBRATION));
 
-
-        drivingSessionRepository.save(drivingSession);
-
         sendDrivingSessionToFlask(FlaskDrivingSessionDto.of(
                 currentCar.getCarId(),
                 accelCalibration.getSensorType(),
@@ -78,6 +75,8 @@ public class DrivingSessionService {
                 brakeCalibration.getSensorType(),
                 brakeCalibration.getPressureMax()
         ));
+
+        drivingSessionRepository.save(drivingSession);
 
         return DrivingSessionResponseDto.of(
                 drivingSession.getId(),
@@ -93,14 +92,21 @@ public class DrivingSessionService {
         );
     }
 
-    private void sendDrivingSessionToFlask(FlaskDrivingSessionDto flaskDrivingSessionDto){
+    private void sendDrivingSessionToFlask(FlaskDrivingSessionDto flaskDrivingSessionDto) {
         webClient.post()
                 .uri("http://127.0.0.1:5000/calibration")
                 .body(Mono.just(flaskDrivingSessionDto), FlaskDrivingSessionDto.class)
-                .retrieve();
-
-        System.out.println("Flask Server Response");
+                .retrieve()
+                .bodyToMono(String.class)
+                .doOnSuccess(response -> {
+                    System.out.println("Flask Server Response: " + response);
+                })
+                .doOnError(error -> {
+                    System.err.println("Error connecting to Flask server: " + error.getMessage());
+                })
+                .subscribe();
     }
+
 
     @Transactional
     public DrivingSessionResponseDto getDrivingSessionById(Long id){
