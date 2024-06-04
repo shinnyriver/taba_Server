@@ -7,6 +7,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 import taba.tabaServer.tabaserver.domain.DrivingSession;
 import taba.tabaServer.tabaserver.domain.SensorData;
+import taba.tabaServer.tabaserver.dto.aidto.FlaskResponseDto;
 import taba.tabaServer.tabaserver.dto.aidto.FlaskSensorDataDto;
 import taba.tabaServer.tabaserver.dto.drivingsessiondto.DrivingSessionErrorOccuredDto;
 import taba.tabaServer.tabaserver.dto.sensordatadto.SensorDataRequestDto;
@@ -80,9 +81,9 @@ public class SensorDataService {
                 .uri("http://localhost:5000/predict")
                 .body(Mono.just(flaskSensorDataDto), FlaskSensorDataDto.class)
                 .retrieve()
-                .bodyToMono(ErrorStatus.class)
+                .bodyToMono(FlaskResponseDto.class)
                 .subscribe(response -> {
-                    if(ErrorStatus.ERROR.equals(response)) {
+                    if ("ERROR".equals(response.result())) {
                         drivingSessionService.drivingSessionErrorOccured(
                                 flaskSensorDataDto.drivingSessionId(),
                                 DrivingSessionErrorOccuredDto.of(
@@ -92,6 +93,8 @@ public class SensorDataService {
                                 )
                         );
                     }
+                }, error -> {
+                    System.err.println("Error connecting to Flask server: " + error.getMessage());
                 });
     }
 
