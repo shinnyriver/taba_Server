@@ -243,7 +243,7 @@ public class DrivingSessionService {
     public Boolean solveProblem(Long id) {
         DrivingSession drivingSession = drivingSessionRepository.findById(id)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_DRIVING_SESSION));
-    drivingSession.solveSession();
-    return Boolean.TRUE;
+        drivingSession.solveSession();
+        return Boolean.TRUE;
     }
 }
