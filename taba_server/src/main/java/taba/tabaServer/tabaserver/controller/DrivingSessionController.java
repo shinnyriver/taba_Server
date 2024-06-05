@@ -65,4 +65,9 @@ public class DrivingSessionController {
     public ResponseDto<?> getErrorList(){
         return ResponseDto.ok(drivingSessionService.getErrorList());
     }
+
+    @PostMapping("solve/{id}")
+    public ResponseDto<?> postSolve(@PathVariable Long id){
+        return ResponseDto.ok(drivingSessionService.solveProblem(id));
+    }
 }

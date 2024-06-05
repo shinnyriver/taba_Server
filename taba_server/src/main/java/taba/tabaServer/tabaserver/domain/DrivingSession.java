@@ -46,6 +46,9 @@ public class DrivingSession {
     @Column
     private LocalDateTime errorTime;
 
+    @Column
+    private LocalDateTime solveTime;
+
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private DrivingStatus drivingStatus;
@@ -88,5 +91,10 @@ public class DrivingSession {
         this.endDate = LocalDate.now();
         this.endTime = LocalTime.now();
         this.drivingStatus = drivingStatus;
+    }
+
+    public void solveSession(){
+        this.errorStatus = ErrorStatus.SOLVE;
+        this.solveTime = LocalDateTime.now();
     }
 }
