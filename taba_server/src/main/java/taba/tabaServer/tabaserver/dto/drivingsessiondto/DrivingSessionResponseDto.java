@@ -22,8 +22,8 @@ public record DrivingSessionResponseDto(
         //스네이크 케이스로 전환(errorTime -> error_time)
         @JsonProperty("error_time") LocalDateTime errorTime,
         @JsonProperty("solve_time") LocalDateTime solveTime,
-        @JsonProperty("drivingStatus") DrivingStatus drivingStatus,
-        @JsonProperty("errorStatus")ErrorStatus errorStatus
+        @JsonProperty("driving_status") DrivingStatus drivingStatus,
+        @JsonProperty("error_status")ErrorStatus errorStatus
         ) implements Serializable {
             public static DrivingSessionResponseDto of(
                     final Long drivingSessionId,

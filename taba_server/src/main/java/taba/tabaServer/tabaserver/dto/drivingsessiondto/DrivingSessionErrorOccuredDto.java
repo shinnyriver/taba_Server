@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Builder
 public record DrivingSessionErrorOccuredDto(
-        @JsonProperty("errorStatus")ErrorStatus errorStatus,
+        @JsonProperty("error_status")ErrorStatus errorStatus,
         @JsonProperty("latitude") String latitude,
         @JsonProperty("longitude") String longitude
         ) implements Serializable {

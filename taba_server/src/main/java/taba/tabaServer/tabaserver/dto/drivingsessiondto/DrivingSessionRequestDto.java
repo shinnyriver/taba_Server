@@ -9,9 +9,9 @@ import java.time.LocalDateTime;
 
 @Builder
 public record DrivingSessionRequestDto(
-        @JsonProperty("userId") Long userId,
-        @JsonProperty("carId") Long carId,
-        @JsonProperty("drivingStatus")DrivingStatus drivingStatus
+        @JsonProperty("user_id") Long userId,
+        @JsonProperty("car_id") Long carId,
+        @JsonProperty("driving_status")DrivingStatus drivingStatus
         ) implements Serializable {
             public static DrivingSessionRequestDto of(
                     final Long userId,

@@ -10,10 +10,10 @@ import java.time.LocalDateTime;
 
 @Builder
 public record CalibrationDto(
-        @JsonProperty("sensorType") SensorType sensorType,
-        @JsonProperty("pressureMax") double pressureMax,
-        @JsonProperty("pressureMin") double pressureMin,
-        @JsonProperty("carId")Long carId
+        @JsonProperty("sensor_type") SensorType sensorType,
+        @JsonProperty("pressure_max") double pressureMax,
+        @JsonProperty("pressure_min") double pressureMin,
+        @JsonProperty("car_id")Long carId
 
         ) implements Serializable {
             public static CalibrationDto of(
