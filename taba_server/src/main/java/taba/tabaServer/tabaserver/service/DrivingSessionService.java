@@ -88,6 +88,7 @@ public class DrivingSessionService {
                 drivingSession.getEndDate(),
                 drivingSession.getEndTime(),
                 drivingSession.getErrorTime(),
+                drivingSession.getSolveTime(),
                 drivingSession.getDrivingStatus(),
                 drivingSession.getErrorStatus()
         );
@@ -123,6 +124,7 @@ public class DrivingSessionService {
                 drivingSession.getEndDate(),
                 drivingSession.getEndTime(),
                 drivingSession.getErrorTime(),
+                drivingSession.getSolveTime(),
                 drivingSession.getDrivingStatus(),
                 drivingSession.getErrorStatus()
         );
@@ -145,6 +147,7 @@ public class DrivingSessionService {
                 drivingSession.getEndDate(),
                 drivingSession.getEndTime(),
                 drivingSession.getErrorTime(),
+                drivingSession.getSolveTime(),
                 drivingSession.getDrivingStatus(),
                 drivingSession.getErrorStatus()
         );
@@ -168,6 +171,7 @@ public class DrivingSessionService {
                 drivingSession.getEndDate(),
                 drivingSession.getEndTime(),
                 drivingSession.getErrorTime(),
+                drivingSession.getSolveTime(),
                 drivingSession.getDrivingStatus(),
                 drivingSession.getErrorStatus()
         );
@@ -191,6 +195,7 @@ public class DrivingSessionService {
                         drivingsession.getEndDate(),
                         drivingsession.getEndTime(),
                         drivingsession.getErrorTime(),
+                        drivingsession.getSolveTime(),
                         drivingsession.getDrivingStatus(),
                         drivingsession.getErrorStatus()
                 )).collect(Collectors.toList());
@@ -208,6 +213,7 @@ public class DrivingSessionService {
                         drivingsession.getEndDate(),
                         drivingsession.getEndTime(),
                         drivingsession.getErrorTime(),
+                        drivingsession.getSolveTime(),
                         drivingsession.getDrivingStatus(),
                         drivingsession.getErrorStatus()
                 )).collect(Collectors.toList());
@@ -233,4 +239,11 @@ public class DrivingSessionService {
                 )).collect(Collectors.toList());
     }
 
+    @Transactional
+    public Boolean solveProblem(Long id) {
+        DrivingSession drivingSession = drivingSessionRepository.findById(id)
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_DRIVING_SESSION));
+    drivingSession.solveSession();
+    return Boolean.TRUE;
+    }
 }

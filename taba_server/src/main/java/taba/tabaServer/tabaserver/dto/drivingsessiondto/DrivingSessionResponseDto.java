@@ -21,6 +21,7 @@ public record DrivingSessionResponseDto(
         @JsonProperty("end_time") LocalTime endTime,
         //스네이크 케이스로 전환(errorTime -> error_time)
         @JsonProperty("error_time") LocalDateTime errorTime,
+        @JsonProperty("solve_time") LocalDateTime solveTime,
         @JsonProperty("drivingStatus") DrivingStatus drivingStatus,
         @JsonProperty("errorStatus")ErrorStatus errorStatus
         ) implements Serializable {
@@ -33,6 +34,7 @@ public record DrivingSessionResponseDto(
                     final LocalDate endDate,
                     final LocalTime endTime,
                     final LocalDateTime errorTime,
+                    final LocalDateTime solveTime,
                     final DrivingStatus drivingStatus,
                     final ErrorStatus errorStatus
             ) {
@@ -45,6 +47,7 @@ public record DrivingSessionResponseDto(
                         .endDate(endDate)
                         .endTime(endTime)
                         .errorTime(errorTime)
+                        .solveTime(solveTime)
                         .drivingStatus(drivingStatus)
                         .errorStatus(errorStatus)
                         .build();
