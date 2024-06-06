@@ -90,6 +90,8 @@ public class DrivingSessionService {
                 drivingSession.getErrorTime(),
                 drivingSession.getSolveTime(),
                 drivingSession.getDrivingStatus(),
+                drivingSession.getErrorLatitude(), //에러 위도 추가
+                drivingSession.getErrorLongitude(),//에러 경도 추가
                 drivingSession.getErrorStatus()
         );
     }
@@ -126,6 +128,8 @@ public class DrivingSessionService {
                 drivingSession.getErrorTime(),
                 drivingSession.getSolveTime(),
                 drivingSession.getDrivingStatus(),
+                drivingSession.getErrorLatitude(), //에러 위도 추가
+                drivingSession.getErrorLongitude(),//에러 경도 추가
                 drivingSession.getErrorStatus()
         );
     }
@@ -149,6 +153,8 @@ public class DrivingSessionService {
                 drivingSession.getErrorTime(),
                 drivingSession.getSolveTime(),
                 drivingSession.getDrivingStatus(),
+                drivingSession.getErrorLatitude(), //에러 위도 추가
+                drivingSession.getErrorLongitude(),//에러 경도 추가
                 drivingSession.getErrorStatus()
         );
     }
@@ -173,6 +179,8 @@ public class DrivingSessionService {
                 drivingSession.getErrorTime(),
                 drivingSession.getSolveTime(),
                 drivingSession.getDrivingStatus(),
+                drivingSession.getErrorLatitude(), //에러 위도 추가
+                drivingSession.getErrorLongitude(),//에러 경도 추가
                 drivingSession.getErrorStatus()
         );
     }
@@ -197,6 +205,8 @@ public class DrivingSessionService {
                         drivingsession.getErrorTime(),
                         drivingsession.getSolveTime(),
                         drivingsession.getDrivingStatus(),
+                        drivingsession.getErrorLatitude(), //에러 위도 추가
+                        drivingsession.getErrorLongitude(),//에러 경도 추가
                         drivingsession.getErrorStatus()
                 )).collect(Collectors.toList());
     }
@@ -215,6 +225,8 @@ public class DrivingSessionService {
                         drivingsession.getErrorTime(),
                         drivingsession.getSolveTime(),
                         drivingsession.getDrivingStatus(),
+                        drivingsession.getErrorLatitude(), //에러 위도 추가
+                        drivingsession.getErrorLongitude(),//에러 경도 추가
                         drivingsession.getErrorStatus()
                 )).collect(Collectors.toList());
 

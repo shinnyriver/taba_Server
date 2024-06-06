@@ -31,7 +31,7 @@ public class CarService {
          * 이미지 data는 주고 받을때는 String이지만 받거나 줄땐 각각 decoding,encoding해서 보냄
          */
         byte[] photoBytes = Base64.getDecoder().decode(carDto.photo());
-
+        int drivingScore=100;//처음 가입하면 100점
         //자동차 정보 입력
         Car currentCar = Car.builder()
                 .carName(carDto.carName())
@@ -42,7 +42,7 @@ public class CarService {
                 .insurance(carDto.insurance())
                 .user(currentUser)
                 .purchaseDate(carDto.purchaseDate())
-                .drivingScore(carDto.drivingScore())
+                .drivingScore(drivingScore)
                 .build();
         //저장
         carRepository.save(currentCar);
@@ -96,7 +96,8 @@ public class CarService {
                 carUpdateDto.carNumber(),
                 photoBytes,
                 carUpdateDto.insurance(),
-                carUpdateDto.purchaseDate()
+                carUpdateDto.purchaseDate(),
+                carUpdateDto.drivingScore()
          );
 
         carRepository.save(findCar);
@@ -176,5 +177,32 @@ public class CarService {
         Long large = carRepository.countByCarSize(CarSize.LARGE);
 
         return CarSizeDto.of(small, medium, large);
+    }
+
+    /**
+     * 차량 점수 업데이트
+     */
+    @Transactional
+    public CarResponseDto updateCarScore(Long id,CarDrivingScoreUpdateRequestDto drivingScoreRequest) {
+        Car findCar = carRepository.findById(id)
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_CAR));
+
+        // 드라이빙 스코어 업데이트
+        findCar.updateCarScore(drivingScoreRequest.drivingScore());
+        // 여기를 수정하여 drivingScore를 DTO에서 가져옴
+        carRepository.save(findCar); //점수업데이트 한거 db에 저장
+        //저장한 점수 get해서 클라이언트에 응답
+        return CarResponseDto.of(
+                findCar.getCarId(),
+                findCar.getCarName(),
+                findCar.getCarSize(),
+                findCar.getTotalDistance(),
+                findCar.getCarNumber(),
+                findCar.getUser().getId(),
+                findCar.getPhoto(),
+                findCar.getInsurance(),
+                findCar.getPurchaseDate(),
+                findCar.getDrivingScore()
+        );
     }
 }

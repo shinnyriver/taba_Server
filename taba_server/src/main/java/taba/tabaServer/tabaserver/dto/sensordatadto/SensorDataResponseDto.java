@@ -2,6 +2,7 @@ package taba.tabaServer.tabaserver.dto.sensordatadto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
+import taba.tabaServer.tabaserver.enums.DrivingHabit;
 import taba.tabaServer.tabaserver.enums.ErrorStatus;
 
 import java.io.Serializable;
@@ -17,7 +18,9 @@ public record SensorDataResponseDto(
         @JsonProperty("speed") double speed,
         @JsonProperty("latitude") String latitude,
         @JsonProperty("longitude") String longitude,
-        @JsonProperty("error_status") ErrorStatus errorStatus
+        @JsonProperty("error_status") ErrorStatus errorStatus,
+        @JsonProperty("driving_habit") DrivingHabit drivingHabit //운전 습관 필드 추가
+
 ) implements Serializable {
     public static SensorDataResponseDto of(
             final Long sensorId,
@@ -28,7 +31,8 @@ public record SensorDataResponseDto(
             final double speed,
             final String latitude,
             final String longitude,
-            final ErrorStatus errorStatus
+            final ErrorStatus errorStatus,
+            final DrivingHabit drivingHabit //운전 습관 필드 추가
     ) {
         return SensorDataResponseDto.builder()
                 .sensorId(sensorId)
@@ -40,6 +44,7 @@ public record SensorDataResponseDto(
                 .latitude(latitude)
                 .longitude(longitude)
                 .errorStatus(errorStatus)
+                .drivingHabit(drivingHabit)
                 .build();
     }
 }

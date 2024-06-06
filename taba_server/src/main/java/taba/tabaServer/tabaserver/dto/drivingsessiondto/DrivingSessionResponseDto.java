@@ -23,6 +23,8 @@ public record DrivingSessionResponseDto(
         @JsonProperty("error_time") LocalDateTime errorTime,
         @JsonProperty("solve_time") LocalDateTime solveTime,
         @JsonProperty("drivingStatus") DrivingStatus drivingStatus,
+        @JsonProperty("error_latitude") String errorLatitude, //에러 위도 추가
+        @JsonProperty("error_longitude")String errorLongitude,//에러 경도 추가
         @JsonProperty("errorStatus")ErrorStatus errorStatus
         ) implements Serializable {
             public static DrivingSessionResponseDto of(
@@ -36,6 +38,8 @@ public record DrivingSessionResponseDto(
                     final LocalDateTime errorTime,
                     final LocalDateTime solveTime,
                     final DrivingStatus drivingStatus,
+                    final String errorLatitude,
+                    final String errorLongitude,
                     final ErrorStatus errorStatus
             ) {
                 return DrivingSessionResponseDto.builder()
@@ -49,6 +53,8 @@ public record DrivingSessionResponseDto(
                         .errorTime(errorTime)
                         .solveTime(solveTime)
                         .drivingStatus(drivingStatus)
+                        .errorLatitude(errorLatitude)
+                        .errorLongitude(errorLongitude)
                         .errorStatus(errorStatus)
                         .build();
             }
