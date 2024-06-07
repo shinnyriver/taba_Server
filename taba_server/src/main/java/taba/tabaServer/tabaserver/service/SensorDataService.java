@@ -51,6 +51,7 @@ public class SensorDataService {
                 .speed(sensorDataRequestDto.speed())
                 .latitude(sensorDataRequestDto.latitude())
                 .longitude(sensorDataRequestDto.longitude())
+                .drivingHabit(sensorDataRequestDto.drivingHabit()) //운전 습관 필드 추가
                 .build()
         );
 
@@ -73,6 +74,7 @@ public class SensorDataService {
                 .latitude(save.getLatitude())
                 .longitude(save.getLongitude())
                 .errorStatus(drivingSession.getErrorStatus())
+                .drivingHabit(save.getDrivingHabit())
                 .build();
     }
 
@@ -123,7 +125,8 @@ public class SensorDataService {
                         sensorData.getSpeed(),
                         sensorData.getLatitude(),
                         sensorData.getLongitude(),
-                        sensorData.getDrivingSession().getErrorStatus()
+                        sensorData.getDrivingSession().getErrorStatus(),
+                        sensorData.getDrivingHabit()
                 )).collect(Collectors.toList());
     }
 

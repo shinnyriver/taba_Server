@@ -47,14 +47,12 @@ public class DrivingSessionService {
         /**
          * 데이터 무결성 방지(운전 시작의 시각 및 날짜가 nullable로 설정)
          */
-        LocalDate today = LocalDate.now(); // 오늘 날짜
-        LocalTime now = LocalTime.now(); // 현재 시간
 
         DrivingSession drivingSession = DrivingSession.builder()
                 .user(currentUser)
                 .car(currentCar)
-                .startDate(today)
-                .startTime(now)
+                .startDate(LocalDate.now())
+                .startTime(LocalTime.now())
                 .drivingStatus(drivingSessionRequestDto.drivingStatus())
                 .errorStatus(ErrorStatus.NORMAL)
                 .build();
@@ -90,6 +88,8 @@ public class DrivingSessionService {
                 drivingSession.getErrorTime(),
                 drivingSession.getSolveTime(),
                 drivingSession.getDrivingStatus(),
+                drivingSession.getErrorLatitude(), //에러 위도 추가
+                drivingSession.getErrorLongitude(),//에러 경도 추가
                 drivingSession.getErrorStatus()
         );
     }
@@ -126,6 +126,8 @@ public class DrivingSessionService {
                 drivingSession.getErrorTime(),
                 drivingSession.getSolveTime(),
                 drivingSession.getDrivingStatus(),
+                drivingSession.getErrorLatitude(), //에러 위도 추가
+                drivingSession.getErrorLongitude(),//에러 경도 추가
                 drivingSession.getErrorStatus()
         );
     }
@@ -149,6 +151,8 @@ public class DrivingSessionService {
                 drivingSession.getErrorTime(),
                 drivingSession.getSolveTime(),
                 drivingSession.getDrivingStatus(),
+                drivingSession.getErrorLatitude(), //에러 위도 추가
+                drivingSession.getErrorLongitude(),//에러 경도 추가
                 drivingSession.getErrorStatus()
         );
     }
@@ -173,6 +177,8 @@ public class DrivingSessionService {
                 drivingSession.getErrorTime(),
                 drivingSession.getSolveTime(),
                 drivingSession.getDrivingStatus(),
+                drivingSession.getErrorLatitude(), //에러 위도 추가
+                drivingSession.getErrorLongitude(),//에러 경도 추가
                 drivingSession.getErrorStatus()
         );
     }
@@ -197,6 +203,8 @@ public class DrivingSessionService {
                         drivingsession.getErrorTime(),
                         drivingsession.getSolveTime(),
                         drivingsession.getDrivingStatus(),
+                        drivingsession.getErrorLatitude(), //에러 위도 추가
+                        drivingsession.getErrorLongitude(),//에러 경도 추가
                         drivingsession.getErrorStatus()
                 )).collect(Collectors.toList());
     }
@@ -215,6 +223,8 @@ public class DrivingSessionService {
                         drivingsession.getErrorTime(),
                         drivingsession.getSolveTime(),
                         drivingsession.getDrivingStatus(),
+                        drivingsession.getErrorLatitude(), //에러 위도 추가
+                        drivingsession.getErrorLongitude(),//에러 경도 추가
                         drivingsession.getErrorStatus()
                 )).collect(Collectors.toList());
 
