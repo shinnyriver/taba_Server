@@ -31,7 +31,8 @@ public record CarResponseDto(
                     final byte[] photo,
                     final String insurance,
                     final LocalDate purchaseDate,
-                    final int drivingScore
+                    final int drivingScore // 운전 점수 필드 추가
+
             ) {
                 return CarResponseDto.builder()
                         .carId(carId)
@@ -43,7 +44,7 @@ public record CarResponseDto(
                         .userId(userid)
                         .insurance(insurance)
                         .purchaseDate(purchaseDate)
-                        .drivingScore(drivingScore)
+                        .drivingScore(drivingScore) // 운전 점수 필드 추가
                         .build();
             }
 }
