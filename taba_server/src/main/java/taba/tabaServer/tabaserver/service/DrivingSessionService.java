@@ -47,14 +47,12 @@ public class DrivingSessionService {
         /**
          * 데이터 무결성 방지(운전 시작의 시각 및 날짜가 nullable로 설정)
          */
-        LocalDate today = LocalDate.now(); // 오늘 날짜
-        LocalTime now = LocalTime.now(); // 현재 시간
 
         DrivingSession drivingSession = DrivingSession.builder()
                 .user(currentUser)
                 .car(currentCar)
-                .startDate(today)
-                .startTime(now)
+                .startDate(LocalDate.now())
+                .startTime(LocalTime.now())
                 .drivingStatus(drivingSessionRequestDto.drivingStatus())
                 .errorStatus(ErrorStatus.NORMAL)
                 .build();

@@ -5,7 +5,6 @@ import lombok.Builder;
 import taba.tabaServer.tabaserver.enums.DrivingStatus;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 @Builder    //운행종료는 updatedto를 이용하여 구현 하기로 함.
 public record DrivingSessionUpdateDto(

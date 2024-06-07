@@ -30,23 +30,21 @@ public class CarService {
         /**
          * 이미지 data는 주고 받을때는 String이지만 받거나 줄땐 각각 decoding,encoding해서 보냄
          */
-        byte[] photoBytes = Base64.getDecoder().decode(carDto.photo());
-        int drivingScore=100;//처음 가입하면 100점
-        //자동차 정보 입력
+
         Car currentCar = Car.builder()
                 .carName(carDto.carName())
                 .carNumber(carDto.carNumber())
                 .carSize(carDto.carSize())
                 .totalDistance(carDto.totalDistance())
-                .photo(photoBytes)
+                .photo(Base64.getDecoder().decode(carDto.photo()))
                 .insurance(carDto.insurance())
                 .user(currentUser)
                 .purchaseDate(carDto.purchaseDate())
-                .drivingScore(drivingScore)
+                .drivingScore(100)  //처음 가입시 100점
                 .build();
-        //저장
+
         carRepository.save(currentCar);
-        //저장 내용 반환
+
         return CarResponseDto.of(
                 currentCar.getCarId(),
                 currentCar.getCarName(),

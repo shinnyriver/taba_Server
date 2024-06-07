@@ -5,7 +5,6 @@ import lombok.Builder;
 import taba.tabaServer.tabaserver.enums.DrivingStatus;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 @Builder
 public record DrivingSessionRequestDto(

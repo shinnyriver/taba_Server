@@ -2,8 +2,6 @@ package taba.tabaServer.tabaserver.dto.calibrationdto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
-import taba.tabaServer.tabaserver.domain.Calibration;
-import taba.tabaServer.tabaserver.domain.Car;
 import taba.tabaServer.tabaserver.enums.SensorType;
 
 import java.io.Serializable;

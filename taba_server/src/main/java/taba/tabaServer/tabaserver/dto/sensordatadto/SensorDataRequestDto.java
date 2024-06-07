@@ -2,6 +2,7 @@ package taba.tabaServer.tabaserver.dto.sensordatadto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
+import taba.tabaServer.tabaserver.enums.DrivingHabit;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -13,7 +14,8 @@ public record SensorDataRequestDto(
         @JsonProperty("accel_pressure") double accelPressure,
         @JsonProperty("speed") double speed,
         @JsonProperty("latitude") String latitude,
-        @JsonProperty("longitude") String longitude
+        @JsonProperty("longitude") String longitude,
+        @JsonProperty("driving_habit")DrivingHabit drivingHabit
         ) implements Serializable {
             public static SensorDataRequestDto of(
                     final Long drivingSessionId,
@@ -21,7 +23,8 @@ public record SensorDataRequestDto(
                     final double accelPressure,
                     final double speed,
                     final String latitude,
-                    final String longitude
+                    final String longitude,
+                    final DrivingHabit drivingHabit
             ) {
                 return SensorDataRequestDto.builder()
                         .drivingSessionId(drivingSessionId)
@@ -30,6 +33,7 @@ public record SensorDataRequestDto(
                         .speed(speed)
                         .latitude(latitude)
                         .longitude(longitude)
+                        .drivingHabit(drivingHabit)
                         .build();
             }
 }
