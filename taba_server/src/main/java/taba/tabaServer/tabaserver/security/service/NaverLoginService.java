@@ -7,8 +7,8 @@ import taba.tabaServer.tabaserver.config.AuthTokensGenerator;
 import taba.tabaServer.tabaserver.config.infra.naver.NaverInfoResponse;
 import taba.tabaServer.tabaserver.config.infra.naver.NaverUserDto;
 import taba.tabaServer.tabaserver.config.oauth.OAuthInfoResponse;
-import taba.tabaServer.tabaserver.repository.UserRepository;
 import taba.tabaServer.tabaserver.domain.User;
+import taba.tabaServer.tabaserver.repository.UserRepository;
 
 @Service
 @RequiredArgsConstructor
@@ -49,6 +49,7 @@ public class NaverLoginService {
         naverInfoResponse.setResponse(response);
         return naverInfoResponse;
     }
+
     //소셜 로그인 회원가입 서비스
     private Long newMember(OAuthInfoResponse oAuthInfoResponse) {
         User user = User.builder()

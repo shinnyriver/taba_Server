@@ -15,7 +15,7 @@ public record ResponseDto<T>(
         @Nullable T data,
         @Nullable ExceptionDto error
 ) {
-    public static <T> ResponseDto<T> ok(T data){
+    public static <T> ResponseDto<T> ok(T data) {
         return new ResponseDto<>(
                 HttpStatus.OK,
                 true,
@@ -23,7 +23,8 @@ public record ResponseDto<T>(
                 null
         );
     }
-    public static <T> ResponseDto<T> created(T data){
+
+    public static <T> ResponseDto<T> created(T data) {
         return new ResponseDto<>(
                 HttpStatus.CREATED,
                 true,
@@ -31,7 +32,8 @@ public record ResponseDto<T>(
                 null
         );
     }
-    public static ResponseDto<Object> fail(@NotNull CommonException e){
+
+    public static ResponseDto<Object> fail(@NotNull CommonException e) {
         return new ResponseDto<>(
                 e.getErrorCode().getHttpStatus(),
                 false,

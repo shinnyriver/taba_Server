@@ -36,7 +36,7 @@ public class UserService {
     @Transactional
     public Boolean deleteUser(Long id) {
         User user = userRepository.findById(id)
-                .orElseThrow(()->new CommonException(ErrorCode.NOT_FOUND_USER));
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_USER));
         user.withdraw();
         return Boolean.TRUE;
     }
@@ -45,17 +45,17 @@ public class UserService {
     public List<UserResponseDto> getAllUsers() {
         return userRepository.findAll().stream()
                 .map(user -> UserResponseDto.of(
-                        user.getId(),
-                        user.getEmail(),
-                        user.getGender(),
-                        user.getBirthyear(),
-                        user.getBirthday()
+                                user.getId(),
+                                user.getEmail(),
+                                user.getGender(),
+                                user.getBirthyear(),
+                                user.getBirthday()
                         )
                 ).collect(Collectors.toList());
     }
 
     @Transactional
-    public UserStatisticsDto getUserStatisticsBetweenDates(LocalDateTime start, LocalDateTime end){
+    public UserStatisticsDto getUserStatisticsBetweenDates(LocalDateTime start, LocalDateTime end) {
         Long newUsers = userRepository.countByCreatedAtBetween(start, end);
         Long withdrawUsers = userRepository.countByWithdrawAtBetween(start, end);
         return UserStatisticsDto.of(

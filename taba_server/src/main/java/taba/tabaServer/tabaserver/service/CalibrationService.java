@@ -12,8 +12,8 @@ import taba.tabaServer.tabaserver.exception.ErrorCode;
 import taba.tabaServer.tabaserver.repository.CalibrationRepository;
 import taba.tabaServer.tabaserver.repository.CarRepository;
 
-import java.util.stream.Collectors;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -24,7 +24,7 @@ public class CalibrationService {
     private final CarRepository carRepository;
 
     @Transactional
-    public CalibrationResponseDto createCalibration(CalibrationDto calibrationDto){
+    public CalibrationResponseDto createCalibration(CalibrationDto calibrationDto) {
         Car currentCar = carRepository.findById(calibrationDto.carId())
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_CAR)); //나중에 추가
         Calibration calibration = Calibration.builder()
@@ -46,7 +46,7 @@ public class CalibrationService {
     }
 
     @Transactional
-    public CalibrationResponseDto getCalibrationById(Long id){
+    public CalibrationResponseDto getCalibrationById(Long id) {
         Calibration calibration = calibrationRepository.findById(id)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_CALIBRATION));
         return CalibrationResponseDto.of(
@@ -60,12 +60,12 @@ public class CalibrationService {
     }
 
     @Transactional
-    public CalibrationResponseDto updateCalibration(Long id, CalibrationDto calibrationDto){
+    public CalibrationResponseDto updateCalibration(Long id, CalibrationDto calibrationDto) {
         Calibration calibration = calibrationRepository.findById(id)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_CALIBRATION));
 
         Car currentCar = carRepository.findById(calibrationDto.carId())
-                        .orElseThrow(()->new CommonException(ErrorCode.NOT_FOUND_CAR));
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_CAR));
         calibration.updateCalibration(
                 calibrationDto.sensorType(),
                 calibrationDto.pressureMax(),
@@ -85,7 +85,7 @@ public class CalibrationService {
     }
 
     @Transactional
-    public Boolean deleteCalibration(Long id){
+    public Boolean deleteCalibration(Long id) {
         calibrationRepository.deleteById(id);
         return Boolean.TRUE;
     }

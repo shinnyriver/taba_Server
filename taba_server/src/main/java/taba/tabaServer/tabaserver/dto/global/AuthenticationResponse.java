@@ -3,11 +3,11 @@ package taba.tabaServer.tabaserver.dto.global;
 public class AuthenticationResponse {
     private final String jwt;
 
-    public AuthenticationResponse(String jwt){
+    public AuthenticationResponse(String jwt) {
         this.jwt = jwt;
     }
 
-    public String getJwt(){
+    public String getJwt() {
         return jwt;
     }
 }

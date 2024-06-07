@@ -58,8 +58,9 @@ public class JwtTokenService {
             return e.getClaims();
         }
     }
+
     /**
-     *  사용자 이메일(Subject) 추출
+     * 사용자 이메일(Subject) 추출
      */
     public String extractUserEmail(String token) {
         return Jwts.parser()

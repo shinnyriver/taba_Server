@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name="sensor_data")
+@Table(name = "sensor_data")
 public class SensorData {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,7 +54,7 @@ public class SensorData {
             final String longitude,
             final DrivingHabit drivingHabit
     ) {
-        this.id=id;
+        this.id = id;
         this.drivingSession = drivingSession;
         this.timestamp = LocalDateTime.now();
         this.brakePressure = brakePressure;
@@ -62,6 +62,6 @@ public class SensorData {
         this.speed = speed;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.drivingHabit=drivingHabit;
+        this.drivingHabit = drivingHabit;
     }
 }

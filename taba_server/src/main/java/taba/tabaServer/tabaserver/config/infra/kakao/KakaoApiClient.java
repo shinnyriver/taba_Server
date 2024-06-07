@@ -1,9 +1,5 @@
 package taba.tabaServer.tabaserver.config.infra.kakao;
 
-import taba.tabaServer.tabaserver.config.oauth.OAuthApiClient;
-import taba.tabaServer.tabaserver.config.oauth.OAuthInfoResponse;
-import taba.tabaServer.tabaserver.config.oauth.OAuthLoginParams;
-import taba.tabaServer.tabaserver.config.oauth.OAuthProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -13,26 +9,26 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+import taba.tabaServer.tabaserver.config.oauth.OAuthApiClient;
+import taba.tabaServer.tabaserver.config.oauth.OAuthInfoResponse;
+import taba.tabaServer.tabaserver.config.oauth.OAuthLoginParams;
+import taba.tabaServer.tabaserver.config.oauth.OAuthProvider;
 
 @Component
 @RequiredArgsConstructor
 public class KakaoApiClient implements OAuthApiClient {
 
     private static final String GRANT_TYPE = "authorization_code";
-
-    @Value("${oauth.kakao.url.auth}")
-    private String authUrl;
-
-    @Value("${oauth.kakao.url.api}")
-    private String apiUrl;
-
-    //application.yml 파일에 설정한 값
-    @Value("${oauth.kakao.client-id}")
-    private String clientId;
-
     //RestTemplate 을 활용해서 외부에 요청 후 미리 정의해둔
     //KakaoTokens, KakaoInfoResponse 로 응답값을 받는다.
     private final RestTemplate restTemplate;
+    @Value("${oauth.kakao.url.auth}")
+    private String authUrl;
+    @Value("${oauth.kakao.url.api}")
+    private String apiUrl;
+    //application.yml 파일에 설정한 값
+    @Value("${oauth.kakao.client-id}")
+    private String clientId;
 
     @Override
     public OAuthProvider oAuthProvider() {

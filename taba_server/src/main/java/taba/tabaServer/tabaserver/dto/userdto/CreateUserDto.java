@@ -19,7 +19,7 @@ public record CreateUserDto(
             final String password,
             final GenderEnum gender,
             final LocalDate userBirth
-        ) {
+    ) {
         return CreateUserDto.builder()
                 .email(email)
                 .password(password)

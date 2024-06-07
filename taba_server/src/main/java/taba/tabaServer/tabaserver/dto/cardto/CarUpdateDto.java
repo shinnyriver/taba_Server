@@ -20,7 +20,7 @@ public record CarUpdateDto(
         @JsonProperty("purchase_date") LocalDate purchaseDate, // 구매 일자 필드 추가
         @JsonProperty("driving_score") int drivingScore //운전 점수 필드 추가
 
-        ) implements Serializable {
+) implements Serializable {
     //구매일자는 유지
     public static CarResponseDto of(
             final Long carId,

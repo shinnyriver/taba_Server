@@ -24,7 +24,7 @@ public class CarService {
     private final UserRepository userRepository;
 
     @Transactional
-    public CarResponseDto createCar(CarDto carDto){
+    public CarResponseDto createCar(CarDto carDto) {
         User currentUser = userRepository.findById(carDto.userId())
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_USER));
         /**
@@ -60,7 +60,7 @@ public class CarService {
     }
 
     @Transactional
-    public CarResponseDto getCarById(Long id){
+    public CarResponseDto getCarById(Long id) {
         //id로 자동차 정보를 찾고
         Car findCar = carRepository.findById(id)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_CAR));
@@ -80,7 +80,7 @@ public class CarService {
     }
 
     @Transactional
-    public CarResponseDto updateCar(Long id, CarUpdateDto carUpdateDto){
+    public CarResponseDto updateCar(Long id, CarUpdateDto carUpdateDto) {
         Car findCar = carRepository.findById(id)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_CAR));
 
@@ -96,7 +96,7 @@ public class CarService {
                 carUpdateDto.insurance(),
                 carUpdateDto.purchaseDate(),
                 carUpdateDto.drivingScore()
-         );
+        );
 
         carRepository.save(findCar);
 
@@ -115,13 +115,13 @@ public class CarService {
     }
 
     @Transactional
-    public Boolean deleteCar(Long id){
+    public Boolean deleteCar(Long id) {
         carRepository.deleteById(id);
         return Boolean.TRUE;
     }
 
     @Transactional
-    public List<CarResponseDto> getAllCarByUser(Long userId){
+    public List<CarResponseDto> getAllCarByUser(Long userId) {
         return carRepository.findAllByUserId(userId).stream()
                 .map(car -> CarResponseDto.of(
                         car.getCarId(),
@@ -138,7 +138,7 @@ public class CarService {
     }
 
     @Transactional
-    public List<CarListResponseDto> getCarListForManager(){
+    public List<CarListResponseDto> getCarListForManager() {
         return carRepository.findAll().stream()
                 .map(car -> CarListResponseDto.of(
                         car.getCarId(),
@@ -150,7 +150,7 @@ public class CarService {
     }
 
     @Transactional
-    public CarResponseDto getCarByCarNumber(String carNumber){
+    public CarResponseDto getCarByCarNumber(String carNumber) {
         Car findCar = carRepository.findCarByCarNumber(carNumber)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_CAR));
 
@@ -169,7 +169,7 @@ public class CarService {
     }
 
     @Transactional
-    public CarSizeDto countCarByCarSize(){
+    public CarSizeDto countCarByCarSize() {
         Long small = carRepository.countByCarSize(CarSize.SMALL);
         Long medium = carRepository.countByCarSize(CarSize.MEDIUM);
         Long large = carRepository.countByCarSize(CarSize.LARGE);
@@ -181,7 +181,7 @@ public class CarService {
      * 차량 점수 업데이트
      */
     @Transactional
-    public CarResponseDto updateCarScore(Long id,CarDrivingScoreUpdateRequestDto drivingScoreRequest) {
+    public CarResponseDto updateCarScore(Long id, CarDrivingScoreUpdateRequestDto drivingScoreRequest) {
         Car findCar = carRepository.findById(id)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_CAR));
 

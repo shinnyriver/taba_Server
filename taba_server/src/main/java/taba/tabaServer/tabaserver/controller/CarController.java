@@ -16,48 +16,48 @@ public class CarController {
     private final CarService carService;
 
     @PostMapping
-    public ResponseDto<?> createCar(@RequestBody CarDto carDto){
+    public ResponseDto<?> createCar(@RequestBody CarDto carDto) {
         return ResponseDto.ok(carService.createCar(carDto));
     }
 
     @GetMapping("/{id}")
-    public ResponseDto<?> getCarById(@PathVariable Long id){
+    public ResponseDto<?> getCarById(@PathVariable Long id) {
         return ResponseDto.ok(carService.getCarById(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseDto<?> updateCar(@PathVariable Long id, @RequestBody CarUpdateDto carUpdateDto){
-        return ResponseDto.ok(carService.updateCar(id,carUpdateDto));
+    public ResponseDto<?> updateCar(@PathVariable Long id, @RequestBody CarUpdateDto carUpdateDto) {
+        return ResponseDto.ok(carService.updateCar(id, carUpdateDto));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseDto<?> deleteCar(@PathVariable Long id){
+    public ResponseDto<?> deleteCar(@PathVariable Long id) {
         return ResponseDto.ok(carService.deleteCar(id));
     }
-    
+
     //사용자 id로 조회
     @GetMapping("/user/{userId}")
-    public ResponseDto<?> getAllCarsByuser(@PathVariable Long userId){
+    public ResponseDto<?> getAllCarsByuser(@PathVariable Long userId) {
         return ResponseDto.ok(carService.getAllCarByUser(userId));
     }
 
     @GetMapping("/manager/list")
-    public ResponseDto<?> getAllCarsForManager(){
+    public ResponseDto<?> getAllCarsForManager() {
         return ResponseDto.ok(carService.getCarListForManager());
     }
 
     @GetMapping("/carnumber/{carNumber}")
-    public ResponseDto<?> getCarByCarNumber(@PathVariable String carNumber){
+    public ResponseDto<?> getCarByCarNumber(@PathVariable String carNumber) {
         return ResponseDto.ok(carService.getCarByCarNumber(carNumber));
     }
 
     @GetMapping("/statistics/carsize")
-    public ResponseDto<?> getStatisticsByCarSize(){
+    public ResponseDto<?> getStatisticsByCarSize() {
         return ResponseDto.ok(carService.countCarByCarSize());
     }
 
     @PutMapping("score/{id}")
-    public ResponseDto<?> updateCarScore(@PathVariable Long id, @RequestBody CarDrivingScoreUpdateRequestDto drivingScoreRequest){
-        return ResponseDto.ok(carService.updateCarScore(id,drivingScoreRequest));
+    public ResponseDto<?> updateCarScore(@PathVariable Long id, @RequestBody CarDrivingScoreUpdateRequestDto drivingScoreRequest) {
+        return ResponseDto.ok(carService.updateCarScore(id, drivingScoreRequest));
     }
 }

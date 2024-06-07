@@ -24,12 +24,12 @@ public class CalibrationController {
     }
 
     @PutMapping("/{id}")
-    public ResponseDto<?> updateCalibration(@PathVariable Long id, @RequestBody CalibrationDto calibrationDto){
-        return ResponseDto.ok(calibrationService.updateCalibration(id,calibrationDto));
+    public ResponseDto<?> updateCalibration(@PathVariable Long id, @RequestBody CalibrationDto calibrationDto) {
+        return ResponseDto.ok(calibrationService.updateCalibration(id, calibrationDto));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseDto<?> deleteCalibration(@PathVariable Long id){
+    public ResponseDto<?> deleteCalibration(@PathVariable Long id) {
         return ResponseDto.ok(calibrationService.deleteCalibration(id));
     }
 
@@ -38,6 +38,7 @@ public class CalibrationController {
     public ResponseDto<?> getAllCalibrationsByCarId(@PathVariable Long carId) {
         return ResponseDto.ok(calibrationService.getAllCalibrationById(carId));
     }
+
     //차량 이름으로 캘리브레이션 찾기
     @GetMapping("/car-name/{carName}")
     public ResponseDto<?> getAllCalibrationsByName(@PathVariable String carName) {

@@ -14,8 +14,8 @@ public record ErrorListResponseDto(
         @JsonProperty("car_number") String carNumber,
         @JsonProperty("latitude") String latitude,
         @JsonProperty("longitude") String longitude,
-        @JsonProperty("status")ErrorStatus status
-        ) implements Serializable {
+        @JsonProperty("status") ErrorStatus status
+) implements Serializable {
     public static ErrorListResponseDto of(
             final Long id,
             final CarSize carSize,

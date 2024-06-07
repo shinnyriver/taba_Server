@@ -9,9 +9,9 @@ import java.io.Serializable;
 @Builder
 public record FlaskDrivingSessionDto(
         @JsonProperty("car_id") Long carId,
-        @JsonProperty("sensor_type")SensorType sensorType,
+        @JsonProperty("sensor_type") SensorType sensorType,
         @JsonProperty("pressure_max") double pressureMax
-        ) implements Serializable {
+) implements Serializable {
     public static FlaskDrivingSessionDto of(
             final Long carId,
             final SensorType sensorType,

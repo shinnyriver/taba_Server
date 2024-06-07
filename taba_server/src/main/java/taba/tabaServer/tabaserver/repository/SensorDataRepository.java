@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface SensorDataRepository extends JpaRepository<SensorData, Long> {
     List<SensorData> findSensorDataByDrivingSessionId(Long drivingSessionId);
+
     List<SensorData> findAllByDrivingSession(DrivingSession drivingSession);
 }
