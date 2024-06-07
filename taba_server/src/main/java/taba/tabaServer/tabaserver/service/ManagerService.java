@@ -21,14 +21,14 @@ public class ManagerService {
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Transactional
-    public ResponseManagerDto createManager(CreateManagerDto createManagerDto){
+    public ResponseManagerDto createManager(CreateManagerDto createManagerDto) {
         String encodedPassword = passwordEncoder.encode(createManagerDto.password());
         Manager save = managerRepository.save(Manager.builder()
-                        .loginId(createManagerDto.loginId())
-                        .password(encodedPassword)
-                        .name(createManagerDto.name())
-                        .managerType(createManagerDto.managerType())
-                        .build()
+                .loginId(createManagerDto.loginId())
+                .password(encodedPassword)
+                .name(createManagerDto.name())
+                .managerType(createManagerDto.managerType())
+                .build()
         );
 
         return ResponseManagerDto.builder()
@@ -38,9 +38,9 @@ public class ManagerService {
                 .build();
     }
 
-    public JwtResponseDto login(ManagerLoginDto managerLoginDto){
+    public JwtResponseDto login(ManagerLoginDto managerLoginDto) {
         Manager manager = managerRepository.findByLoginId(managerLoginDto.loginId())
-                .orElseThrow(()-> new CommonException(ErrorCode.NOT_FOUND_MANAGER));
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_MANAGER));
         if (manager != null && passwordEncoder.matches(managerLoginDto.password(), manager.getPassword())) {
             String jwt = jwtTokenService.generateToken(manager.getLoginId());
             return JwtResponseDto.builder()
@@ -56,10 +56,10 @@ public class ManagerService {
     }
 
     @Transactional
-    public Boolean updatePassword(UpdateManagerDto updateManagerDto){
+    public Boolean updatePassword(UpdateManagerDto updateManagerDto) {
         Manager manager = managerRepository.findByLoginId(updateManagerDto.id())
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_MANAGER));
-        if(passwordEncoder.matches(updateManagerDto.pastPassword(), manager.getPassword())){
+        if (passwordEncoder.matches(updateManagerDto.pastPassword(), manager.getPassword())) {
             String encodedPassword = passwordEncoder.encode(updateManagerDto.newPassword());
             manager.updatePassword(encodedPassword);
             return Boolean.TRUE;

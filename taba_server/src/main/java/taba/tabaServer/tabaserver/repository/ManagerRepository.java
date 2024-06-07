@@ -9,5 +9,6 @@ import java.util.Optional;
 
 public interface ManagerRepository extends JpaRepository<Manager, Long> {
     List<Manager> findByManagerType(ManagerType managerType);
+
     Optional<Manager> findByLoginId(String loginId);
 }

@@ -21,22 +21,22 @@ public class SensorDataController {
     private final SensorDataService sensorDataService;
 
     @PostMapping
-    public ResponseDto<?> createSensorData(@RequestBody SensorDataRequestDto sensorDataRequestDto){
+    public ResponseDto<?> createSensorData(@RequestBody SensorDataRequestDto sensorDataRequestDto) {
         return ResponseDto.ok(sensorDataService.createSensorData(sensorDataRequestDto));
     }
 
     @GetMapping("/{drivingSessionId}")
-    public ResponseDto<?> getAllSensorDataByDrivingSessionId(@PathVariable Long drivingSessionId){
+    public ResponseDto<?> getAllSensorDataByDrivingSessionId(@PathVariable Long drivingSessionId) {
         return ResponseDto.ok(sensorDataService.getAllSensorDataByDrivingSessionId(drivingSessionId));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseDto<?> deleteSensorDataById(@PathVariable Long id){
+    public ResponseDto<?> deleteSensorDataById(@PathVariable Long id) {
         return ResponseDto.ok(sensorDataService.deleteSensorDataById(id));
     }
 
     @DeleteMapping("/sessionid/{id}")
-    public ResponseDto<?> deleteSensorDataBySessionId(@PathVariable Long id){
+    public ResponseDto<?> deleteSensorDataBySessionId(@PathVariable Long id) {
         return ResponseDto.ok(sensorDataService.deleteSensorDataByDrivingSessionId(id));
     }
 

@@ -10,12 +10,18 @@ public interface OAuthInfoResponse {
      */
 
     String getEmail();
+
     String getName();
+
     String getGender();
+
     String getBirthday();
+
     String getBirthyear();
+
     String getMobile();
 
     OAuthProvider getOAuthProvider();
+
     UserActiveStatus getUserActiveStatus();
 }

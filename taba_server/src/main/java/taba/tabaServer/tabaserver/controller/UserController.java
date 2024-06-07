@@ -1,11 +1,11 @@
 package taba.tabaServer.tabaserver.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 import taba.tabaServer.tabaserver.config.AuthTokensGenerator;
 import taba.tabaServer.tabaserver.dto.global.ResponseDto;
 import taba.tabaServer.tabaserver.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 import taba.tabaServer.tabaserver.service.UserService;
 
 import java.time.LocalDateTime;
@@ -27,7 +27,7 @@ public class UserController {
     //엑세스 토큰 기반 조회(토큰의 subject인 email로 조사)
     @GetMapping("/token/{accessToken}")
     public ResponseDto<?> findByAccessToken(@PathVariable String accessToken) {
-        String email= authTokensGenerator.extractUserEmail(accessToken);
+        String email = authTokensGenerator.extractUserEmail(accessToken);
         return ResponseDto.ok(userRepository.findByEmail(email));
     }
 

@@ -36,11 +36,11 @@ public class SensorDataService {
     private final DrivingSessionService drivingSessionService;
 
     @Transactional
-    public SensorDataResponseDto createSensorData(SensorDataRequestDto sensorDataRequestDto){
+    public SensorDataResponseDto createSensorData(SensorDataRequestDto sensorDataRequestDto) {
         DrivingSession drivingSession = drivingSessionRepository.findById(sensorDataRequestDto.drivingSessionId())
-                .orElseThrow(()-> new CommonException(ErrorCode.NOT_FOUND_DRIVING_SESSION));
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_DRIVING_SESSION));
 
-        if(drivingSession.getDrivingStatus() != DrivingStatus.DRIVING){
+        if (drivingSession.getDrivingStatus() != DrivingStatus.DRIVING) {
             throw new CommonException(ErrorCode.DRIVING_STATUS_NONE);
         }
 
@@ -56,10 +56,10 @@ public class SensorDataService {
         );
 
         sendSensorDataToFlask(FlaskSensorDataDto.of(
-                drivingSession.getId(),
-                save.getBrakePressure(),
-                save.getAccelPressure(),
-                save.getSpeed()
+                        drivingSession.getId(),
+                        save.getBrakePressure(),
+                        save.getAccelPressure(),
+                        save.getSpeed()
                 ),
                 save
         );
@@ -78,7 +78,7 @@ public class SensorDataService {
                 .build();
     }
 
-    private void sendSensorDataToFlask(FlaskSensorDataDto flaskSensorDataDto, SensorData sensorData){
+    private void sendSensorDataToFlask(FlaskSensorDataDto flaskSensorDataDto, SensorData sensorData) {
         webClient.post()
                 .uri("http://localhost:5000/predict")
                 .body(Mono.just(flaskSensorDataDto), FlaskSensorDataDto.class)
@@ -101,20 +101,20 @@ public class SensorDataService {
     }
 
     @Transactional
-    public Boolean deleteSensorDataById(Long id){
+    public Boolean deleteSensorDataById(Long id) {
         sensorDataRepository.deleteById(id);
         return Boolean.TRUE;
     }
 
     @Transactional
-    public Boolean deleteSensorDataByDrivingSessionId(Long id){
+    public Boolean deleteSensorDataByDrivingSessionId(Long id) {
         List<SensorData> sensorDataByDrivingSessionId = sensorDataRepository.findSensorDataByDrivingSessionId(id);
         sensorDataRepository.deleteAll(sensorDataByDrivingSessionId);
         return Boolean.TRUE;
     }
 
     @Transactional
-    public List<SensorDataResponseDto> getAllSensorDataByDrivingSessionId(Long id){
+    public List<SensorDataResponseDto> getAllSensorDataByDrivingSessionId(Long id) {
         return sensorDataRepository.findSensorDataByDrivingSessionId(id).stream()
                 .map(sensorData -> SensorDataResponseDto.of(
                         sensorData.getId(),

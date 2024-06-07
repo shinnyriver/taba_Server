@@ -16,7 +16,7 @@ import java.time.LocalTime;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name="driving_session")
+@Table(name = "driving_session")
 public class DrivingSession {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,11 +24,11 @@ public class DrivingSession {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="car_id", nullable = false)
+    @JoinColumn(name = "car_id", nullable = false)
     private Car car;
 
     @Column(nullable = false)
@@ -57,7 +57,7 @@ public class DrivingSession {
     @Enumerated(EnumType.STRING)
     private ErrorStatus errorStatus;
 
-    @Column(name = "error_latitude",nullable = true)
+    @Column(name = "error_latitude", nullable = true)
     private String errorLatitude;
 
     @Column(name = "error_longitude", nullable = true)
@@ -93,7 +93,7 @@ public class DrivingSession {
         this.drivingStatus = drivingStatus;
     }
 
-    public void solveSession(){
+    public void solveSession() {
         this.errorStatus = ErrorStatus.SOLVE;
         this.solveTime = LocalDateTime.now();
     }

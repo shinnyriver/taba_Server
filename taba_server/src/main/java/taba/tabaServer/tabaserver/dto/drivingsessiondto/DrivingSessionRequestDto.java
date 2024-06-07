@@ -10,17 +10,17 @@ import java.io.Serializable;
 public record DrivingSessionRequestDto(
         @JsonProperty("user_id") Long userId,
         @JsonProperty("car_id") Long carId,
-        @JsonProperty("driving_status")DrivingStatus drivingStatus
-        ) implements Serializable {
-            public static DrivingSessionRequestDto of(
-                    final Long userId,
-                    final Long carId,
-                    final DrivingStatus drivingStatus
-            ) {
-                return DrivingSessionRequestDto.builder()
-                        .userId(userId)
-                        .carId(carId)
-                        .drivingStatus(drivingStatus)
-                        .build();
-            }
+        @JsonProperty("driving_status") DrivingStatus drivingStatus
+) implements Serializable {
+    public static DrivingSessionRequestDto of(
+            final Long userId,
+            final Long carId,
+            final DrivingStatus drivingStatus
+    ) {
+        return DrivingSessionRequestDto.builder()
+                .userId(userId)
+                .carId(carId)
+                .drivingStatus(drivingStatus)
+                .build();
+    }
 }

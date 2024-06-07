@@ -1,8 +1,9 @@
 package taba.tabaServer.tabaserver.component;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.Map;
 
 @Component

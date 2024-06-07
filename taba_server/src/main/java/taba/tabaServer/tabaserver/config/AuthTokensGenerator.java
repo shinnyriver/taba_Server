@@ -1,8 +1,8 @@
 package taba.tabaServer.tabaserver.config;
 
-import taba.tabaServer.tabaserver.component.JwtTokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import taba.tabaServer.tabaserver.component.JwtTokenService;
 
 import java.util.Date;
 
@@ -19,6 +19,7 @@ public class AuthTokensGenerator {
     private final JwtTokenService jwtTokenService;
 
     //user email(사용자 식별값) 을 받아 Access Token 을 생성
+
     /**
      * user jwt subject: email(oauth2에서 사용자 식별자인 email로 검증)
      */
@@ -39,7 +40,7 @@ public class AuthTokensGenerator {
     }
 
     /**
-     *     AccessToken 에서 userEmail (사용자 식별값) 추출
+     * AccessToken 에서 userEmail (사용자 식별값) 추출
      */
     public String extractUserEmail(String accessToken) {
         return jwtTokenService.extractUserEmail(accessToken);

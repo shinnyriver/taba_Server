@@ -20,37 +20,37 @@ public class DrivingSessionController {
     private final DrivingSessionService drivingSessionService;
 
     @PostMapping
-    public ResponseDto<?> createDrivingSession(@RequestBody DrivingSessionRequestDto drivingSessionRequestDto){
+    public ResponseDto<?> createDrivingSession(@RequestBody DrivingSessionRequestDto drivingSessionRequestDto) {
         return ResponseDto.ok(drivingSessionService.createDrivingSession(drivingSessionRequestDto));
     }
 
     @GetMapping("/{id}")
-    public ResponseDto<?> getDrivingSessionById(@PathVariable Long id){
+    public ResponseDto<?> getDrivingSessionById(@PathVariable Long id) {
         return ResponseDto.ok(drivingSessionService.getDrivingSessionById(id));
     }
 
     @PutMapping("/end/{id}")
-    public ResponseDto<?> endDrivingSession(@PathVariable Long id, @RequestBody DrivingSessionUpdateDto drivingSessionUpdateDto){
+    public ResponseDto<?> endDrivingSession(@PathVariable Long id, @RequestBody DrivingSessionUpdateDto drivingSessionUpdateDto) {
         return ResponseDto.ok(drivingSessionService.endDrivingSession(id, drivingSessionUpdateDto));
     }
 
     @PutMapping("/error/{id}")
-    public ResponseDto<?> drivingSessionErrorOccured(@PathVariable Long id, @RequestBody DrivingSessionErrorOccuredDto drivingSessionErrorOccuredDto){
-        return ResponseDto.ok(drivingSessionService.drivingSessionErrorOccured(id,drivingSessionErrorOccuredDto));
+    public ResponseDto<?> drivingSessionErrorOccured(@PathVariable Long id, @RequestBody DrivingSessionErrorOccuredDto drivingSessionErrorOccuredDto) {
+        return ResponseDto.ok(drivingSessionService.drivingSessionErrorOccured(id, drivingSessionErrorOccuredDto));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseDto<?> deleteDrivingSession(@PathVariable Long id){
+    public ResponseDto<?> deleteDrivingSession(@PathVariable Long id) {
         return ResponseDto.ok(drivingSessionService.deleteDrivingSession(id));
     }
 
     @GetMapping("/findbyuser/{userId}")
-    public ResponseDto<?> getAllDrivingSessionByUser(@PathVariable Long userId){
+    public ResponseDto<?> getAllDrivingSessionByUser(@PathVariable Long userId) {
         return ResponseDto.ok(drivingSessionService.getAllDrivingSessionByUserId(userId));
     }
 
     @GetMapping("/errorstats/{errorStatus}")
-    public ResponseDto<?> getDrivingSessionsByErrorStatus(@PathVariable ErrorStatus errorStatus){
+    public ResponseDto<?> getDrivingSessionsByErrorStatus(@PathVariable ErrorStatus errorStatus) {
         return ResponseDto.ok(drivingSessionService.findAllByErrorStatus(errorStatus));
     }
 
@@ -62,12 +62,12 @@ public class DrivingSessionController {
     }
 
     @GetMapping("error/list")
-    public ResponseDto<?> getErrorList(){
+    public ResponseDto<?> getErrorList() {
         return ResponseDto.ok(drivingSessionService.getErrorList());
     }
 
     @PutMapping("solve/{id}")
-    public ResponseDto<?> postSolve(@PathVariable Long id){
+    public ResponseDto<?> postSolve(@PathVariable Long id) {
         return ResponseDto.ok(drivingSessionService.solveProblem(id));
     }
 }

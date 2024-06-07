@@ -24,37 +24,37 @@ public record DrivingSessionResponseDto(
         @JsonProperty("driving_status") DrivingStatus drivingStatus,
         @JsonProperty("error_latitude") String latitude,
         @JsonProperty("error_longitude") String longitude,
-        @JsonProperty("error_status")ErrorStatus errorStatus
-        ) implements Serializable {
-            public static DrivingSessionResponseDto of(
-                    final Long drivingSessionId,
-                    final Long userId,
-                    final Long carId,
-                    final LocalDate startDate,
-                    final LocalTime startTime,
-                    final LocalDate endDate,
-                    final LocalTime endTime,
-                    final LocalDateTime errorTime,
-                    final LocalDateTime solveTime,
-                    final DrivingStatus drivingStatus,
-                    final String latitude,
-                    final String longitude,
-                    final ErrorStatus errorStatus
-            ) {
-                return DrivingSessionResponseDto.builder()
-                        .drivingSessionId(drivingSessionId)
-                        .userId(userId)
-                        .carId(carId)
-                        .startDate(startDate)
-                        .startTime(startTime)
-                        .endDate(endDate)
-                        .endTime(endTime)
-                        .errorTime(errorTime)
-                        .solveTime(solveTime)
-                        .drivingStatus(drivingStatus)
-                        .errorStatus(errorStatus)
-                        .latitude(latitude)
-                        .longitude(longitude)
-                        .build();
-            }
+        @JsonProperty("error_status") ErrorStatus errorStatus
+) implements Serializable {
+    public static DrivingSessionResponseDto of(
+            final Long drivingSessionId,
+            final Long userId,
+            final Long carId,
+            final LocalDate startDate,
+            final LocalTime startTime,
+            final LocalDate endDate,
+            final LocalTime endTime,
+            final LocalDateTime errorTime,
+            final LocalDateTime solveTime,
+            final DrivingStatus drivingStatus,
+            final String latitude,
+            final String longitude,
+            final ErrorStatus errorStatus
+    ) {
+        return DrivingSessionResponseDto.builder()
+                .drivingSessionId(drivingSessionId)
+                .userId(userId)
+                .carId(carId)
+                .startDate(startDate)
+                .startTime(startTime)
+                .endDate(endDate)
+                .endTime(endTime)
+                .errorTime(errorTime)
+                .solveTime(solveTime)
+                .drivingStatus(drivingStatus)
+                .errorStatus(errorStatus)
+                .latitude(latitude)
+                .longitude(longitude)
+                .build();
+    }
 }

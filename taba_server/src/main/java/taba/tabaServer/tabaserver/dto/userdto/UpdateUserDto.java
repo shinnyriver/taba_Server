@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import taba.tabaServer.tabaserver.enums.GenderEnum;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 

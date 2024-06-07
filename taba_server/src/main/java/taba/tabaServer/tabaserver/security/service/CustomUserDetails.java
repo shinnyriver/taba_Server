@@ -22,7 +22,7 @@ public class CustomUserDetails implements UserDetails {
     }
 
     /**
-     *  UserDetails 메서드 오버라이드
+     * UserDetails 메서드 오버라이드
      */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
