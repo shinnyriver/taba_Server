@@ -14,31 +14,15 @@ public class KakaoInfoResponse implements OAuthInfoResponse {
     @JsonProperty("kakao_account")
     private KakaoAccount kakaoAccount;
 
-    @Getter
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    static class KakaoAccount {
-        private Profile profile;
-        private String name;
-        private String email;
-        private String gender;
-        private String birthday;
-        private String birthyear;
-        private String phone_number;
-    }
-
-    @Getter
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    static class Profile {
-        private String nickname;
-    }
-
     @Override
     public String getEmail() {
         return kakaoAccount.email;
     }
 
     @Override
-    public String getName() { return kakaoAccount.name; }
+    public String getName() {
+        return kakaoAccount.name;
+    }
 
     @Override
     public OAuthProvider getOAuthProvider() {
@@ -71,5 +55,23 @@ public class KakaoInfoResponse implements OAuthInfoResponse {
     @Override
     public String getMobile() {
         return kakaoAccount.phone_number;
+    }
+
+    @Getter
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    static class KakaoAccount {
+        private Profile profile;
+        private String name;
+        private String email;
+        private String gender;
+        private String birthday;
+        private String birthyear;
+        private String phone_number;
+    }
+
+    @Getter
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    static class Profile {
+        private String nickname;
     }
 }

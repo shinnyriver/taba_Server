@@ -21,14 +21,14 @@ public class ManagerController {
     private final ManagerService managerService;
 
     @PostMapping("/register")
-    public ResponseDto<?> registerManager(@RequestBody CreateManagerDto createManagerDto){
+    public ResponseDto<?> registerManager(@RequestBody CreateManagerDto createManagerDto) {
         return ResponseDto.ok(managerService.createManager(createManagerDto));
     }
 
     @PostMapping("/login")
-    public ResponseDto<?> login(@RequestBody ManagerLoginDto managerLoginDto){
+    public ResponseDto<?> login(@RequestBody ManagerLoginDto managerLoginDto) {
         String token = managerService.login(managerLoginDto).jwt();
-        if(token != null){
+        if (token != null) {
             AuthenticationResponse authenticationResponse = new AuthenticationResponse(token);
             return ResponseDto.ok(managerService.login(managerLoginDto));
         } else {
@@ -37,7 +37,7 @@ public class ManagerController {
     }
 
     @PostMapping("/update")
-    public ResponseDto<?> updatePassword(@RequestBody UpdateManagerDto updateManagerDto){
+    public ResponseDto<?> updatePassword(@RequestBody UpdateManagerDto updateManagerDto) {
         return ResponseDto.ok(managerService.updatePassword(updateManagerDto));
     }
 }

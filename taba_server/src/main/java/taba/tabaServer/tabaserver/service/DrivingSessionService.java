@@ -38,11 +38,11 @@ public class DrivingSessionService {
     private final WebClient webClient;
 
     @Transactional
-    public DrivingSessionResponseDto createDrivingSession(DrivingSessionRequestDto drivingSessionRequestDto){
+    public DrivingSessionResponseDto createDrivingSession(DrivingSessionRequestDto drivingSessionRequestDto) {
         User currentUser = userRepository.findById(drivingSessionRequestDto.userId())
-                .orElseThrow(()-> new CommonException(ErrorCode.NOT_FOUND_USER));
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_USER));
         Car currentCar = carRepository.findById(drivingSessionRequestDto.carId())
-                .orElseThrow(()-> new CommonException(ErrorCode.NOT_FOUND_CAR));
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_CAR));
 
         /**
          * 데이터 무결성 방지(운전 시작의 시각 및 날짜가 nullable로 설정)
@@ -111,9 +111,9 @@ public class DrivingSessionService {
 
 
     @Transactional
-    public DrivingSessionResponseDto getDrivingSessionById(Long id){
+    public DrivingSessionResponseDto getDrivingSessionById(Long id) {
         DrivingSession drivingSession = drivingSessionRepository.findById(id)
-                .orElseThrow(()-> new CommonException(ErrorCode.NOT_FOUND_DRIVING_SESSION));
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_DRIVING_SESSION));
 
         return DrivingSessionResponseDto.of(
                 drivingSession.getId(),
@@ -133,7 +133,7 @@ public class DrivingSessionService {
     }
 
     @Transactional  //운행 종료 업데이트 메소드.
-    public DrivingSessionResponseDto endDrivingSession(Long id, DrivingSessionUpdateDto drivingSessionUpdateDto){
+    public DrivingSessionResponseDto endDrivingSession(Long id, DrivingSessionUpdateDto drivingSessionUpdateDto) {
         DrivingSession drivingSession = drivingSessionRepository.findById(id)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_DRIVING_SESSION));
 
@@ -159,9 +159,9 @@ public class DrivingSessionService {
 
     @Transactional  //에러 감지시 로직
     public DrivingSessionResponseDto drivingSessionErrorOccured(
-            Long id, DrivingSessionErrorOccuredDto drivingSessionErrorOccuredDto){
+            Long id, DrivingSessionErrorOccuredDto drivingSessionErrorOccuredDto) {
         DrivingSession drivingSession = drivingSessionRepository.findById(id)
-                .orElseThrow(()-> new CommonException(ErrorCode.NOT_FOUND_DRIVING_SESSION));
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_DRIVING_SESSION));
 
         drivingSession.errorOccurred(drivingSessionErrorOccuredDto);
         drivingSessionRepository.save(drivingSession);
@@ -184,13 +184,13 @@ public class DrivingSessionService {
     }
 
     @Transactional
-    public Boolean deleteDrivingSession(Long id){
+    public Boolean deleteDrivingSession(Long id) {
         drivingSessionRepository.deleteById(id);
         return Boolean.TRUE;
     }
 
     @Transactional
-    public List<DrivingSessionResponseDto> getAllDrivingSessionByUserId(Long userId){
+    public List<DrivingSessionResponseDto> getAllDrivingSessionByUserId(Long userId) {
         return drivingSessionRepository.findDrivingSessionByUserId(userId).stream()
                 .map(drivingsession -> DrivingSessionResponseDto.of(
                         drivingsession.getId(),
@@ -210,7 +210,7 @@ public class DrivingSessionService {
     }
 
     @Transactional
-    public List<DrivingSessionResponseDto> findAllByErrorStatus(ErrorStatus errorStatus){
+    public List<DrivingSessionResponseDto> findAllByErrorStatus(ErrorStatus errorStatus) {
         return drivingSessionRepository.findAllByErrorStatus(errorStatus).stream()
                 .map(drivingsession -> DrivingSessionResponseDto.of(
                         drivingsession.getId(),
@@ -236,7 +236,7 @@ public class DrivingSessionService {
     }
 
     @Transactional
-    public List<ErrorListResponseDto> getErrorList(){
+    public List<ErrorListResponseDto> getErrorList() {
         List<ErrorStatus> statuses = Arrays.asList(ErrorStatus.ERROR, ErrorStatus.SOLVE);
         return drivingSessionRepository.findAllByErrorStatusIn(statuses).stream()
                 .map(drivingsession -> ErrorListResponseDto.of(

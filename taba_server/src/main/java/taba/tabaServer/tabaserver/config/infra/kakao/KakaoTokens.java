@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 public class KakaoTokens {
 
     /**
-     *     https://kauth.kakao.com/oauth/token 요청 결과값
+     * https://kauth.kakao.com/oauth/token 요청 결과값
      */
 
     @JsonProperty("access_token")

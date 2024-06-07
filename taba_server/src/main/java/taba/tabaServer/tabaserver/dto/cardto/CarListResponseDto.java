@@ -10,11 +10,11 @@ import java.time.LocalDateTime;
 @Builder
 public record CarListResponseDto(
         @JsonProperty("car_id") Long carId,
-        @JsonProperty("car_size")CarSize carSize,
+        @JsonProperty("car_size") CarSize carSize,
         @JsonProperty("car_number") String carNumber,
-        @JsonProperty("created_at")LocalDateTime createdAt,
+        @JsonProperty("created_at") LocalDateTime createdAt,
         @JsonProperty("withdraw_at") LocalDateTime withdrawAt
-        ) implements Serializable {
+) implements Serializable {
     public static CarListResponseDto of(
             final Long carId,
             final CarSize carSize,

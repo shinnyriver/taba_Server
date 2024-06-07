@@ -1,5 +1,7 @@
 package taba.tabaServer.tabaserver.security.service;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import taba.tabaServer.tabaserver.config.AuthTokens;
 import taba.tabaServer.tabaserver.config.AuthTokensGenerator;
 import taba.tabaServer.tabaserver.config.oauth.OAuthInfoResponse;
@@ -7,8 +9,6 @@ import taba.tabaServer.tabaserver.config.oauth.OAuthLoginParams;
 import taba.tabaServer.tabaserver.config.oauth.RequestOAuthInfoService;
 import taba.tabaServer.tabaserver.domain.User;
 import taba.tabaServer.tabaserver.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
@@ -32,12 +32,13 @@ public class OAuthLoginService {
         String email = oAuthInfoResponse.getEmail();
         Long userId = findOrCreateMember(oAuthInfoResponse);
         //토큰 생성
-        AuthTokens tokens= authTokensGenerator.generate(email);
+        AuthTokens tokens = authTokensGenerator.generate(email);
         // 로그 추가
         System.out.println("Generated Tokens: " + tokens);
 
         return tokens;
     }
+
     //사용자 id 찾기
     private Long findOrCreateMember(OAuthInfoResponse oAuthInfoResponse) {
         return userRepository.findByEmail(oAuthInfoResponse.getEmail())

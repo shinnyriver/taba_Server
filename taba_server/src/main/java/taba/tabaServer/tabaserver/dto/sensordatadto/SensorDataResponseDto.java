@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public record SensorDataResponseDto(
         @JsonProperty("sensor_id") Long sensorId,
         @JsonProperty("driving_session_id") Long drivingSessionId,
-        @JsonProperty("timestamp")LocalDateTime timeStamp,
+        @JsonProperty("timestamp") LocalDateTime timeStamp,
         @JsonProperty("brake_pressure") double brakePressure,
         @JsonProperty("accel_pressure") double accelPressure,
         @JsonProperty("speed") double speed,

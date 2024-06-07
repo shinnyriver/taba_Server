@@ -1,11 +1,11 @@
 package taba.tabaServer.tabaserver.config.infra.naver;
 
-import taba.tabaServer.tabaserver.config.oauth.OAuthLoginParams;
-import taba.tabaServer.tabaserver.config.oauth.OAuthProvider;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import taba.tabaServer.tabaserver.config.oauth.OAuthLoginParams;
+import taba.tabaServer.tabaserver.config.oauth.OAuthProvider;
 
 @Getter
 @NoArgsConstructor
@@ -19,7 +19,7 @@ public class NaverLoginParams implements OAuthLoginParams {
     }
 
     /**
-     *     네이버 API 요청에 필요한 authorizationCode 를 갖음.
+     * 네이버 API 요청에 필요한 authorizationCode 를 갖음.
      */
     @Override
     public MultiValueMap<String, String> makeBody() {

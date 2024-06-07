@@ -23,7 +23,7 @@ public class ManagerDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Manager manager = managerRepository.findByLoginId(username)
-                .orElseThrow(()-> new CommonException(ErrorCode.NOT_FOUND_MANAGER));
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_MANAGER));
         if (manager == null) {
             throw new UsernameNotFoundException("Manager not found with login id: " + username);
         }

@@ -11,8 +11,8 @@ public record CreateManagerDto(
         @JsonProperty("login_id") String loginId,
         @JsonProperty("password") String password,
         @JsonProperty("name") String name,
-        @JsonProperty("manager_type")ManagerType managerType
-        ) implements Serializable{
+        @JsonProperty("manager_type") ManagerType managerType
+) implements Serializable {
     public static CreateManagerDto of(
             final String loginId,
             final String password,

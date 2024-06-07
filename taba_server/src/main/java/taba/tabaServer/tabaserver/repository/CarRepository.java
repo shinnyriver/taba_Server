@@ -10,6 +10,7 @@ import java.util.Optional;
 
 public interface CarRepository extends JpaRepository<Car, Long> {
     List<Car> findAllByUserId(Long user_id);
+
     Optional<Car> findCarByCarNumber(String carNumber);
 
     @Query("SELECT COUNT(c) FROM Car c where c.carSize = :carSize")

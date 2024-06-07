@@ -11,7 +11,7 @@ public record FlaskSensorDataDto(
         @JsonProperty("brake_pressure") double brakePressure,
         @JsonProperty("accel_pressure") double accelPressure,
         @JsonProperty("speed") double speed
-    ) implements Serializable {
+) implements Serializable {
     public static FlaskSensorDataDto of(
             final Long drivingSessionId,
             final double brakePressure,

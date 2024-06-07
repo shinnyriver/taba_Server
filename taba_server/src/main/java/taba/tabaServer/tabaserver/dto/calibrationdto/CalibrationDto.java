@@ -11,21 +11,21 @@ public record CalibrationDto(
         @JsonProperty("sensor_type") SensorType sensorType,
         @JsonProperty("pressure_max") double pressureMax,
         @JsonProperty("pressure_min") double pressureMin,
-        @JsonProperty("car_id")Long carId
+        @JsonProperty("car_id") Long carId
 
-        ) implements Serializable {
-            public static CalibrationDto of(
-                    final SensorType sensorType,
-                    final double pressureMax,
-                    final double pressureMin,
-                    final Long carId
-            ) {
-                return CalibrationDto.builder()
-                        .sensorType(sensorType)
-                        .pressureMax(pressureMax)
-                        .pressureMin(pressureMin)
-                        .carId(carId)
-                        .build();
-            }
+) implements Serializable {
+    public static CalibrationDto of(
+            final SensorType sensorType,
+            final double pressureMax,
+            final double pressureMin,
+            final Long carId
+    ) {
+        return CalibrationDto.builder()
+                .sensorType(sensorType)
+                .pressureMax(pressureMax)
+                .pressureMin(pressureMin)
+                .carId(carId)
+                .build();
+    }
 
 }

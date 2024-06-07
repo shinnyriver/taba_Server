@@ -23,7 +23,7 @@ public class Car {
     @Column(name = "car_name", nullable = false)
     private String carName;
 
-    @Column(name="car_size", nullable = false)
+    @Column(name = "car_size", nullable = false)
     @Enumerated(EnumType.STRING)
     private CarSize carSize;
 
@@ -38,16 +38,16 @@ public class Car {
     private byte[] photo;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="user_id")
+    @JoinColumn(name = "user_id")
     private User user;
 
-    @Column(name="insurance")
+    @Column(name = "insurance")
     private String insurance; // 보험 정보 필드 추가
 
     @Column(name = "purchase_date")
     private LocalDate purchaseDate; // 구매일자 필드 추가
 
-    @Column(name="driving_score")
+    @Column(name = "driving_score")
     private int drivingScore; // 운전점수 필드 추가
 
 
@@ -64,7 +64,7 @@ public class Car {
             final int drivingScore, // 운전 점수 필드 추가
             final User user
     ) {
-        this.carId=carId;
+        this.carId = carId;
         this.carName = carName;
         this.carSize = carSize;
         this.totalDistance = totalDistance;
@@ -72,7 +72,7 @@ public class Car {
         this.photo = photo;
         this.insurance = insurance;
         this.purchaseDate = purchaseDate; // 구매일자 필드 추가
-        this.drivingScore=drivingScore;
+        this.drivingScore = drivingScore;
         this.user = user;
     }
 
@@ -87,7 +87,7 @@ public class Car {
             LocalDate purchaseDate, // 구매일자 필드 추가
             int drivingScore //운전 점수 필드 추가
     ) {
-        this.carId=carId;
+        this.carId = carId;
         this.carName = carName;
         this.carSize = carSize;
         this.totalDistance = totalDistance;
@@ -95,8 +95,9 @@ public class Car {
         this.photo = photo;
         this.insurance = insurance;
         this.purchaseDate = purchaseDate; // 구매일자 필드 추가
-        this.drivingScore=drivingScore; //운전 점수 필드 추가
+        this.drivingScore = drivingScore; //운전 점수 필드 추가
     }
+
     //차량 점수 업데이트 메서드
     public void updateCarScore(int drivingScore) {
         this.drivingScore = drivingScore;

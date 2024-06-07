@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 public enum ErrorCode {
     //400
-    WRONG_ENTRY_POINT(40000,HttpStatus.BAD_REQUEST, "잘못된 접근입니다"),
+    WRONG_ENTRY_POINT(40000, HttpStatus.BAD_REQUEST, "잘못된 접근입니다"),
     MISSING_REQUEST_PARAMETER(40001, HttpStatus.BAD_REQUEST, "필수 요청 파라미터가 누락되었습니다."),
     INVALID_PARAMETER_FORMAT(40002, HttpStatus.BAD_REQUEST, "요청에 유효하지 않은 인자 형식입니다."),
     BAD_REQUEST_JSON(40003, HttpStatus.BAD_REQUEST, "잘못된 JSON 형식입니다."),
@@ -35,11 +35,11 @@ public enum ErrorCode {
     //404
     NOT_FOUND_CAR(40400, HttpStatus.NOT_FOUND, "차가 존재하지 않습니다."),
     NOT_FOUND_CALIBRATION(40401, HttpStatus.NOT_FOUND, "캘리브레이션이 존재하지 않습니다."),
-    NOT_FOUND_USER(40402,HttpStatus.NOT_FOUND, "유저가 존재하지 않습니다."),
-    NOT_FOUND_DRIVING_SESSION(40403,HttpStatus.NOT_FOUND,"드라이빙 세션이 존재하지 않습니다."),
-    NOT_FOUND_SENSOR_DATA(40404,HttpStatus.NOT_FOUND,"센서 데이터가 존재하지 않습니다."),
+    NOT_FOUND_USER(40402, HttpStatus.NOT_FOUND, "유저가 존재하지 않습니다."),
+    NOT_FOUND_DRIVING_SESSION(40403, HttpStatus.NOT_FOUND, "드라이빙 세션이 존재하지 않습니다."),
+    NOT_FOUND_SENSOR_DATA(40404, HttpStatus.NOT_FOUND, "센서 데이터가 존재하지 않습니다."),
     NOT_FOUND_MANAGER(40405, HttpStatus.NOT_FOUND, "매니저가 존재하지 않습니다"),
-    
+
 
     //500
     INTERNAL_SERVER_ERROR(50000, HttpStatus.INTERNAL_SERVER_ERROR, "서버 내부 오류입니다");
