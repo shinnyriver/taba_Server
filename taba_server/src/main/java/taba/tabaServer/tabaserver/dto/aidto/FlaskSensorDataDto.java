@@ -8,8 +8,8 @@ import java.io.Serializable;
 @Builder
 public record FlaskSensorDataDto(
         @JsonProperty("driving_session_id") Long drivingSessionId,
-        @JsonProperty("brakePressure") double brakePressure,
-        @JsonProperty("accelPressure") double accelPressure,
+        @JsonProperty("brake_pressure") double brakePressure,
+        @JsonProperty("accel_pressure") double accelPressure,
         @JsonProperty("speed") double speed
     ) implements Serializable {
     public static FlaskSensorDataDto of(

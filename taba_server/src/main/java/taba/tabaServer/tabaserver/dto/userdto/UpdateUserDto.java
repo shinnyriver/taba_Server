@@ -13,7 +13,7 @@ public record UpdateUserDto(
         @JsonProperty("email") String email,
         @JsonProperty("password") String password,
         @JsonProperty("gender") GenderEnum gender,
-        @JsonProperty("userBirth") LocalDate userBirth
+        @JsonProperty("user_birth") LocalDate userBirth
 ) implements Serializable {
     public static UpdateUserDto of(
             final String email,

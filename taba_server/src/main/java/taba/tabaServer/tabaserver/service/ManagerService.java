@@ -57,10 +57,13 @@ public class ManagerService {
 
     @Transactional
     public Boolean updatePassword(UpdateManagerDto updateManagerDto){
-        String encodedPassword = passwordEncoder.encode(updateManagerDto.password());
         Manager manager = managerRepository.findByLoginId(updateManagerDto.id())
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_MANAGER));
-        manager.updatePassword(encodedPassword);
-        return Boolean.TRUE;
+        if(passwordEncoder.matches(updateManagerDto.pastPassword(), manager.getPassword())){
+            String encodedPassword = passwordEncoder.encode(updateManagerDto.newPassword());
+            manager.updatePassword(encodedPassword);
+            return Boolean.TRUE;
+        }
+        return Boolean.FALSE;
     }
 }

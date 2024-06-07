@@ -2,6 +2,7 @@ package taba.tabaServer.tabaserver.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import taba.tabaServer.tabaserver.dto.cardto.CarDrivingScoreUpdateRequestDto;
 import taba.tabaServer.tabaserver.dto.cardto.CarDto;
 import taba.tabaServer.tabaserver.dto.cardto.CarUpdateDto;
 import taba.tabaServer.tabaserver.dto.global.ResponseDto;
@@ -53,5 +54,10 @@ public class CarController {
     @GetMapping("/statistics/carsize")
     public ResponseDto<?> getStatisticsByCarSize(){
         return ResponseDto.ok(carService.countCarByCarSize());
+    }
+
+    @PutMapping("score/{id}")
+    public ResponseDto<?> updateCarScore(@PathVariable Long id, @RequestBody CarDrivingScoreUpdateRequestDto drivingScoreRequest){
+        return ResponseDto.ok(carService.updateCarScore(id,drivingScoreRequest));
     }
 }

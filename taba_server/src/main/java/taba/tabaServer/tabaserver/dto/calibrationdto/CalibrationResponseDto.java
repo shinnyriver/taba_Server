@@ -2,8 +2,6 @@ package taba.tabaServer.tabaserver.dto.calibrationdto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
-import taba.tabaServer.tabaserver.domain.Calibration;
-import taba.tabaServer.tabaserver.domain.Car;
 import taba.tabaServer.tabaserver.enums.SensorType;
 
 import java.io.Serializable;
@@ -12,11 +10,11 @@ import java.time.LocalDateTime;
 @Builder
 public record CalibrationResponseDto(
         @JsonProperty("id") Long id,
-        @JsonProperty("sensorType")SensorType sensorType,
-        @JsonProperty("pressureMax") double pressureMax,
-        @JsonProperty("pressureMin") double pressureMin,
-        @JsonProperty("createdAt")LocalDateTime calibrationTime,
-        @JsonProperty("carId")Long carId
+        @JsonProperty("sensor_type")SensorType sensorType,
+        @JsonProperty("pressure_max") double pressureMax,
+        @JsonProperty("pressure_min") double pressureMin,
+        @JsonProperty("created_at")LocalDateTime calibrationTime,
+        @JsonProperty("car_id")Long carId
         ) implements Serializable {
             public static CalibrationResponseDto of(
                     final Long id,

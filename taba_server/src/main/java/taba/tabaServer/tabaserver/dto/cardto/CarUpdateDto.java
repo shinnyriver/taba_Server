@@ -6,20 +6,19 @@ import taba.tabaServer.tabaserver.enums.CarSize;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Builder
 public record CarUpdateDto(
-        @JsonProperty("carId") Long carId, // ID 필드 추가
-        @JsonProperty("carName") String carName,
-        @JsonProperty("carSize") CarSize carSize,
-        @JsonProperty("totalDistance") int totalDistance,
-        @JsonProperty("carNumber") String carNumber,
+        @JsonProperty("car_id") Long carId, // ID 필드 추가
+        @JsonProperty("car_name") String carName,
+        @JsonProperty("car_size") CarSize carSize,
+        @JsonProperty("total_distance") int totalDistance,
+        @JsonProperty("car_number") String carNumber,
         @JsonProperty("photo") String photo, // String으로 유지
-        @JsonProperty("userId") Long userId,
+        @JsonProperty("user_id") Long userId,
         @JsonProperty("insurance") String insurance, // 보험 정보 필드 추가
-        @JsonProperty("purchaseDate") LocalDate purchaseDate, // 구매 일자 필드 추가
-        @JsonProperty("drivingScore") int drivingScore //운전 점수 필드 추가
+        @JsonProperty("purchase_date") LocalDate purchaseDate, // 구매 일자 필드 추가
+        @JsonProperty("driving_score") int drivingScore //운전 점수 필드 추가
 
         ) implements Serializable {
     //구매일자는 유지

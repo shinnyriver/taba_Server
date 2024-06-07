@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import taba.tabaServer.tabaserver.enums.CarSize;
+
 import java.time.LocalDate;
 
 @Entity
@@ -33,7 +34,7 @@ public class Car {
     private String carNumber;
 
     @Lob
-    @Column(name = "photo")
+    @Column(name = "photo", columnDefinition = "BLOB")
     private byte[] photo;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -83,7 +84,8 @@ public class Car {
             String carNumber,
             byte[] photo,
             String insurance,
-            LocalDate purchaseDate // 구매일자 필드 추가
+            LocalDate purchaseDate, // 구매일자 필드 추가
+            int drivingScore //운전 점수 필드 추가
     ) {
         this.carId=carId;
         this.carName = carName;
@@ -93,5 +95,10 @@ public class Car {
         this.photo = photo;
         this.insurance = insurance;
         this.purchaseDate = purchaseDate; // 구매일자 필드 추가
+        this.drivingScore=drivingScore; //운전 점수 필드 추가
+    }
+    //차량 점수 업데이트 메서드
+    public void updateCarScore(int drivingScore) {
+        this.drivingScore = drivingScore;
     }
 }

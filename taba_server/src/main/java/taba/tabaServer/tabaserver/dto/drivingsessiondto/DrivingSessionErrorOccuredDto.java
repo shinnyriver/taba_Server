@@ -5,11 +5,10 @@ import lombok.Builder;
 import taba.tabaServer.tabaserver.enums.ErrorStatus;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 @Builder
 public record DrivingSessionErrorOccuredDto(
-        @JsonProperty("errorStatus")ErrorStatus errorStatus,
+        @JsonProperty("error_status")ErrorStatus errorStatus,
         @JsonProperty("latitude") String latitude,
         @JsonProperty("longitude") String longitude
         ) implements Serializable {
