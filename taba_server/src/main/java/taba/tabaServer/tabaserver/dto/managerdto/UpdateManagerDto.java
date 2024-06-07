@@ -8,15 +8,18 @@ import java.io.Serializable;
 @Builder
 public record UpdateManagerDto(
         @JsonProperty("login_id") String id,
-        @JsonProperty("password") String password
+        @JsonProperty("past_password") String pastPassword,
+        @JsonProperty("new_password") String newPassword
 ) implements Serializable {
     public static UpdateManagerDto of(
             final String id,
-            final String password
+            final String pastPassword,
+            final String newPassword
     ) {
         return UpdateManagerDto.builder()
                 .id(id)
-                .password(password)
+                .pastPassword(pastPassword)
+                .newPassword(newPassword)
                 .build();
     }
 }
