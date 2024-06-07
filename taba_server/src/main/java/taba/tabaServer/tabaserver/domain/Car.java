@@ -33,7 +33,7 @@ public class Car {
     private String carNumber;
 
     @Lob
-    @Column(name = "photo")
+    @Column(name = "photo", columnDefinition = "BLOB")
     private byte[] photo;
 
     @ManyToOne(fetch = FetchType.LAZY)
