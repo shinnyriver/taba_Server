@@ -70,4 +70,9 @@ public class DrivingSessionController {
     public ResponseDto<?> postSolve(@PathVariable Long id) {
         return ResponseDto.ok(drivingSessionService.solveProblem(id));
     }
+
+    @GetMapping("findbycar/{carNumber}")
+    public ResponseDto<?> getDrivingSessionsByCarNumber(@PathVariable String carNumber){
+        return ResponseDto.ok(drivingSessionService.getListByCarNumber(carNumber));
+    }
 }

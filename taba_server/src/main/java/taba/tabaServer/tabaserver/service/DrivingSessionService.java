@@ -256,4 +256,24 @@ public class DrivingSessionService {
         drivingSession.solveSession();
         return Boolean.TRUE;
     }
+
+    @Transactional
+    public List<DrivingSessionResponseDto> getListByCarNumber(String carNumber) {
+        return drivingSessionRepository.findAllByCar_CarNumber(carNumber).stream()
+                .map(drivingsession -> DrivingSessionResponseDto.of(
+                        drivingsession.getId(),
+                        drivingsession.getUser().getId(),
+                        drivingsession.getCar().getCarId(),
+                        drivingsession.getStartDate(),
+                        drivingsession.getStartTime(),
+                        drivingsession.getEndDate(),
+                        drivingsession.getEndTime(),
+                        drivingsession.getErrorTime(),
+                        drivingsession.getSolveTime(),
+                        drivingsession.getDrivingStatus(),
+                        drivingsession.getErrorLatitude(),
+                        drivingsession.getErrorLongitude(),
+                        drivingsession.getErrorStatus()
+                )).collect(Collectors.toList());
+    }
 }
