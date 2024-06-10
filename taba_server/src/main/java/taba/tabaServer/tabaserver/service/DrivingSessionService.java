@@ -231,8 +231,23 @@ public class DrivingSessionService {
     }
 
     @Transactional
-    public List<DrivingSession> getSessionsBetweenDates(LocalDate start, LocalDate end) {
-        return drivingSessionRepository.findAllByStartDateBetween(start, end);
+    public List<DrivingSessionResponseDto> getSessionsBetweenDates(LocalDate start, LocalDate end) {
+        return drivingSessionRepository.findAllByStartDateBetween(start, end).stream()
+                .map(drivingsession -> DrivingSessionResponseDto.of(
+                        drivingsession.getId(),
+                        drivingsession.getUser().getId(),
+                        drivingsession.getCar().getCarId(),
+                        drivingsession.getStartDate(),
+                        drivingsession.getStartTime(),
+                        drivingsession.getEndDate(),
+                        drivingsession.getEndTime(),
+                        drivingsession.getErrorTime(),
+                        drivingsession.getSolveTime(),
+                        drivingsession.getDrivingStatus(),
+                        drivingsession.getErrorLatitude(), //에러 위도 추가
+                        drivingsession.getErrorLongitude(),//에러 경도 추가
+                        drivingsession.getErrorStatus()
+                )).collect(Collectors.toList());
     }
 
     @Transactional
