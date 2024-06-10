@@ -72,7 +72,7 @@ public class DrivingSessionController {
     }
 
     @GetMapping("findbycar/{carNumber}")
-    public ResponseDto<?> getDrivingSessionsByCarNumber(@PathVariable String carNumber){
+    public ResponseDto<?> getDrivingSessionsByCarNumber(@PathVariable String carNumber) {
         return ResponseDto.ok(drivingSessionService.getListByCarNumber(carNumber));
     }
 }
