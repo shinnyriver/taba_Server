@@ -1,3 +1,4 @@
-[submodule "taba_server/taba-properties"]
-	path = taba_server/taba-properties
-	url = https://github.com/shinnyriver/taba-properties.git
+[submodule "taba-properties"]
+    path = taba-properties
+    url = https://github.com/shinnyriver/taba-properties.git
+    branch = main
