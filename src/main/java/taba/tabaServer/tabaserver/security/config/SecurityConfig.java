@@ -46,7 +46,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("https://api.ice-taba.site")); // 모든 도메인에서의 접근을 허용
+        configuration.setAllowedOrigins(List.of("https://api.ice-taba.site", "https://www.ice-taba.site")); // 모든 도메인에서의 접근을 허용
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS")); // 허용할 HTTP 메소드 지정
         configuration.setAllowedHeaders(List.of("*")); // 모든 헤더 허용
         configuration.setAllowCredentials(true); // 크리덴셜 허용
