@@ -9,5 +9,4 @@ class TabaApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }
