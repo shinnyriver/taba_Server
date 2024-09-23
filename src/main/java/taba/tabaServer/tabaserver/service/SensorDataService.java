@@ -131,17 +131,19 @@ public class SensorDataService {
     }
 
     @Transactional
-    public ByteArrayInputStream getSensorDataAsCsvForSession(Long sessionId) {
-        Optional<DrivingSession> sessionOptional = drivingSessionRepository.findById(sessionId);
-        if (sessionOptional.isPresent() && sessionOptional.get().getErrorStatus() == ErrorStatus.ERROR) {
+    public ByteArrayInputStream getSensorDataAsCsvForSession(Long sessionId){
+        DrivingSession drivingSession = drivingSessionRepository.findById(sessionId)
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_DRIVING_SESSION));
+
+        if(drivingSession.getErrorStatus() == ErrorStatus.ERROR){
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             PrintWriter writer = new PrintWriter(out);
             writer.println("SessionId,Timestamp,BrakePressure,AccelPressure,Speed,Latitude,Longitude");
 
-            List<SensorData> sensorDataList = sensorDataRepository.findAllByDrivingSession(sessionOptional.get());
+            List<SensorData> sensorDataList = sensorDataRepository.findAllByDrivingSession(drivingSession);
             for (SensorData data : sensorDataList) {
                 writer.printf("%d,%s,%f,%f,%f,%s,%s\n",
-                        sessionOptional.get().getId(), data.getTimestamp(),
+                        drivingSession.getId(), data.getTimestamp(),
                         data.getBrakePressure(), data.getAccelPressure(),
                         data.getSpeed(), data.getLatitude(), data.getLongitude());
             }
