@@ -3,7 +3,7 @@ package taba.tabaServer.tabaserver.security.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import taba.tabaServer.tabaserver.config.AuthTokens;
-import taba.tabaServer.tabaserver.config.AuthTokensGenerator;
+import taba.tabaServer.tabaserver.component.AuthTokensGenerator;
 import taba.tabaServer.tabaserver.config.oauth.OAuthInfoResponse;
 import taba.tabaServer.tabaserver.config.oauth.OAuthLoginParams;
 import taba.tabaServer.tabaserver.config.oauth.RequestOAuthInfoService;
